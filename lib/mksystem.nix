@@ -8,7 +8,7 @@ name:
 }:
 
 let
-  machineConfig = ../machines/${name}.nix;
+  machineConfig = ../machines/${name}/config.nix;
   userOSConfig = ../users/${user}/${if darwin then "darwin" else "nixos"}.nix;
   userHMConfig = ../users/${user}/home-manager.nix;
 

@@ -4,7 +4,7 @@ let
   sshPort = 4088; # random port
 in {
   imports = [
-    ./hardware/linux-workstation.nix
+    ./hardware.nix
   ];
 
   ### OS

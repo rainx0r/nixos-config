@@ -18,6 +18,7 @@ in {
     ghq
     ripgrep
     fastfetch
+    lazygit
   ];
 
   home.sessionVariables = with pkgs; {
@@ -125,6 +126,7 @@ in {
   programs.zoxide = {
     enable = true;
     enableZshIntegration = true;
+    options = [ "--cmd cd" ];
   };
 
   programs.git = {
