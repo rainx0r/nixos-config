@@ -1,10 +1,16 @@
 { inputs, ... }:
 
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 let
   isDarwin = pkgs.stdenv.isDarwin;
-in {
+in
+{
   home.stateVersion = "24.11";
 
   home.packages = with pkgs; [
@@ -28,7 +34,15 @@ in {
     EDITOR = "nvim";
     PAGER = "less -FirSwX";
     NIX = if !isDarwin then "1" else null;
-    NIX_LD_LIBRARY_PATH = if !isDarwin then lib.makeLibraryPath [ stdenv.cc.cc zlib addDriverRunpath.driverLink ] else null;
+    NIX_LD_LIBRARY_PATH =
+      if !isDarwin then
+        lib.makeLibraryPath [
+          stdenv.cc.cc
+          zlib
+          addDriverRunpath.driverLink
+        ]
+      else
+        null;
   };
 
   programs.zsh = {
@@ -43,20 +57,22 @@ in {
 
     antidote = {
       enable = true;
-      plugins = [
-        "Aloxaf/fzf-tab"
-	"romkatv/powerlevel10k"
-        "getantidote/use-omz"
-        "ohmyzsh/ohmyzsh path:plugins/git"
-        "ohmyzsh/ohmyzsh path:plugins/sudo"
-        "ohmyzsh/ohmyzsh path:plugins/command-not-found"
-        "ohmyzsh/ohmyzsh path:plugins/python"
-        "ohmyzsh/ohmyzsh path:plugins/docker"
-        "ohmyzsh/ohmyzsh path:plugins/docker-compose"
-      ] ++ (lib.optionals isDarwin [
-        "ohmyzsh/ohmyzsh path:plugins/macos"
-        "ohmyzsh/ohmyzsh path:plugins/xcode"
-      ]);
+      plugins =
+        [
+          "Aloxaf/fzf-tab"
+          "romkatv/powerlevel10k"
+          "getantidote/use-omz"
+          "ohmyzsh/ohmyzsh path:plugins/git"
+          "ohmyzsh/ohmyzsh path:plugins/sudo"
+          "ohmyzsh/ohmyzsh path:plugins/command-not-found"
+          "ohmyzsh/ohmyzsh path:plugins/python"
+          "ohmyzsh/ohmyzsh path:plugins/docker"
+          "ohmyzsh/ohmyzsh path:plugins/docker-compose"
+        ]
+        ++ (lib.optionals isDarwin [
+          "ohmyzsh/ohmyzsh path:plugins/macos"
+          "ohmyzsh/ohmyzsh path:plugins/xcode"
+        ]);
     };
 
     history = {
@@ -69,44 +85,52 @@ in {
       share = true;
     };
 
-    shellAliases = {
-      ls = "lsd";
-      lt = "ls --tree";
-      l = "ls -l";
-      lla = "ls -la";
-      la = "ls -a";
-      cat = "bat --paging=never";
-      vim = "nvim";
-    } // (if isDarwin then {
-      colab-runtime-local = "ssh workstation-local -L 9000:localhost:9000";
-      colab-runtime-remote = "ssh workstation -L 9000:localhost:9000";
-    } else {});
+    shellAliases =
+      {
+        ls = "lsd";
+        lt = "ls --tree";
+        l = "ls -l";
+        lla = "ls -la";
+        la = "ls -a";
+        cat = "bat --paging=never";
+        vim = "nvim";
+      }
+      // (
+        if isDarwin then
+          {
+            colab-runtime-local = "ssh workstation-local -L 9000:localhost:9000";
+            colab-runtime-remote = "ssh workstation -L 9000:localhost:9000";
+          }
+        else
+          { }
+      );
 
     initExtra = ''
-    bindkey '^p' history-search-backward
-    bindkey '^n' history-search-forward
-    bindkey '^f' autosuggest-accept
-    bindkey '^g' tmux-sessionizer
+      bindkey '^p' history-search-backward
+      bindkey '^n' history-search-forward
+      bindkey '^f' autosuggest-accept
+      bindkey '^g' tmux-sessionizer
 
-    # fzf-tab
-    zstyle ':fzf-tab:*' fzf-flags $(echo $FZF_DEFAULT_OPTS)
-    zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
-    zstyle ':completion:*' list-colors $LS_COLORS
-    zstyle ':completion:*' menu no
-    zstyle ':completion:*:git-checkout:*' sort false
-    zstyle ':fzf-tab:*' fzf-command ftb-tmux-popup
-    zstyle ':fzf-tab:complete:cd:*' fzf-preview 'lsd --color always $realpath'
+      # fzf-tab
+      zstyle ':fzf-tab:*' fzf-flags $(echo $FZF_DEFAULT_OPTS)
+      zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
+      zstyle ':completion:*' list-colors $LS_COLORS
+      zstyle ':completion:*' menu no
+      zstyle ':completion:*:git-checkout:*' sort false
+      zstyle ':fzf-tab:*' fzf-command ftb-tmux-popup
+      zstyle ':fzf-tab:complete:cd:*' fzf-preview 'lsd --color always $realpath'
 
-    # nix-ld
-    . "/etc/profiles/per-user/$USER/etc/profile.d/hm-session-vars.sh"
+      # nix-ld
+      . "/etc/profiles/per-user/$USER/etc/profile.d/hm-session-vars.sh"
 
-    # Custom
-    source ${config.xdg.configHome}/zsh/widgets.zsh
-    source ${config.xdg.configHome}/zsh/p10k.zsh
-    unset ZSH_AUTOSUGGEST_USE_ASYNC  # Needed to fix p10k x OMZP::git
+      # Custom
+      source ${config.xdg.configHome}/zsh/widgets.zsh
+      source ${config.xdg.configHome}/zsh/p10k.zsh
+      unset ZSH_AUTOSUGGEST_USE_ASYNC  # Needed to fix p10k x OMZP::git
     '';
   };
-  xdg.configFile."zsh/widgets.zsh".source = if isDarwin then ./zsh/widgets-darwin.zsh else ./zsh/widgets.zsh;
+  xdg.configFile."zsh/widgets.zsh".source =
+    if isDarwin then ./zsh/widgets-darwin.zsh else ./zsh/widgets.zsh;
   xdg.configFile."zsh/p10k.zsh".source = ./zsh/p10k.zsh;
 
   programs.fzf = {
@@ -219,6 +243,8 @@ in {
       # deps
       tree-sitter
       nodejs
+      gnumake
+      gcc
     ];
   };
   xdg.configFile."nvim" = {

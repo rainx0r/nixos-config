@@ -21,14 +21,24 @@
     };
   };
 
-  outputs = { self, nixpkgs, home-manager, darwin, nvim-config-rain, ... }@inputs: let
-    mkSystem = import ./lib/mksystem.nix {
-      inherit nixpkgs inputs;
+  outputs =
+    {
+      self,
+      nixpkgs,
+      home-manager,
+      darwin,
+      nvim-config-rain,
+      ...
+    }@inputs:
+    let
+      mkSystem = import ./lib/mksystem.nix {
+        inherit nixpkgs inputs;
+      };
+    in
+    {
+      nixosConfigurations.linux-workstation = mkSystem "linux-workstation" {
+        system = "x86_64-linux";
+        user = "rain";
+      };
     };
-  in {
-    nixosConfigurations.linux-workstation = mkSystem "linux-workstation" {
-      system = "x86_64-linux";
-      user = "rain";
-    };
-  };
 }

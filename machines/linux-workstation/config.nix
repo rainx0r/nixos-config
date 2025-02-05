@@ -2,14 +2,18 @@
 
 let
   sshPort = 4088; # random port
-in {
+in
+{
   imports = [
     ./hardware.nix
   ];
 
   ### OS
   system.stateVersion = "24.11";
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  nix.settings.experimental-features = [
+    "nix-command"
+    "flakes"
+  ];
   nixpkgs.config.cudaSupport = true;
 
   ### Bootloader
