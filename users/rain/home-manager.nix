@@ -238,7 +238,7 @@ in
       shfmt
       shellcheck
       terraform-ls
-      nodePackages.vscode-json-languageserver
+      vscode-langservers-extracted
 
       # deps
       tree-sitter
@@ -250,5 +250,13 @@ in
   xdg.configFile."nvim" = {
     source = inputs.nvim-config-rain;
     recursive = true;
+  };
+
+  programs = {
+    direnv = {
+      enable = true;
+      enableZshIntegration = true;
+      nix-direnv.enable = true;
+    };
   };
 }
