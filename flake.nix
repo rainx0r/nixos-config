@@ -14,9 +14,14 @@
       url = "github:LnL7/nix-darwin";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    nvim-config-rain = {
+      url = "git+file:users/rain/nvim";
+      flake = false;
+    };
   };
 
-  outputs = { self, nixpkgs, home-manager, darwin, ... }@inputs: let
+  outputs = { self, nixpkgs, home-manager, darwin, nvim-config-rain, ... }@inputs: let
     mkSystem = import ./lib/mksystem.nix {
       inherit nixpkgs inputs;
     };

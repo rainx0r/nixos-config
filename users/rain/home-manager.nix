@@ -8,7 +8,6 @@ in {
   home.stateVersion = "24.11";
 
   home.packages = with pkgs; [
-    neovim
     git
     python3
     uv
@@ -19,6 +18,7 @@ in {
     ripgrep
     fastfetch
     lazygit
+    terraform
   ];
 
   home.sessionVariables = with pkgs; {
@@ -27,7 +27,8 @@ in {
     PC_ALL = "en_GB.UTF-8";
     EDITOR = "nvim";
     PAGER = "less -FirSwX";
-    NIX_LD_LIBRARY_PATH = lib.makeLibraryPath [ stdenv.cc.cc zlib addDriverRunpath.driverLink ];
+    NIX = if !isDarwin then "1" else null;
+    NIX_LD_LIBRARY_PATH = if !isDarwin then lib.makeLibraryPath [ stdenv.cc.cc zlib addDriverRunpath.driverLink ] else null;
   };
 
   programs.zsh = {
@@ -192,5 +193,36 @@ in {
   xdg.configFile = {
     "fastfetch/config.jsonc".text = builtins.readFile ./fastfetch/config.jsonc;
     "fastfetch/logo.png".source = ./fastfetch/logo.png;
+  };
+
+  programs.neovim = {
+    enable = true;
+    extraPackages = with pkgs; [
+      # lsps
+      lua-language-server
+      stylua
+      nixd
+      nixfmt-rfc-style
+      basedpyright
+      ruff
+      taplo
+      rust-analyzer
+      haskell-language-server
+      zls
+      markdownlint-cli
+      clang-tools
+      shfmt
+      shellcheck
+      terraform-ls
+      nodePackages.vscode-json-languageserver
+
+      # deps
+      tree-sitter
+      nodejs
+    ];
+  };
+  xdg.configFile."nvim" = {
+    source = inputs.nvim-config-rain;
+    recursive = true;
   };
 }

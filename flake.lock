@@ -73,12 +73,29 @@
         "type": "github"
       }
     },
+    "nvim-config-rain": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1737995855,
+        "narHash": "sha256-dsS8SbN2+qZk7FUHBp8n8RHpyU7QD+jF6D2EtCU7Z2k=",
+        "ref": "refs/heads/master",
+        "rev": "353cf0d9d19e4e85862c10734c3bf4467cd8cee1",
+        "revCount": 321,
+        "type": "git",
+        "url": "file:users/rain/nvim"
+      },
+      "original": {
+        "type": "git",
+        "url": "file:users/rain/nvim"
+      }
+    },
     "root": {
       "inputs": {
         "darwin": "darwin",
         "home-manager": "home-manager",
         "nixpkgs": "nixpkgs",
-        "nixpkgs-unstable": "nixpkgs-unstable"
+        "nixpkgs-unstable": "nixpkgs-unstable",
+        "nvim-config-rain": "nvim-config-rain"
       }
     }
   },
