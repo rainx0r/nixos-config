@@ -20,6 +20,7 @@ in
       git-crypt
       python3
       uv
+      bun
       bat
       lsd
       gh
