@@ -215,6 +215,10 @@ in
       setw -g window-status-style fg=colour250,bg=default
       set -g pane-border-style fg=colour239,bg=default
       set -g pane-active-border-style fg=colour15,bg=default
+
+      # https://github.com/nix-community/home-manager/issues/5952
+      set -gu default-command
+      set -g default-shell "$SHELL"
     '';
   };
 
