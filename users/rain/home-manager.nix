@@ -13,22 +13,27 @@ in
 {
   home.stateVersion = "24.11";
 
-  home.packages = with pkgs; [
-    git
-    git-crypt
-    python3
-    uv
-    bat
-    lsd
-    gh
-    ghq
-    ripgrep
-    fastfetch
-    lazygit
-    lazydocker
-    terraform
-    # inputs.nixpkgs-unstable.claude-code
-  ];
+  home.packages =
+    with pkgs;
+    [
+      git
+      git-crypt
+      python3
+      uv
+      bat
+      lsd
+      gh
+      ghq
+      ripgrep
+      fastfetch
+      lazygit
+      lazydocker
+      terraform
+      # inputs.nixpkgs-unstable.claude-code
+    ]
+    ++ (lib.optionals isDarwin [
+      cmake
+    ]);
 
   home.sessionVariables = with pkgs; {
     LANG = "en_GB.UTF-8";
