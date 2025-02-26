@@ -11,7 +11,7 @@
     };
 
     darwin = {
-      url = "github:LnL7/nix-darwin";
+      url = "github:LnL7/nix-darwin/nix-darwin-24.11";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -39,6 +39,11 @@
       nixosConfigurations.linux-workstation = mkSystem "linux-workstation" {
         system = "x86_64-linux";
         user = "rain";
+      };
+      darwinConfigurations.macbook = mkSystem "macbook" {
+        system = "aarch64-darwin";
+        user = "rain";
+        darwin = true;
       };
     };
 }

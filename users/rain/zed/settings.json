@@ -1,0 +1,92 @@
+{
+  "ssh_connections": [
+    {
+      "host": "workstation-local",
+      "projects": [
+        {
+          "paths": [
+            "~/Documents/Repositories/github.com/rainx0r/mtrl"
+          ]
+        }
+      ]
+    }
+  ],
+  "assistant": {
+    "default_model": {
+      "provider": "zed.dev",
+      "model": "claude-3-5-sonnet-latest"
+    },
+    "version": "2",
+    "enable_experimental_live_diffs": true
+  },
+  "theme": "rainx0r dark",
+  "base_keymap": "VSCode",
+  "vim_mode": true,
+  "ui_font_size": 16,
+  "buffer_font_size": 16,
+  "languages": {
+    "Python": {
+      "language_servers": ["basedpyright", "!pyright", "ruff"],
+      "format_on_save": "on",
+      "formatter": [
+        {
+          "code_actions": {
+            "source.organizeImports.ruff": true
+          }
+        },
+        {
+          "language_server": {
+            "name": "ruff"
+          }
+        }
+      ]
+    }
+  },
+  "inlay_hints": {
+    "enabled": true,
+    "show_background": true
+  },
+  "lsp": {
+    "basedpyright": {
+      "settings": {
+        "basedpyright.disableOrganizeImports": true,
+        "basedpyright.disableTaggedHints": false,
+        "basedpyright.analysis": {
+          "typeCheckingMode": "standard",
+          "useLibraryCodeForTypes": true,
+          "autoImportCompletions": true,
+          "autoSearchPaths": true,
+          "diagnosticSeverityOverrides": {
+            "reportIgnoreCommentWithoutRule": true
+          }
+        }
+      }
+    }
+  },
+  "soft_wrap": "editor_width",
+  "ui_font_family": "Hack Nerd Font Mono",
+  "buffer_font_family": "Hack Nerd Font Mono",
+  "terminal": {
+    "blinking": "on",
+    "line_height": {
+      "custom": 1.15
+    },
+    "font_size": 14
+  },
+  "file_scan_exclusions": [
+    "**/__pycache__",
+    "**/.DS_Store",
+    "**/*.egg-info",
+    "**/.mypy_cache",
+    "**/.pytest_cache",
+    "**/.ruff_cache",
+    "**/.vscode",
+    "**/.idea",
+    "**/.git",
+    "**/.venv",
+    "**/venv"
+  ],
+  "features": {
+    "inline_completion_provider": "none"
+  }
+}

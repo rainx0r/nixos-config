@@ -1,0 +1,38 @@
+background = 0E181B
+foreground = F8FBFC
+cursor-color = 00C2FF
+selection-background = F8FBFC
+selection-foreground = 0E181B
+
+# Normal colours
+palette = 0=0E181B
+palette = 1=FF1E00
+palette = 2=00FFBF
+palette = 3=B3F2FF
+palette = 4=00C2FF
+palette = 5=9DB4BB
+palette = 6=66E6FF
+palette = 7=F8FBFC
+
+# Bright colours
+palette = 8=0E181B
+palette = 9=FF1E00
+palette = 10=00FFBF
+palette = 11=B3F2FF
+palette = 12=00C2FF
+palette = 13=9DB4BB
+palette = 14=66E6FF
+palette = 15=FFFFFF
+
+# Dim colours
+palette = 16=0E181B
+palette = 17=FF1E00
+palette = 18=00FFBF
+palette = 19=B3F2FF
+palette = 20=00C2FF
+palette = 21=9DB4BB
+palette = 22=66E6FF
+palette = 23=D9E5E8
+
+# Extra
+palette = 17=1E2D31

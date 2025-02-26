@@ -1,0 +1,131 @@
+[
+    {
+        "key": "ctrl+k",
+        "command": "workbench.action.navigateUp"
+    },
+    {
+        "key": "ctrl+j",
+        "command": "workbench.action.navigateDown"
+    },
+    {
+        "key": "ctrl+h",
+        "command": "workbench.action.navigateLeft"
+    },
+    {
+        "key": "ctrl+l",
+        "command": "workbench.action.navigateRight"
+    },
+    {
+        "key": "ctrl+h",
+        "command": "workbench.action.previousPanelView",
+        "when": "panelFocus"
+    },
+    {
+        "key": "ctrl+l",
+        "command": "workbench.action.nextPanelView",
+        "when": "panelFocus"
+    },
+    {
+        "key": "ctrl+k",
+        "command": "workbench.files.action.focusOpenEditorsView",
+        "when": "sideBarFocus && explorerViewletVisible"
+    },
+    {
+        "key": "ctrl+j",
+        "command": "workbench.files.action.focusFilesExplorer",
+        "when": "sideBarFocus && explorerViewletVisible && !filesExplorerFocus"
+    },
+    {
+        "key": "ctrl+w",
+        "command": "workbench.action.nextEditorInGroup"
+    },
+    {
+        "key": "ctrl+q",
+        "command": "workbench.action.previousEditorInGroup"
+    },
+    {
+        "key": "ctrl+x",
+        "command": "workbench.action.closeActiveEditor"
+    },
+    {
+        "key": "ctrl+y",
+        "command": "acceptSelectedSuggestion"
+    },
+    // Explorer
+    {
+        "key": "ctrl+\\",
+        "command": "workbench.view.explorer"
+    },
+        {
+        "key": "cmd+enter",
+        "command": "renameFile",
+        "when": "explorerViewletVisible && filesExplorerFocus"
+    },
+    {
+        "key": "enter",
+        "command": "-renameFile",
+        "when": "explorerViewletVisible && filesExplorerFocus"
+    },
+    {
+        "key": "enter",
+        "command": "list.select",
+        "when": "listFocus && !inputFocus"
+    },
+    {
+        "key": "s",
+        "command": "explorer.openToSide",
+        "when": "explorerViewletFocus && foldersViewVisible && !inputFocus"
+    },
+    {
+        "key": "/",
+        "command": "list.find",
+        "when": "listFocus && listSupportsFind"
+    },
+    // Kagex
+    {
+        "key": "alt+r",
+        "command": "editor.action.insertSnippet",
+        "when": "editorTextFocus && editorLangId == kagex",
+        "args": {
+            "langId": "kagex",
+            "name": "Ruby"
+        }
+    },
+    {
+        "key": "cmd+oem_minus",
+        "command": "editor.action.insertSnippet",
+        "when": "editorTextFocus && editorLangId == kagex",
+        "args": {
+            "langId": "kagex",
+            "name": "Em Dash"
+        }
+    },
+    {
+        "key": "cmd+i",
+        "command": "editor.action.insertSnippet",
+        "when": "editorTextFocus && editorLangId == kagex",
+        "args": {
+            "langId": "kagex",
+            "name": "Italics"
+        }
+    },
+    {
+        "key": "shift+'",
+        "command": "editor.action.insertSnippet",
+        "when": "editorTextFocus && editorLangId == kagex",
+        "args": {
+            "langId": "kagex",
+            "name": "Double Quotes"
+        }
+    },
+    {
+        "key": "cmd+'",
+        "command": "editor.action.insertSnippet",
+        "when": "editorTextFocus && editorLangId == kagex",
+        "args": {
+            "langId": "kagex",
+            "name": "Single Quotes"
+        }
+    }
+]
+

@@ -1,0 +1,27 @@
+{
+    "Italics": {
+        "prefix": "<i>",
+        "body": "[i]$1[/i]$0",
+        "description": "Italics tag"
+    },
+    "Ruby": {
+        "prefix": "<r>",
+        "body": "[ruby text=\"$2\" char=\"$1\"]$0",
+        "description": "Ruby text tag"
+    },
+    "Double Quotes": {
+        "prefix": "<dq>",
+        "body": "“$0”",
+        "description": "Double quotes"
+    },
+    "Single Quotes": {
+        "prefix": "<sq>",
+        "body": "‘$0’",
+        "description": "Single quotes"
+    },
+    "Em Dash": {
+        "prefix": "<em>",
+        "body": "—",
+        "description": "Em dash"
+    }
+}

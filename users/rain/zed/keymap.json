@@ -1,0 +1,21 @@
+[
+  {
+    "bindings": {
+      "ctrl-h": ["workspace::ActivatePaneInDirection", "Left"],
+      "ctrl-l": ["workspace::ActivatePaneInDirection", "Right"],
+      "ctrl-k": ["workspace::ActivatePaneInDirection", "Up"],
+      "ctrl-j": ["workspace::ActivatePaneInDirection", "Down"],
+      "ctrl-w": "pane::ActivateNextItem",
+      "ctrl-q": "pane::ActivatePrevItem",
+      "ctrl-x": "pane::CloseActiveItem",
+      "ctrl-%": "pane::SplitRight",
+      "ctrl-|": "pane::SplitDown"
+    }
+  },
+  {
+    "context": "Editor && showing_completions",
+    "bindings": {
+      "ctrl-y": "editor::ConfirmCompletion"
+    }
+  }
+]

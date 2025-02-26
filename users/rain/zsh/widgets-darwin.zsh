@@ -1,8 +1,8 @@
 function tmux-sessionizer {
     # Yoinked and edited from the tmuxagen https://github.com/ThePrimeagen/.dotfiles/blob/master/tmux/.tmux.conf
     # Unfathomably based workflow
-    github_repos="$HOME/Documents/Repositories/github.com"
-    experiments="$HOME/Documents/Experiments"
+    github_repos="$HOME/Repositories/github.com"
+    experiments="$HOME/Experiments"
     selected=$(
         find $github_repos $experiments -type d \( -path "$github_repos/*" -depth 2 -prune \) -o \( -path "$experiments/*" -depth 1 -prune \) ! -name ".DS_Store" \
         | sed "s|$github_repos|github|g" | sed "s|$experiments|experiments|g"\

@@ -15,6 +15,7 @@ in
 
   home.packages = with pkgs; [
     git
+    git-crypt
     python3
     uv
     bat
@@ -24,7 +25,9 @@ in
     ripgrep
     fastfetch
     lazygit
+    lazydocker
     terraform
+    # inputs.nixpkgs-unstable.claude-code
   ];
 
   home.sessionVariables = with pkgs; {
@@ -33,7 +36,7 @@ in
     PC_ALL = "en_GB.UTF-8";
     EDITOR = "nvim";
     PAGER = "less -FirSwX";
-    NIX = if !isDarwin then "1" else null;
+    NIX = if !isDarwin then "1" else "";
     NIX_LD_LIBRARY_PATH =
       if !isDarwin then
         lib.makeLibraryPath [
@@ -42,7 +45,7 @@ in
           addDriverRunpath.driverLink
         ]
       else
-        null;
+        "";
   };
 
   programs.zsh = {
@@ -129,9 +132,6 @@ in
       unset ZSH_AUTOSUGGEST_USE_ASYNC  # Needed to fix p10k x OMZP::git
     '';
   };
-  xdg.configFile."zsh/widgets.zsh".source =
-    if isDarwin then ./zsh/widgets-darwin.zsh else ./zsh/widgets.zsh;
-  xdg.configFile."zsh/p10k.zsh".source = ./zsh/p10k.zsh;
 
   programs.fzf = {
     enable = true;
@@ -176,7 +176,6 @@ in
       vim_keys = true;
     };
   };
-  xdg.configFile."btop/themes/rainx0r.theme".text = builtins.readFile ./themes/btop;
 
   programs.tmux = {
     enable = true;
@@ -214,10 +213,37 @@ in
     '';
   };
 
-  xdg.configFile = {
-    "fastfetch/config.jsonc".text = builtins.readFile ./fastfetch/config.jsonc;
-    "fastfetch/logo.png".source = ./fastfetch/logo.png;
-  };
+  xdg.configFile =
+    {
+      "fastfetch" = {
+        source = ./fastfetch;
+        recursive = true;
+      };
+      "zsh/widgets.zsh".source = if isDarwin then ./zsh/widgets-darwin.zsh else ./zsh/widgets.zsh;
+      "zsh/p10k.zsh".source = ./zsh/p10k.zsh;
+      "btop/themes/rainx0r.theme".text = builtins.readFile ./themes/btop;
+      "nvim" = {
+        source = inputs.nvim-config-rain;
+        recursive = true;
+      };
+    }
+    // (
+      if isDarwin then
+        {
+          "karabiner/karabiner.json".source = ./karabiner/karabiner.json;
+          "ghostty" = {
+            source = ./ghostty;
+            recursive = true;
+          };
+          "zed" = {
+            source = ./zed;
+            recursive = true;
+          };
+          "safari.css".source = ./safari.css;
+        }
+      else
+        { }
+    );
 
   programs.neovim = {
     enable = true;
@@ -246,10 +272,6 @@ in
       gnumake
       gcc
     ];
-  };
-  xdg.configFile."nvim" = {
-    source = inputs.nvim-config-rain;
-    recursive = true;
   };
 
   programs = {

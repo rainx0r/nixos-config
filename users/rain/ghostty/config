@@ -1,0 +1,18 @@
+font-family = "Monaspace Xenon"
+font-size = 16
+theme = rainx0r
+cursor-style-blink = true
+adjust-cell-height = 30%
+
+macos-titlebar-style = tabs
+macos-titlebar-proxy-icon = hidden
+
+macos-icon = custom-style
+macos-icon-frame = plastic
+macos-icon-ghost-color = 00C2FF
+macos-icon-screen-color = F8FBFC
+
+mouse-hide-while-typing = true
+
+keybind = super+x=close_surface
+keybind = global:alt+shift+grave_accent=toggle_quick_terminal

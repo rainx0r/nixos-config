@@ -1,0 +1,184 @@
+{
+    "editor.fontLigatures": true,
+    "editor.suggestSelection": "first",
+    "editor.unicodeHighlight.allowedCharacters": {
+        "　": true,
+        "‘": true,
+        "’": true
+    },
+    "terminal.integrated.fontFamily": "Hack Nerd Font, Hack NF",
+    "editor.formatOnSave": true,
+    "editor.formatOnPaste": true,
+    "editor.wordWrap": "on",
+    "git.autofetch": true,
+    "git.confirmSync": false,
+    "[python]": {
+        "editor.defaultFormatter": "ms-python.python",
+        "editor.formatOnPaste": false,
+        "editor.formatOnType": true,
+        "editor.codeActionsOnSave": {
+            "source.organizeImports": "explicit"
+        }
+    },
+    "python.analysis.typeCheckingMode": "off",
+    "files.exclude": {
+        "**/__pycache__": true,
+        "**/.pytest_cache": true,
+        "**/*.egg-info": true
+    },
+    "cSpell.maxNumberOfProblems": 99999999999,
+    "terminal.integrated.gpuAcceleration": "off",
+    "explorer.confirmDelete": false,
+    "cSpell.userWords": [
+        "argnums",
+        "astype",
+        "discretisation",
+        "dtype",
+        "jaxtyping",
+        "logits",
+        "multinomial",
+        "PRNG",
+        "psutil",
+        "Timestep",
+        "tqdm",
+        "unsqeueeze"
+    ],
+    "editor.fontSize": 15,
+    "editor.fontFamily": "'Hack Nerd Font Mono', 'Fira Code', Hack, 'Hack Nerd Font', Menlo, Monaco, 'Courier New', monospace",
+    "editor.lineNumbers": "relative",
+    "security.workspace.trust.untrustedFiles": "open",
+    "editor.inlineSuggest.enabled": true,
+    "lldb.library": "/Applications/Xcode.app/Contents/SharedFrameworks/LLDB.framework/Versions/A/LLDB",
+    "workbench.colorTheme": "rainx0r",
+    "explorer.sortOrderLexicographicOptions": "unicode",
+    "window.restoreWindows": "none",
+    "window.commandCenter": false,
+    "workbench.layoutControl.enabled": false,
+    "editor.bracketPairColorization.enabled": false,
+    "vim.normalModeKeyBindings": [
+        {
+            "before": [
+                "\\"
+            ],
+            "commands": [
+                "workbench.action.toggleSidebarVisibility"
+            ]
+        },
+        {
+            "before": [
+                "<leader>",
+                "e",
+                "l"
+            ],
+            "commands": [
+                "workbench.action.splitEditorRight"
+            ]
+        },
+        {
+            "before": [
+                "<leader>",
+                "e",
+                "j"
+            ],
+            "commands": [
+                "workbench.action.splitEditorDown"
+            ]
+        },
+        {
+            "before": [
+                "<leader>",
+                "d",
+                "s"
+            ],
+            "commands": [
+                "workbench.action.gotoSymbol"
+            ]
+        },
+        {
+            "before": [
+                "<leader>",
+                "w",
+                "s"
+            ],
+            "commands": [
+                "workbench.action.showAllSymbols"
+            ]
+        },
+        {
+            "before": [
+                "<leader>",
+                "r",
+                "n"
+            ],
+            "commands": [
+                "editor.action.rename"
+            ],
+            "when": "editorHasRenameProvider && editorTextFocus && !editorReadonly"
+        },
+        {
+            "before": [
+                "<leader>",
+                "s",
+                "f"
+            ],
+            "commands": [
+                "workbench.action.quickOpen"
+            ]
+        },
+        {
+            "before": [
+                "<leader>",
+                "b"
+            ],
+            "commands": [
+                "editor.debug.action.toggleBreakpoint"
+            ]
+        },
+        {
+            "before": [
+                "<leader>",
+                "g",
+                "d"
+            ],
+            "commands": [
+                "editor.action.goToTypeDefinition"
+            ]
+        },
+        {
+            "before": [
+                "<leader>",
+                "g",
+                "D"
+            ],
+            "commands": [
+                "editor.action.goToDeclaration"
+            ]
+        },
+        {
+            "before": [
+                "<leader>",
+                "g",
+                "r"
+            ],
+            "commands": [
+                "editor.action.goToReferences",
+            ],
+            "when": "editorHasReferenceProvider && editorTextFocus && !inReferenceSearchEditor && !isInEmbeddedEditor"
+        },
+        {
+            "before": [
+                "<leader>",
+                "g",
+                "i"
+            ],
+            "commands": [
+                "editor.action.goToImplementation",
+            ],
+            "when": "editorHasImplementationProvider && editorTextFocus"
+        }
+    ],
+    "[jsonc]": {
+        "editor.defaultFormatter": "vscode.json-language-features"
+    }
+}
+

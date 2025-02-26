@@ -1,0 +1,32 @@
+div.internalVimiumHintMarker.vimiumReset {
+    background-color: #9bfff3 !important;
+    color: #092c29 !important;
+    box-shadow: inset 0 -2px 0 #62dcd6 !important;
+    font-family: Helvetica, Arial, sans-serif;
+    font-weight: bold;
+    opacity: 1;
+    animation-name: fadeInOpacity;
+    animation-iteration-count: 1;
+    animation-timing-function: ease-in;
+    animation-duration: 0.1s;
+}
+
+div.internalVimiumHintMarker.vimiumReset span {
+    color: #092c29 !important;
+    font-family: Helvetica, Arial, sans-serif;
+    font-weight: bold;
+}
+
+div.internalVimiumHintMarker.vimiumReset > .matchingCharacter {
+    color: #259986 !important;
+}
+
+@keyframes fadeInOpacity {
+	0% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 1;
+	}
+}
+
