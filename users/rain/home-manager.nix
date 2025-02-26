@@ -20,7 +20,8 @@ in
       git-crypt
       python3
       uv
-      bun
+      nodejs
+      pnpm
       bat
       lsd
       gh
