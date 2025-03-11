@@ -44,7 +44,7 @@
       "figma"
       "betterdisplay"
       # these probably could get moved to the linux config
-      # if I start usnig that as a desktop ever
+      # if I start using that as a desktop ever
       "discord"
       "slack"
       "zotero"
