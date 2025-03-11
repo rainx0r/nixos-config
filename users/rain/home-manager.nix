@@ -4,6 +4,7 @@
   config,
   lib,
   pkgs,
+  unstable,
   ...
 }:
 
@@ -31,7 +32,7 @@ in
       lazygit
       lazydocker
       terraform
-      # inputs.nixpkgs-unstable.claude-code
+      unstable.pkgs.claude-code
     ]
     ++ (lib.optionals isDarwin [
       cmake

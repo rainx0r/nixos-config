@@ -25,6 +25,7 @@
     {
       self,
       nixpkgs,
+      nixpkgs-unstable,
       home-manager,
       darwin,
       nvim-config-rain,
@@ -32,7 +33,7 @@
     }@inputs:
     let
       mkSystem = import ./lib/mksystem.nix {
-        inherit nixpkgs inputs;
+        inherit nixpkgs nixpkgs-unstable inputs;
       };
     in
     {

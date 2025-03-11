@@ -1,4 +1,8 @@
-{ nixpkgs, inputs }:
+{
+  nixpkgs,
+  nixpkgs-unstable,
+  inputs,
+}:
 
 name:
 {
@@ -13,8 +17,10 @@ let
   userHMConfig = ../users/${user}/home-manager.nix;
 
   systemFunc = if darwin then inputs.darwin.lib.darwinSystem else nixpkgs.lib.nixosSystem;
-  home-manager = if darwin then inputs.home-manager.darwinModules else inputs.home-manager.nixosModules;
-in systemFunc rec {
+  home-manager =
+    if darwin then inputs.home-manager.darwinModules else inputs.home-manager.nixosModules;
+in
+systemFunc rec {
   inherit system;
 
   modules = [
@@ -22,9 +28,14 @@ in systemFunc rec {
 
     machineConfig
     userOSConfig
-    home-manager.home-manager {
+    home-manager.home-manager
+    {
       home-manager.useGlobalPkgs = true;
       home-manager.useUserPackages = true;
+      home-manager.extraSpecialArgs = {
+        unstable = import nixpkgs-unstable { inherit system; config.allowUnfree = true; };
+      };
+
       home-manager.users.${user} = import userHMConfig {
         inputs = inputs;
       };
