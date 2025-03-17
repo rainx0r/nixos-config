@@ -20,7 +20,7 @@ in
       git
       git-crypt
       python3
-      uv
+      unstable.pkgs.uv
       nodejs
       pnpm
       bat
