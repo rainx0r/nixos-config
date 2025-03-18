@@ -9,6 +9,7 @@
     brews = [
       "docker"
       "mas"
+      "basedpyright"  # for Zed
     ];
     masApps = {
       # Essentials
