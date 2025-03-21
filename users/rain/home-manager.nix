@@ -259,7 +259,7 @@ in
 
   programs.neovim = {
     enable = true;
-    extraPackages = with pkgs; [
+    extraPackages = with unstable.pkgs; [
       # lsps
       lua-language-server
       stylua
