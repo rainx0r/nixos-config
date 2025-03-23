@@ -63,6 +63,7 @@ in
     open = true;
     nvidiaSettings = true;
   };
+  hardware.nvidia-container-toolkit.enable = true;
   services.xserver.videoDrivers = [ "nvidia" ];
 
   ### Locale
@@ -79,10 +80,13 @@ in
   ];
 
   ### Docker
-  virtualisation.docker.enable = true;
-  virtualisation.docker.storageDriver = "btrfs";
-  virtualisation.docker.daemon.settings = {
+  virtualisation.docker = {
+    enable = true;
+    autoPrune.enable = true;
+    storageDriver = "btrfs";
+    daemon.settings = {
       userland-proxy = false;
+    };
   };
   virtualisation.oci-containers = {
     backend = "docker";
@@ -91,10 +95,10 @@ in
         autoStart = true;
         image = "us-docker.pkg.dev/colab-images/public/runtime";
         ports = [ "9000:8080" ];
-        extraOptions = [ "--gpus all" ];
+        extraOptions = [ "--device=nvidia.com/gpu=all" ];
       };
     };
-  }
+  };
 
   ### Networking
   networking.hostName = "linux-workstation";
