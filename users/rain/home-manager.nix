@@ -32,6 +32,7 @@ in
       lazygit
       lazydocker
       terraform
+      cloudflared
       unstable.pkgs.claude-code
     ]
     ++ (lib.optionals isDarwin [
