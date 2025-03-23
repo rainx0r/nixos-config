@@ -81,6 +81,20 @@ in
   ### Docker
   virtualisation.docker.enable = true;
   virtualisation.docker.storageDriver = "btrfs";
+  virtualisation.docker.daemon.settings = {
+      userland-proxy = false;
+  };
+  virtualisation.oci-containers = {
+    backend = "docker";
+    containers = {
+      colab = {
+        autoStart = true;
+        image = "us-docker.pkg.dev/colab-images/public/runtime";
+        ports = [ "9000:8080" ];
+        extraOptions = [ "--gpus all" ];
+      };
+    };
+  }
 
   ### Networking
   networking.hostName = "linux-workstation";
