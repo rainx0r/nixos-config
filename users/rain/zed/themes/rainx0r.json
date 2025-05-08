@@ -340,8 +340,8 @@
             "font_weight": null
           },
           "variable.parameter": {
-            "color": "#FF006Aff",
-            "font_style": "italic",
+            "color": "#D9E5E8ff",
+            "font_style": null,
             "font_weight": null
           },
           "variable.special": {

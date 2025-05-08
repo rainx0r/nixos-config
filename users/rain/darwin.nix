@@ -1,6 +1,17 @@
 { inputs, pkgs, ... }:
 
 {
+  system = {
+    stateVersion = 5;
+
+    defaults = {
+      NSGlobalDomain = {
+        KeyRepeat = 2; # 120, 90, 60, 30, 12, 6, 2
+        InitialKeyRepeat = 15; # 120, 94, 68, 35, 25, 15
+      };
+    };
+  };
+
   homebrew = {
     enable = true;
     onActivation.cleanup = "zap";
@@ -9,7 +20,7 @@
     brews = [
       "docker"
       "mas"
-      "basedpyright"  # for Zed
+      "basedpyright" # for Zed
     ];
     masApps = {
       # Essentials
