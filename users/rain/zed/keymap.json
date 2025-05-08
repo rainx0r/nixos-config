@@ -1,15 +1,24 @@
 [
   {
     "bindings": {
-      "ctrl-h": ["workspace::ActivatePaneInDirection", "Left"],
-      "ctrl-l": ["workspace::ActivatePaneInDirection", "Right"],
-      "ctrl-k": ["workspace::ActivatePaneInDirection", "Up"],
-      "ctrl-j": ["workspace::ActivatePaneInDirection", "Down"],
+      "ctrl-h": "workspace::ActivatePaneLeft",
+      "ctrl-l": "workspace::ActivatePaneRight",
+      "ctrl-k": "workspace::ActivatePaneUp",
+      "ctrl-j": "workspace::ActivatePaneDown",
       "ctrl-w": "pane::ActivateNextItem",
-      "ctrl-q": "pane::ActivatePrevItem",
+      "ctrl-q": "pane::ActivatePreviousItem",
       "ctrl-x": "pane::CloseActiveItem",
       "ctrl-%": "pane::SplitRight",
       "ctrl-|": "pane::SplitDown"
+    }
+  },
+  {
+    "context": "vim_mode == normal && !menu",
+    "bindings": {
+      "space s f": "file_finder::Toggle",
+      "space space": "tab_switcher::ToggleAll",
+      "space w s": "project_symbols::Toggle",
+      "space s g": "workspace::NewSearch"
     }
   },
   {

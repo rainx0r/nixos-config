@@ -2,23 +2,9 @@
   "ssh_connections": [
     {
       "host": "workstation-local",
-      "projects": [
-        {
-          "paths": [
-            "~/Documents/Repositories/github.com/rainx0r/mtrl"
-          ]
-        }
-      ]
+      "projects": []
     }
   ],
-  "assistant": {
-    "default_model": {
-      "provider": "zed.dev",
-      "model": "claude-3-5-sonnet-latest"
-    },
-    "version": "2",
-    "enable_experimental_live_diffs": true
-  },
   "theme": "rainx0r dark",
   "base_keymap": "VSCode",
   "vim_mode": true,
@@ -87,6 +73,6 @@
     "**/venv"
   ],
   "features": {
-    "inline_completion_provider": "none"
+    "edit_prediction_provider": "zed"
   }
 }
