@@ -25,6 +25,14 @@ systemFunc rec {
 
   modules = [
     { nixpkgs.config.allowUnfree = true; }
+    {
+      # HACK: Fix nodejs on darwin https://github.com/NixOS/nixpkgs/issues/402079
+      nixpkgs.overlays = [
+        (self: super: {
+          nodejs = super.nodejs_22;
+        })
+      ];
+    }
 
     machineConfig
     userOSConfig
@@ -33,7 +41,10 @@ systemFunc rec {
       home-manager.useGlobalPkgs = true;
       home-manager.useUserPackages = true;
       home-manager.extraSpecialArgs = {
-        unstable = import nixpkgs-unstable { inherit system; config.allowUnfree = true; };
+        unstable = import nixpkgs-unstable {
+          inherit system;
+          config.allowUnfree = true;
+        };
       };
 
       home-manager.users.${user} = import userHMConfig {
