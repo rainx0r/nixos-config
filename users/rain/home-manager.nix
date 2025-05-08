@@ -33,7 +33,7 @@ in
       lazydocker
       terraform
       cloudflared
-      unstable.pkgs.claude-code
+      unstable.pkgs.codex
     ]
     ++ (lib.optionals isDarwin [
       cmake
@@ -257,6 +257,9 @@ in
       else
         { }
     );
+  home.file = {
+    ".codex".source = ./codex;
+  };
 
   programs.neovim = {
     enable = true;
