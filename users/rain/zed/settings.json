@@ -3,6 +3,10 @@
     {
       "host": "workstation-local",
       "projects": []
+    },
+    {
+      "host": "workstation",
+      "projects": []
     }
   ],
   "theme": "rainx0r dark",

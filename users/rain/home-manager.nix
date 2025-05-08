@@ -210,7 +210,7 @@ in
       setw -g status-left ""
       setw -g status-left-style fg=green,bg=default
       setw -g status-style fg=green,bg=default
-      set -g status-right ''' 
+      set -g status-right '''
       setw -g status-right " %H:%M #h "
       setw -g status-right-style fg=green,bg=default
       setw -g window-status-current-format " #{bold}#{window_index}:#{window_name}"
@@ -239,6 +239,10 @@ in
         source = inputs.nvim-config-rain;
         recursive = true;
       };
+      "zed" = {
+        source = ./zed;
+        recursive = true;
+      };
     }
     // (
       if isDarwin then
@@ -246,10 +250,6 @@ in
           "karabiner/karabiner.json".source = ./karabiner/karabiner.json;
           "ghostty" = {
             source = ./ghostty;
-            recursive = true;
-          };
-          "zed" = {
-            source = ./zed;
             recursive = true;
           };
           "safari.css".source = ./safari.css;
