@@ -20,7 +20,8 @@
       "space w s": "project_symbols::Toggle",
       "space s g": "workspace::NewSearch",
       "space l g": "git_panel::ToggleFocus",
-      "space t h": "editor::ToggleInlayHints"
+      "space t h": "editor::ToggleInlayHints",
+      "space c a": "editor::ToggleCodeActions"
     }
   },
   {
