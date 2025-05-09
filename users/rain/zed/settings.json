@@ -16,7 +16,7 @@
   "buffer_font_size": 16,
   "languages": {
     "Python": {
-      "language_servers": ["basedpyright", "!pyright", "ruff"],
+      "language_servers": ["pyright", "ruff"],
       "format_on_save": "on",
       "formatter": [
         {
@@ -37,11 +37,11 @@
     "show_background": true
   },
   "lsp": {
-    "basedpyright": {
+    "pyright": {
       "settings": {
-        "basedpyright.disableOrganizeImports": true,
-        "basedpyright.disableTaggedHints": false,
-        "basedpyright.analysis": {
+        "pyright.disableOrganizeImports": true,
+        "pyright.disableTaggedHints": false,
+        "python.analysis": {
           "typeCheckingMode": "standard",
           "useLibraryCodeForTypes": true,
           "autoImportCompletions": true,
@@ -54,8 +54,7 @@
     }
   },
   "soft_wrap": "editor_width",
-  "ui_font_family": "Hack Nerd Font Mono",
-  "buffer_font_family": "Hack Nerd Font Mono",
+  "buffer_font_fallbacks": ["Hack Nerd Font Mono"],
   "terminal": {
     "blinking": "on",
     "line_height": {
