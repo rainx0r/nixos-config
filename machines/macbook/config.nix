@@ -3,8 +3,6 @@
 {
   system.stateVersion = 5;
 
-  nix.useDaemon = true;
-
   nix = {
     extraOptions = ''
       experimental-features = nix-command flakes

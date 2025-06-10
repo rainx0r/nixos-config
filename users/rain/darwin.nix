@@ -3,6 +3,7 @@
 {
   system = {
     stateVersion = 5;
+    primaryUser = "rain";
 
     defaults = {
       NSGlobalDomain = {
@@ -62,7 +63,7 @@
       "slack"
       "zotero"
       "ghostty"
-      "mullvadvpn"
+      "mullvad-vpn"
       "linear-linear"
       "ghidra"
       "obsidian"
