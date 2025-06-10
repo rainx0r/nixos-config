@@ -117,7 +117,7 @@ in
           { }
       );
 
-    initExtra = ''
+    initContent = ''
       bindkey '^p' history-search-backward
       bindkey '^n' history-search-forward
       bindkey '^f' autosuggest-accept
@@ -294,7 +294,10 @@ in
     direnv = {
       enable = true;
       enableZshIntegration = true;
-      nix-direnv.enable = true;
+      nix-direnv = {
+        enable = true;
+        package = unstable.pkgs.nix-direnv;
+      };
     };
   };
 }
