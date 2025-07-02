@@ -243,6 +243,10 @@ in
         source = ./zed;
         recursive = true;
       };
+      "nixpkgs" = {
+        source = ./nixpkgs;
+        recursive = true;
+      };
     }
     // (
       if isDarwin then
