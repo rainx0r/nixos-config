@@ -91,6 +91,7 @@ in
   ### System-wide packages
   environment.systemPackages = with pkgs; [
     ghostty.terminfo
+    nvtopPackages.nvidia
   ];
 
   ### Docker
