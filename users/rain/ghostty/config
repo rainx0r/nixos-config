@@ -10,7 +10,7 @@ macos-titlebar-proxy-icon = hidden
 macos-icon = custom-style
 macos-icon-frame = plastic
 macos-icon-ghost-color = 00C2FF
-macos-icon-screen-color = F8FBFC
+macos-icon-screen-color = 020304
 
 mouse-hide-while-typing = true
 
