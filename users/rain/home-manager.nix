@@ -33,7 +33,6 @@ in
       lazydocker
       terraform
       cloudflared
-      unstable.pkgs.codex
     ]
     ++ (lib.optionals isDarwin [
       cmake
@@ -152,7 +151,7 @@ in
       border = "12";
       label = "3";
       prompt = "4";
-      "bg+" = "17";
+      "bg+" = "16";
     };
     defaultOptions = [ "-e" ];
   };
@@ -261,9 +260,6 @@ in
       else
         { }
     );
-  home.file = {
-    ".codex".source = ./codex;
-  };
 
   programs.neovim = {
     enable = true;
