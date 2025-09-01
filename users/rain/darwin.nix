@@ -25,7 +25,7 @@
     ];
     masApps = {
       # Essentials
-      "Things 3" = 904237743;
+      "Things 3" = 904280696;
       "XCode" = 497799835;
       # Design
       "Affinity Publisher 2" = 1606941598;
@@ -47,7 +47,7 @@
       "Logic Pro" = 634148309;
       # Utils
       "DaisyDisk" = 411643860;
-      "AppCleaner" = 1616505989;
+      # "AppCleaner" = 1616505989; NOTE: Currently no longer on the App Store
     };
     casks = [
       "karabiner-elements"

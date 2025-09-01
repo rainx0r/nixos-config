@@ -17,22 +17,39 @@ in
   home.packages =
     with pkgs;
     [
+      # vcs
       git
       git-crypt
-      python3
-      unstable.pkgs.uv
-      nodejs
-      pnpm
-      bat
-      lsd
       gh
       ghq
-      ripgrep
-      fastfetch
+      jujutsu
       lazygit
+      lazyjj
+
+      # python
+      python3
+      unstable.pkgs.uv
+
+      # js
+      nodejs
+      pnpm
+
+      # devops
       lazydocker
       terraform
       cloudflared
+
+      # misc
+      bat
+      lsd
+      ripgrep
+      fastfetch
+
+      # llm clis
+      unstable.pkgs.claude-code
+      unstable.pkgs.codex
+      unstable.pkgs.gemini-cli
+      unstable.pkgs.opencode
     ]
     ++ (lib.optionals isDarwin [
       cmake
