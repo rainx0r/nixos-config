@@ -1,6 +1,4 @@
 {
-  nixpkgs,
-  nixpkgs-unstable,
   inputs,
 }:
 
@@ -15,50 +13,47 @@ let
   machineConfig = ../machines/${name}/config.nix;
   userOSConfig = ../users/${user}/${if darwin then "darwin" else "nixos"}.nix;
   userHMConfig = ../users/${user}/home-manager.nix;
+  nixpkgsConfig = {
+    allowUnfree = true;
+  };
+  overlays = [
+    (self: super: {
+      # HACK: Fix nodejs on darwin https://github.com/NixOS/nixpkgs/issues/402079
+      nodejs = super.nodejs_22;
+    })
+  ];
 
-  systemFunc = if darwin then inputs.darwin.lib.darwinSystem else nixpkgs.lib.nixosSystem;
+  systemFunc = if darwin then inputs.darwin.lib.darwinSystem else inputs.nixpkgs.lib.nixosSystem;
   home-manager =
     if darwin then inputs.home-manager.darwinModules else inputs.home-manager.nixosModules;
+  pkgs-unstable = import inputs.nixpkgs-unstable {
+    inherit system overlays;
+    config = nixpkgsConfig;
+  };
 in
 systemFunc rec {
   inherit system;
 
-  modules = [
-    { nixpkgs.config.allowUnfree = true; }
-    {
-      # HACK: Fix nodejs on darwin https://github.com/NixOS/nixpkgs/issues/402079
-      nixpkgs.overlays = [
-        (self: super: {
-          nodejs = super.nodejs_22;
-        })
-      ];
-    }
+  specialArgs = {
+    inherit inputs pkgs-unstable;
+    currentSystem = system;
+    currentSystemName = name;
+    currentSystemUser = user;
+  };
 
+  modules = [
+    {
+      nixpkgs.config = nixpkgsConfig;
+      nixpkgs.overlays = overlays;
+    }
     machineConfig
     userOSConfig
     home-manager.home-manager
     {
       home-manager.useGlobalPkgs = true;
       home-manager.useUserPackages = true;
-      home-manager.extraSpecialArgs = {
-        unstable = import nixpkgs-unstable {
-          inherit system;
-          config.allowUnfree = true;
-        };
-      };
-
-      home-manager.users.${user} = import userHMConfig {
-        inputs = inputs;
-      };
-    }
-
-    {
-      config._module.args = {
-        currentSystem = system;
-        currentSystemName = name;
-        currentSystemUser = user;
-        inputs = inputs;
-      };
+      home-manager.extraSpecialArgs = specialArgs;
+      home-manager.users.${user} = import userHMConfig;
     }
   ];
 }

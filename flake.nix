@@ -21,19 +21,10 @@
     };
   };
 
-  outputs =
-    {
-      self,
-      nixpkgs,
-      nixpkgs-unstable,
-      home-manager,
-      darwin,
-      nvim-config-rain,
-      ...
-    }@inputs:
+  outputs = inputs:
     let
       mkSystem = import ./lib/mksystem.nix {
-        inherit nixpkgs nixpkgs-unstable inputs;
+        inherit inputs;
       };
     in
     {

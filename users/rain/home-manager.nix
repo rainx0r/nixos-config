@@ -1,10 +1,9 @@
-{ inputs, ... }:
-
 {
   config,
   lib,
   pkgs,
-  unstable,
+  inputs,
+  pkgs-unstable,
   ...
 }:
 
@@ -28,7 +27,7 @@ in
 
       # python
       python3
-      unstable.pkgs.uv
+      pkgs-unstable.pkgs.uv
 
       # js
       nodejs
@@ -46,10 +45,10 @@ in
       fastfetch
 
       # llm clis
-      unstable.pkgs.claude-code
-      unstable.pkgs.codex
-      unstable.pkgs.gemini-cli
-      unstable.pkgs.opencode
+      pkgs-unstable.pkgs.claude-code
+      pkgs-unstable.pkgs.codex
+      pkgs-unstable.pkgs.gemini-cli
+      pkgs-unstable.pkgs.opencode
     ]
     ++ (lib.optionals isDarwin [
       cmake
@@ -85,22 +84,21 @@ in
 
     antidote = {
       enable = true;
-      plugins =
-        [
-          "Aloxaf/fzf-tab"
-          "romkatv/powerlevel10k"
-          "getantidote/use-omz"
-          "ohmyzsh/ohmyzsh path:plugins/git"
-          "ohmyzsh/ohmyzsh path:plugins/sudo"
-          "ohmyzsh/ohmyzsh path:plugins/command-not-found"
-          "ohmyzsh/ohmyzsh path:plugins/python"
-          "ohmyzsh/ohmyzsh path:plugins/docker"
-          "ohmyzsh/ohmyzsh path:plugins/docker-compose"
-        ]
-        ++ (lib.optionals isDarwin [
-          "ohmyzsh/ohmyzsh path:plugins/macos"
-          "ohmyzsh/ohmyzsh path:plugins/xcode"
-        ]);
+      plugins = [
+        "Aloxaf/fzf-tab"
+        "romkatv/powerlevel10k"
+        "getantidote/use-omz"
+        "ohmyzsh/ohmyzsh path:plugins/git"
+        "ohmyzsh/ohmyzsh path:plugins/sudo"
+        "ohmyzsh/ohmyzsh path:plugins/command-not-found"
+        "ohmyzsh/ohmyzsh path:plugins/python"
+        "ohmyzsh/ohmyzsh path:plugins/docker"
+        "ohmyzsh/ohmyzsh path:plugins/docker-compose"
+      ]
+      ++ (lib.optionals isDarwin [
+        "ohmyzsh/ohmyzsh path:plugins/macos"
+        "ohmyzsh/ohmyzsh path:plugins/xcode"
+      ]);
     };
 
     history = {
@@ -113,25 +111,24 @@ in
       share = true;
     };
 
-    shellAliases =
-      {
-        ls = "lsd";
-        lt = "ls --tree";
-        l = "ls -l";
-        lla = "ls -la";
-        la = "ls -a";
-        cat = "bat --paging=never";
-        vim = "nvim";
-      }
-      // (
-        if isDarwin then
-          {
-            colab-runtime-local = "ssh workstation-local -L 9000:localhost:9000";
-            colab-runtime-remote = "ssh workstation -L 9000:localhost:9000";
-          }
-        else
-          { }
-      );
+    shellAliases = {
+      ls = "lsd";
+      lt = "ls --tree";
+      l = "ls -l";
+      lla = "ls -la";
+      la = "ls -a";
+      cat = "bat --paging=never";
+      vim = "nvim";
+    }
+    // (
+      if isDarwin then
+        {
+          colab-runtime-local = "ssh workstation-local -L 9000:localhost:9000";
+          colab-runtime-remote = "ssh workstation -L 9000:localhost:9000";
+        }
+      else
+        { }
+    );
 
     initContent = ''
       bindkey '^p' history-search-backward
@@ -252,45 +249,45 @@ in
     '';
   };
 
-  xdg.configFile =
-    {
-      "fastfetch" = {
-        source = ./fastfetch;
-        recursive = true;
-      };
-      "zsh/widgets.zsh".source = if isDarwin then ./zsh/widgets-darwin.zsh else ./zsh/widgets.zsh;
-      "zsh/p10k.zsh".source = ./zsh/p10k.zsh;
-      "btop/themes/rainx0r.theme".text = builtins.readFile ./themes/btop;
-      "nvim" = {
-        source = inputs.nvim-config-rain;
-        recursive = true;
-      };
-      "zed" = {
-        source = ./zed;
-        recursive = true;
-      };
-      "nixpkgs" = {
-        source = ./nixpkgs;
-        recursive = true;
-      };
-    }
-    // (
-      if isDarwin then
-        {
-          "karabiner/karabiner.json".source = ./karabiner/karabiner.json;
-          "ghostty" = {
-            source = ./ghostty;
-            recursive = true;
-          };
-          "safari.css".source = ./safari.css;
-        }
-      else
-        { }
-    );
+  xdg.configFile = {
+    "fastfetch" = {
+      source = ./fastfetch;
+      recursive = true;
+    };
+    "zsh/widgets.zsh".source = if isDarwin then ./zsh/widgets-darwin.zsh else ./zsh/widgets.zsh;
+    "zsh/p10k.zsh".source = ./zsh/p10k.zsh;
+    "btop/themes/rainx0r.theme".text = builtins.readFile ./themes/btop;
+    "nvim" = {
+      source = inputs.nvim-config-rain;
+      recursive = true;
+    };
+    "zed" = {
+      source = ./zed;
+      recursive = true;
+    };
+    "nixpkgs" = {
+      # Needed for nix-shell to use unfree packages
+      source = ./nixpkgs;
+      recursive = true;
+    };
+  }
+  // (
+    if isDarwin then
+      {
+        "karabiner/karabiner.json".source = ./karabiner/karabiner.json;
+        "ghostty" = {
+          source = ./ghostty;
+          recursive = true;
+        };
+        "safari.css".source = ./safari.css;
+      }
+    else
+      { }
+  );
 
   programs.neovim = {
     enable = true;
-    extraPackages = with unstable.pkgs; [
+    extraPackages = with pkgs-unstable.pkgs; [
       # lsps
       lua-language-server
       stylua
@@ -323,7 +320,7 @@ in
       enableZshIntegration = true;
       nix-direnv = {
         enable = true;
-        package = unstable.pkgs.nix-direnv;
+        package = pkgs-unstable.pkgs.nix-direnv;
       };
     };
   };
