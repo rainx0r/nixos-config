@@ -182,7 +182,7 @@ in
   programs.git = {
     enable = true;
     userName = "rain";
-    userEmail = "angel@latent.dev";
+    userEmail = "evan@latent.dev";
     extraConfig = {
       branch.autosetuprebase = "always";
       color.ui = true;
@@ -191,6 +191,16 @@ in
       push.default = "tracking";
       init.defaultBranch = "main";
       ghq.root = "~/Repositories";
+    };
+  };
+
+  programs.jujutsu = {
+    enable = true;
+    settings = {
+      user = {
+        name = "rainx0r";
+        email = "evan@latent.dev";
+      };
     };
   };
 
