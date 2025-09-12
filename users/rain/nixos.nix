@@ -2,7 +2,9 @@
 
 {
   programs.zsh.enable = true;
-  programs.nix-ld.enable = true;
+  programs.nix-ld = {
+    enable = true;
+  };
 
   environment.pathsToLink = [ "/share/zsh" ];
   environment.localBinInPath = true;

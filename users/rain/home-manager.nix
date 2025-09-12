@@ -54,22 +54,13 @@ in
       cmake
     ]);
 
-  home.sessionVariables = with pkgs; {
+  home.sessionVariables = {
     LANG = "en_GB.UTF-8";
     LC_CTYPE = "en_GB.UTF-8";
-    PC_ALL = "en_GB.UTF-8";
+    LC_ALL = "en_GB.UTF-8";
     EDITOR = "nvim";
     PAGER = "less -FirSwX";
     NIX = if !isDarwin then "1" else "";
-    NIX_LD_LIBRARY_PATH =
-      if !isDarwin then
-        lib.makeLibraryPath [
-          stdenv.cc.cc
-          zlib
-          addDriverRunpath.driverLink
-        ]
-      else
-        "";
   };
 
   programs.zsh = {
@@ -145,7 +136,7 @@ in
       zstyle ':fzf-tab:*' fzf-command ftb-tmux-popup
       zstyle ':fzf-tab:complete:cd:*' fzf-preview 'lsd --color always $realpath'
 
-      # nix-ld
+      # home-manager session vars in every shell including tmux panes
       . "/etc/profiles/per-user/$USER/etc/profile.d/hm-session-vars.sh"
 
       # Custom
