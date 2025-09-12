@@ -270,6 +270,10 @@ in
       source = ./nixpkgs;
       recursive = true;
     };
+    "uv" = {
+      source = ./uv;
+      recursive = true;
+    };
   }
   // (
     if isDarwin then
