@@ -1,3 +1,4 @@
 [submodule "users/rain/nvim"]
 	path = users/rain/nvim
 	url = https://github.com/rainx0r/nvim.git
+	branch = master

@@ -27,7 +27,7 @@ in
 
       # python
       python3
-      pkgs-unstable.pkgs.uv
+      pkgs-unstable.uv
 
       # js
       nodejs
@@ -44,11 +44,14 @@ in
       ripgrep
       fastfetch
 
+      # typesetting
+      pkgs-unstable.typst
+
       # llm clis
-      pkgs-unstable.pkgs.claude-code
-      pkgs-unstable.pkgs.codex
-      pkgs-unstable.pkgs.gemini-cli
-      pkgs-unstable.pkgs.opencode
+      pkgs-unstable.claude-code
+      pkgs-unstable.codex
+      pkgs-unstable.gemini-cli
+      pkgs-unstable.opencode
     ]
     ++ (lib.optionals isDarwin [
       cmake
@@ -95,9 +98,8 @@ in
     history = {
       save = 5000;
       ignoreAllDups = true;
-      # TODO: enable when 25.05 comes out
-      # saveNoDups = true;
-      # findNoDups = true;
+      saveNoDups = true;
+      findNoDups = true;
       append = true;
       share = true;
     };
@@ -177,8 +179,13 @@ in
       credential.helper = "store";
       github.user = "rainx0r";
       push.default = "tracking";
+      push.recurseSubmodules = "on-demand";
       init.defaultBranch = "main";
       ghq.root = "~/Repositories";
+      status.submoduleSummary = true;
+      diff.submodule = "log";
+      submodule.recurse = true;
+      fetch.recurseSubmodules = "on-demand";
     };
   };
 
@@ -282,7 +289,7 @@ in
 
   programs.neovim = {
     enable = true;
-    extraPackages = with pkgs-unstable.pkgs; [
+    extraPackages = with pkgs-unstable; [
       # lsps
       lua-language-server
       stylua
@@ -300,6 +307,8 @@ in
       shellcheck
       terraform-ls
       vscode-langservers-extracted
+      tinymist
+      typstyle
 
       # deps
       tree-sitter
@@ -315,7 +324,7 @@ in
       enableZshIntegration = true;
       nix-direnv = {
         enable = true;
-        package = pkgs-unstable.pkgs.nix-direnv;
+        package = pkgs-unstable.nix-direnv;
       };
     };
   };
