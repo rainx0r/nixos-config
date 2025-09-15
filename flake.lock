@@ -60,11 +60,11 @@
     },
     "nixpkgs-unstable": {
       "locked": {
-        "lastModified": 1757034884,
-        "narHash": "sha256-PgLSZDBEWUHpfTRfFyklmiiLBE1i1aGCtz4eRA3POao=",
+        "lastModified": 1757873102,
+        "narHash": "sha256-kYhNxLlYyJcUouNRazBufVfBInMWMyF+44xG/xar2yE=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "ca77296380960cd497a765102eeb1356eb80fed0",
+        "rev": "88cef159e47c0dc56f151593e044453a39a6e547",
         "type": "github"
       },
       "original": {
@@ -77,11 +77,11 @@
     "nvim-config-rain": {
       "flake": false,
       "locked": {
-        "lastModified": 1757931005,
-        "narHash": "sha256-OXOgQWttemS033oI7lzUYB5aKtBRrPwJ99yJaDqz0b4=",
+        "lastModified": 1757936061,
+        "narHash": "sha256-qU+RAAXSD913I8ZgHseRGQ9dTyIij8F/I8lmAsVUJUA=",
         "ref": "refs/heads/master",
-        "rev": "47777ca728b459c7576dde7f60a256047fd92d0e",
-        "revCount": 328,
+        "rev": "fca4f5081a50694e049a4c90103e0d12e0f0a6a7",
+        "revCount": 329,
         "type": "git",
         "url": "file:users/rain/nvim"
       },
