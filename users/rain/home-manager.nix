@@ -295,7 +295,7 @@ in
       stylua
       nixd
       nixfmt-rfc-style
-      basedpyright
+      pyright
       ruff
       taplo
       rust-analyzer
