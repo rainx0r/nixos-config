@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, lib, ... }:
 
 {
   programs.zsh.enable = true;
@@ -7,6 +7,9 @@
   };
 
   environment.pathsToLink = [ "/share/zsh" ];
+  environment.sessionVariables.LD_LIBRARY_PATH = lib.makeLibraryPath [
+    pkgs.addDriverRunpath.driverLink
+  ];
   environment.localBinInPath = true;
 
   users.users.rain = {
