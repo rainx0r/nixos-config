@@ -1,5 +1,6 @@
 {
   inputs,
+  overlays,
 }:
 
 name:
@@ -16,13 +17,6 @@ let
   nixpkgsConfig = {
     allowUnfree = true;
   };
-  overlays = [
-    (self: super: {
-      # HACK: Fix nodejs on darwin https://github.com/NixOS/nixpkgs/issues/402079
-      nodejs = super.nodejs_22;
-    })
-  ];
-
   systemFunc = if darwin then inputs.darwin.lib.darwinSystem else inputs.nixpkgs.lib.nixosSystem;
   home-manager =
     if darwin then inputs.home-manager.darwinModules else inputs.home-manager.nixosModules;

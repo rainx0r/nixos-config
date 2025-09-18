@@ -4,6 +4,7 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-25.05";
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixpkgs-unstable";
+    nixpkgs-master.url = "github:nixos/nixpkgs";
 
     home-manager = {
       url = "github:nix-community/home-manager/release-25.05";
@@ -21,10 +22,20 @@
     };
   };
 
-  outputs = inputs:
+  outputs =
+    inputs:
     let
+      overlays = [
+        (final: prev: {
+          # HACK: Fix nodejs on darwin https://github.com/NixOS/nixpkgs/issues/402079
+          nodejs = prev.nodejs_22;
+
+          codex = inputs.nixpkgs-master.legacyPackages.${prev.system}.codex;
+        })
+      ];
+
       mkSystem = import ./lib/mksystem.nix {
-        inherit inputs;
+        inherit overlays inputs;
       };
     in
     {
