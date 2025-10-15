@@ -310,6 +310,9 @@ in
       tinymist
       typstyle
 
+      ty
+      pyrefly
+
       # deps
       tree-sitter
       nodejs
