@@ -55,7 +55,7 @@ in
     enable = true;
   };
   hardware.nvidia = {
-    package = unstablePkgsForKernel.nvidiaPackages.beta;
+    package = unstablePkgsForKernel.nvidiaPackages.stable;
     modesetting.enable = true;
     powerManagement.enable = true;
     open = true;
