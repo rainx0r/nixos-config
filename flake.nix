@@ -42,6 +42,8 @@
       nixosConfigurations.linux-workstation = mkSystem "linux-workstation" {
         system = "x86_64-linux";
         user = "rain";
+        # TODO: change back to stable when limine secureBoot is in
+        nixpkgsForSystem = inputs.nixpkgs-unstable;
       };
       darwinConfigurations.macbook = mkSystem "macbook" {
         system = "aarch64-darwin";

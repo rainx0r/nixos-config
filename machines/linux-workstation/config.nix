@@ -30,17 +30,15 @@ in
 
   ### Bootloader
   boot.kernelPackages = pkgs.linuxPackages_latest;
-  # TODO: switch to lanzaboote for Secure Boot when usable
-  boot.loader.systemd-boot = {
+  boot.loader.limine = {
     enable = true;
-    configurationLimit = 3;
-    windows = {
-      "11" = {
-        title = "Windows 11";
-        efiDeviceHandle = "HD1b";
-        sortKey = "w_windows";
-      };
-    };
+    maxGenerations = 3;
+    extraEntries = ''
+      /Windows 11
+        protocol: efi
+        path: guid(765ca34f-751e-4206-88cb-3d4f339867d8):/EFI/Microsoft/Boot/bootmgfw.efi
+    '';
+    secureBoot.enable = true;
   };
   boot.loader.efi.canTouchEfiVariables = true;
 

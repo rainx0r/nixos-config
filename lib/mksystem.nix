@@ -8,6 +8,7 @@ name:
   system,
   user,
   darwin ? false,
+  nixpkgsForSystem ? inputs.nixpkgs,
 }:
 
 let
@@ -17,7 +18,7 @@ let
   nixpkgsConfig = {
     allowUnfree = true;
   };
-  systemFunc = if darwin then inputs.darwin.lib.darwinSystem else inputs.nixpkgs.lib.nixosSystem;
+  systemFunc = if darwin then inputs.darwin.lib.darwinSystem else nixpkgsForSystem.lib.nixosSystem;
   home-manager =
     if darwin then inputs.home-manager.darwinModules else inputs.home-manager.nixosModules;
   pkgs-unstable = import inputs.nixpkgs-unstable {
