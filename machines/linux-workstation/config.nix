@@ -32,13 +32,28 @@ in
   boot.kernelPackages = pkgs.linuxPackages_latest;
   boot.loader.limine = {
     enable = true;
+    secureBoot.enable = true;
     maxGenerations = 3;
     extraEntries = ''
       /Windows 11
         protocol: efi
         path: guid(765ca34f-751e-4206-88cb-3d4f339867d8):/EFI/Microsoft/Boot/bootmgfw.efi
+      /memtest86
+        protocol: efi
+        path: boot():/limine/efi/memtest86/memtest86.efi
     '';
-    secureBoot.enable = true;
+    additionalFiles = {
+      "efi/memtest86/memtest86.efi" = "${pkgs.memtest86-efi}/BOOTX64.efi";
+    };
+    style = {
+      wallpapers = [ ];
+      interface = {
+        resolution = "2560x1440";
+        helpHidden = true;
+        branding = "rainx0r's workstation";
+        brandingColor = 6;
+      };
+    };
   };
   boot.loader.efi.canTouchEfiVariables = true;
 
