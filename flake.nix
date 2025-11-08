@@ -16,6 +16,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    nixos-wsl = {
+      url = "github:nix-community/NixOS-WSL";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     nvim-config-rain = {
       url = "git+file:users/rain/nvim";
       flake = false;
@@ -44,6 +49,11 @@
         user = "rain";
         # TODO: change back to stable when limine secureBoot is in
         nixpkgsForSystem = inputs.nixpkgs-unstable;
+      };
+      nixosConfigurations.wsl-workstation = mkSystem "wsl-workstation" {
+        system = "x86_64-linux";
+        user = "rain";
+        wsl = true;
       };
       darwinConfigurations.macbook = mkSystem "macbook" {
         system = "aarch64-darwin";

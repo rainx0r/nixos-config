@@ -8,6 +8,7 @@ name:
   system,
   user,
   darwin ? false,
+  wsl ? false,
   nixpkgsForSystem ? inputs.nixpkgs,
 }:
 
@@ -25,6 +26,7 @@ let
     inherit system overlays;
     config = nixpkgsConfig;
   };
+  isWSL = wsl;
 in
 systemFunc rec {
   inherit system;
@@ -41,6 +43,10 @@ systemFunc rec {
       nixpkgs.config = nixpkgsConfig;
       nixpkgs.overlays = overlays;
     }
+
+    # Bring in WSL if this is a WSL build
+    (if isWSL then inputs.nixos-wsl.nixosModules.wsl else {})
+
     machineConfig
     userOSConfig
     home-manager.home-manager

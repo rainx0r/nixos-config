@@ -6,7 +6,7 @@
 }:
 
 let
-  sshPort = 4088; # random port
+  sshPort = 4088;
   unstablePkgsForKernel = pkgs-unstable.linuxPackagesFor config.boot.kernelPackages.kernel;
 in
 {
