@@ -37,6 +37,7 @@ in
       lazydocker
       terraform
       cloudflared
+      skypilot
 
       # misc
       bat
