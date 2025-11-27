@@ -53,7 +53,6 @@
       "SponsorBlock for Safari" = 1573461917;
       "Userscripts" = 1463298887;
       "Wipr" = 1320666476;
-      "Bitwarden" = 1352778147;
       "Vimlike" = 1584519802;
       # Music
       "Logic Pro" = 634148309;
