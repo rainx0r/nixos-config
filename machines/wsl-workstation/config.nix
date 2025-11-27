@@ -1,10 +1,7 @@
 { pkgs, currentSystemUser, ... }:
 
-let
-  sshPort = 4088;
-in
 {
-  imports = [];
+  imports = [ ];
 
   wsl = {
     enable = true;
@@ -48,7 +45,6 @@ in
     nvtopPackages.nvidia
   ];
 
-
   ### Networking
   networking.hostName = "linux-workstation";
   networking.networkmanager.enable = true;
@@ -60,7 +56,7 @@ in
   ## SSH Server
   services.openssh = {
     enable = true;
-    ports = [ 4088 ]; # random port
+    ports = [ 4088 ];
     settings = {
       PasswordAuthentication = false;
       PermitRootLogin = "no";
