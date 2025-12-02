@@ -87,6 +87,8 @@
       "zed"
       "visual-studio-code"
       "chatgpt"
+      "logitech-g-hub"
+      "plex"
     ];
   };
 

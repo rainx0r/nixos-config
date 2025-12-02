@@ -29,6 +29,10 @@ in
       python3
       pkgs-unstable.uv
 
+      # rust
+      rustc
+      cargo
+
       # js
       nodejs
       pnpm
