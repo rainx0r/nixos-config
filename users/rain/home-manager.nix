@@ -32,6 +32,7 @@ in
       # rust
       rustc
       cargo
+      rustfmt
 
       # js
       nodejs
@@ -69,6 +70,7 @@ in
     EDITOR = "nvim";
     PAGER = "less -FirSwX";
     NIX = if !isDarwin then "1" else "";
+    RUST_SRC_PATH = "${pkgs.rust.packages.stable.rustPlatform.rustLibSrc}";
   };
 
   programs.zsh = {

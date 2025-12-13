@@ -59,6 +59,7 @@
       "forScore" = 363738376;
       # Video
       "Final Cut Pro" = 424389933;
+      "Infuse" = 1136220934;
       # Utils
       "DaisyDisk" = 411643860;
       "Flighty" = 1358823008;
