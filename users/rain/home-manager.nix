@@ -42,7 +42,6 @@ in
       lazydocker
       terraform
       cloudflared
-      skypilot
 
       # misc
       bat
@@ -118,7 +117,6 @@ in
       lla = "ls -la";
       la = "ls -a";
       cat = "bat --paging=never";
-      vim = "nvim";
     }
     // (
       if isDarwin then
@@ -178,9 +176,7 @@ in
 
   programs.git = {
     enable = true;
-    userName = "rain";
-    userEmail = "evan@latent.dev";
-    extraConfig = {
+    settings = {
       branch.autosetuprebase = "always";
       color.ui = true;
       credential.helper = "store";
@@ -193,6 +189,10 @@ in
       diff.submodule = "log";
       submodule.recurse = true;
       fetch.recurseSubmodules = "on-demand";
+      user = {
+        name = "rain";
+        email = "evan@latent.dev";
+      };
     };
   };
 
@@ -296,13 +296,16 @@ in
 
   programs.neovim = {
     enable = true;
+    defaultEditor = true;
+    viAlias = true;
+    vimAlias = true;
     extraPackages = with pkgs-unstable; [
       # lsps
       lua-language-server
       stylua
       nixd
       nixfmt-rfc-style
-      pyright
+      ty
       ruff
       taplo
       rust-analyzer
@@ -316,9 +319,6 @@ in
       vscode-langservers-extracted
       tinymist
       typstyle
-
-      ty
-      pyrefly
 
       # deps
       tree-sitter

@@ -90,6 +90,7 @@
       "chatgpt"
       "logitech-g-hub"
       "plex"
+      "steam"
     ];
   };
 
