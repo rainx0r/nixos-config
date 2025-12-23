@@ -32,8 +32,8 @@
     let
       overlays = [
         (final: prev: {
-          claude-code = inputs.nixpkgs-master.legacyPackages.${prev.system}.codex;
-          codex = inputs.nixpkgs-master.legacyPackages.${prev.system}.codex;
+          claude-code = inputs.nixpkgs-master.legacyPackages.${prev.stdenv.hostPlatform.system}.codex;
+          codex = inputs.nixpkgs-master.legacyPackages.${prev.stdenv.hostPlatform.system}.codex;
         })
       ];
 

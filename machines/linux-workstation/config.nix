@@ -123,7 +123,7 @@ in
   ## SSH Server
   services.openssh = {
     enable = true;
-    ports = [ sshPort ]; # random port
+    ports = [ sshPort ];
     settings = {
       PasswordAuthentication = false;
       PermitRootLogin = "no";
