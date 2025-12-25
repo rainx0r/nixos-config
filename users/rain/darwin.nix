@@ -91,6 +91,9 @@
       "logitech-g-hub"
       "plex"
       "steam"
+      # browsers
+      "firefox"
+      "google-chrome"
     ];
   };
 
