@@ -70,6 +70,8 @@ in
     PAGER = "less -FirSwX";
     NIX = if !isDarwin then "1" else "";
     RUST_SRC_PATH = "${pkgs.rust.packages.stable.rustPlatform.rustLibSrc}";
+    # Global caches
+    TFDS_DATA_DIR = "~/Datasets/tfds";
   };
 
   programs.zsh = {
