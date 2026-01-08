@@ -279,6 +279,10 @@ in
       source = ./uv;
       recursive = true;
     };
+    "codex" = {
+      source = ./codex;
+      recursive = true;
+    };
   }
   // (
     if isDarwin then
