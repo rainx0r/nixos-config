@@ -31,11 +31,20 @@
     inputs:
     let
       overlays = [
-        (final: prev: {
-          claude-code = inputs.nixpkgs-master.legacyPackages.${prev.stdenv.hostPlatform.system}.claude-code;
-          codex = inputs.nixpkgs-master.legacyPackages.${prev.stdenv.hostPlatform.system}.codex;
-          ty = inputs.nixpkgs-master.legacyPackages.${prev.stdenv.hostPlatform.system}.ty;
-        })
+        (final: prev:
+          let
+            pkgs-master = import inputs.nixpkgs-master {
+              system = prev.stdenv.hostPlatform.system;
+              config = {
+                allowUnfree = true;
+              };
+            };
+          in
+          {
+            claude-code = pkgs-master.claude-code;
+            codex = pkgs-master.codex;
+            ty = pkgs-master.ty;
+          })
       ];
 
       mkSystem = import ./lib/mksystem.nix {

@@ -70,7 +70,6 @@
       "karabiner-elements"
       "iina"
       "stolendata-mpv"
-      "swiftformat-for-xcode"
       "unnaturalscrollwheels"
       "figma"
       # these probably could get moved to the linux config

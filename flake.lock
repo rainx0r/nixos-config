@@ -129,11 +129,11 @@
     "nvim-config-rain": {
       "flake": false,
       "locked": {
-        "lastModified": 1767873370,
-        "narHash": "sha256-D4P58aoW92tpirvI2QYSNDkbDaZ/szZbtLLwWbJWA00=",
+        "lastModified": 1767874285,
+        "narHash": "sha256-jsg81pzEOmDYt+oAgAzATTQzkoCgu3MKFhNzEn1SYbE=",
         "owner": "rainx0r",
         "repo": "nvim",
-        "rev": "f7086918707cdcb37f3146224cbb1101b7f2b505",
+        "rev": "b2c09577f8b498ca15080dcf87d774d271038ef7",
         "type": "github"
       },
       "original": {

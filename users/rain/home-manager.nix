@@ -320,7 +320,6 @@ in
       vscode-langservers-extracted
       tinymist
       typstyle
-      swiftformat
 
       # deps
       tree-sitter
