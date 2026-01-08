@@ -302,6 +302,7 @@ in
     extraPackages = with pkgs-unstable; [
       # lsps
       lua-language-server
+      bash-language-server
       stylua
       nixd
       nixfmt-rfc-style
@@ -319,12 +320,15 @@ in
       vscode-langservers-extracted
       tinymist
       typstyle
+      swiftformat
 
       # deps
       tree-sitter
       nodejs
       gnumake
       gcc
+      luarocks # lazy
+      packer # terraform
     ];
   };
 
