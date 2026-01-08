@@ -31,7 +31,8 @@
     inputs:
     let
       overlays = [
-        (final: prev:
+        (
+          final: prev:
           let
             pkgs-master = import inputs.nixpkgs-master {
               system = prev.stdenv.hostPlatform.system;
@@ -43,8 +44,10 @@
           {
             claude-code = pkgs-master.claude-code;
             codex = pkgs-master.codex;
-            ty = pkgs-master.ty;
-          })
+            # TODO: re-enable if ty gets good / delete when it gets stable
+            # ty = pkgs-master.ty;
+          }
+        )
       ];
 
       mkSystem = import ./lib/mksystem.nix {
