@@ -307,6 +307,7 @@ in
       nixd
       nixfmt-rfc-style
       ty
+      pyright
       ruff
       taplo
       rust-analyzer
