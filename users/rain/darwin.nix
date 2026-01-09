@@ -93,6 +93,7 @@
       # browsers
       "firefox"
       "google-chrome"
+      "microsoft-teams"
     ];
   };
 
