@@ -94,6 +94,7 @@
       "firefox"
       "google-chrome"
       "microsoft-teams"
+      "transmission"
     ];
   };
 
