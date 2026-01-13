@@ -60,6 +60,8 @@
       # Video
       "Final Cut Pro" = 424389933;
       "Infuse" = 1136220934;
+      # 3D
+      "Shapr3D" = 1091675654;
       # Utils
       "DaisyDisk" = 411643860;
       "Flighty" = 1358823008;

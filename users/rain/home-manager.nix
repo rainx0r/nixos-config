@@ -71,7 +71,8 @@ in
     NIX = if !isDarwin then "1" else "";
     RUST_SRC_PATH = "${pkgs.rust.packages.stable.rustPlatform.rustLibSrc}";
     # Global caches
-    TFDS_DATA_DIR = "~/Datasets/tfds";
+    TFDS_DATA_DIR = "${config.home.homeDirectory}/Datasets/tfds";
+    HF_HOME = "${config.home.homeDirectory}/Datasets/hf";
   };
 
   programs.zsh = {
@@ -294,7 +295,6 @@ in
           source = ./ghostty;
           recursive = true;
         };
-        "safari.css".source = ./safari.css;
       }
     else
       { }
@@ -338,14 +338,12 @@ in
     ];
   };
 
-  programs = {
-    direnv = {
+  programs.direnv = {
+    enable = true;
+    enableZshIntegration = true;
+    nix-direnv = {
       enable = true;
-      enableZshIntegration = true;
-      nix-direnv = {
-        enable = true;
-        package = pkgs-unstable.nix-direnv;
-      };
+      package = pkgs-unstable.nix-direnv;
     };
   };
 }
