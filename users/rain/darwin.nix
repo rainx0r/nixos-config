@@ -92,6 +92,7 @@
       "logitech-g-hub"
       "plex"
       "steam"
+      "battle-net"
       # browsers
       "firefox"
       "google-chrome"
