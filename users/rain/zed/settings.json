@@ -27,9 +27,9 @@
             "code_actions_on_format": {
                 "source.organizeImports.ruff": true
             },
-            "formatter": [],
             "language_servers": [
-                "basedpyright"
+                "basedpyright",
+                "ty"
             ]
         }
     },
