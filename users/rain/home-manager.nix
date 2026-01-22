@@ -269,10 +269,6 @@ in
       source = inputs.nvim-config-rain;
       recursive = true;
     };
-    "zed" = {
-      source = ./zed;
-      recursive = true;
-    };
     "nixpkgs" = {
       # Needed for nix-shell to use unfree packages
       source = ./nixpkgs;
@@ -311,7 +307,7 @@ in
       bash-language-server
       stylua
       nixd
-      nixfmt-rfc-style
+      nixfmt
       ty
       pyright
       ruff
@@ -335,6 +331,33 @@ in
       gcc
       luarocks # lazy
       packer # terraform
+    ];
+  };
+
+  programs.zed-editor = {
+    enable = true;
+    extraPackages = with pkgs-unstable; [
+      nixd
+      nil
+      nixfmt
+    ];
+    installRemoteServer = !isDarwin;
+    mutableUserKeymaps = true;
+    mutableUserSettings = true;
+    mutableUserTasks = true;
+    mutableUserDebug = true;
+    userSettings = lib.recursiveUpdate (lib.importJSON ./zed/settings.json) {
+      lsp.nixd.binary.path = "${pkgs-unstable.nixd}/bin/nixd";
+      lsp.nil.binary.path = "${pkgs-unstable.nil}/bin/nil";
+    };
+    userKeymaps = lib.importJSON ./zed/keymap.json;
+    themes = {
+      rainx0r = ./zed/themes/rainx0r.json;
+    };
+    extensions = [
+      "html"
+      "nix"
+      "toml"
     ];
   };
 

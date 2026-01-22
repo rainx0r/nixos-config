@@ -1,64 +1,8 @@
 {
-    "ssh_connections": [
-        {
-            "host": "workstation",
-            "projects": []
-        },
-        {
-            "host": "workstation-remote",
-            "projects": []
-        }
-    ],
-    "theme": "rainx0r dark",
     "base_keymap": "VSCode",
-    "vim_mode": true,
-    "ui_font_size": 16,
     "buffer_font_size": 16,
-    "languages": {
-        "Python": {
-            "language_servers": [
-                "basedpyright"
-            ],
-            "formatter": [
-                {
-                    "code_actions": {
-                        "source.organizeImports.ruff": true
-                    }
-                }
-            ]
-        }
-    },
-    "inlay_hints": {
-        "enabled": true,
-        "show_background": true
-    },
-    "lsp": {
-        "basedpyright": {
-            "settings": {
-                "basedpyright": {
-                    "typeCheckingMode": "standard",
-                    "disableOrganizeImports": true,
-                    "disableTaggedHints": false,
-                    "analysis": {
-                        "autoImportCompletions": true,
-                        "autoSearchPaths": true,
-                        "useLibraryCodeForTypes": true,
-                        "diagnosticSeverityOverrides.reportIgnoreCommentWithoutRule": true
-                    }
-                }
-            }
-        }
-    },
-    "soft_wrap": "editor_width",
-    "buffer_font_fallbacks": [
-        "Hack Nerd Font Mono"
-    ],
-    "terminal": {
-        "blinking": "on",
-        "line_height": {
-            "custom": 1.15
-        },
-        "font_size": 14
+    "features": {
+        "edit_prediction_provider": "zed"
     },
     "file_scan_exclusions": [
         "**/__pycache__",
@@ -71,9 +15,60 @@
         "**/.idea",
         "**/.git",
         "**/.venv",
-        "**/venv"
+        "**/venv",
+        "**/wandb"
     ],
-    "features": {
-        "edit_prediction_provider": "zed"
-    }
+    "inlay_hints": {
+        "enabled": true,
+        "show_background": true
+    },
+    "languages": {
+        "Python": {
+            "code_actions_on_format": {
+                "source.organizeImports.ruff": true
+            },
+            "formatter": [],
+            "language_servers": [
+                "basedpyright"
+            ]
+        }
+    },
+    "lsp": {
+        "basedpyright": {
+            "settings": {
+                "basedpyright": {
+                    "analysis": {
+                        "autoImportCompletions": true,
+                        "autoSearchPaths": true,
+                        "diagnosticSeverityOverrides.reportIgnoreCommentWithoutRule": true,
+                        "useLibraryCodeForTypes": true
+                    },
+                    "disableOrganizeImports": true,
+                    "disableTaggedHints": false,
+                    "typeCheckingMode": "standard"
+                }
+            }
+        }
+    },
+    "soft_wrap": "editor_width",
+    "ssh_connections": [
+        {
+            "host": "workstation",
+            "projects": []
+        },
+        {
+            "host": "workstation-remote",
+            "projects": []
+        }
+    ],
+    "terminal": {
+        "blinking": "on",
+        "font_size": 14,
+        "line_height": {
+            "custom": 1.15
+        }
+    },
+    "theme": "rainx0r dark",
+    "ui_font_size": 16,
+    "vim_mode": true
 }
