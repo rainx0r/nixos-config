@@ -73,6 +73,7 @@ in
     # Global caches
     TFDS_DATA_DIR = "${config.home.homeDirectory}/Datasets/tfds";
     HF_HOME = "${config.home.homeDirectory}/Datasets/hf";
+    JAX_COMPILATION_CACHE_DIR = "${config.home.homeDirectory}/.cache/jax";
   };
 
   programs.zsh = {
