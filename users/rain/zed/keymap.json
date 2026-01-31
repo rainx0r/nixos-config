@@ -25,6 +25,13 @@
     }
   },
   {
+    "context": "Editor && vim_mode == visual",
+    "bindings": {
+      "<": ["workspace::SendKeystrokes", "< g v"],
+      ">": ["workspace::SendKeystrokes", "> g v"]
+    }
+  },
+  {
     "context": "Editor && showing_completions",
     "bindings": {
       "ctrl-y": "editor::ConfirmCompletion"
