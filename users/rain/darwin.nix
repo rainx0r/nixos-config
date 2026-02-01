@@ -74,7 +74,6 @@
       "stolendata-mpv"
       "unnaturalscrollwheels"
       "figma"
-      "Sikarugir-App/sikarugir/sikarugir"
       # these probably could get moved to the linux config
       # if I start using that as a desktop ever
       "syncplay"
