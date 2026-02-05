@@ -62,6 +62,12 @@ in
       cmake
     ]);
 
+  targets.darwin.copyApps = {
+    enable = isDarwin;
+    directory = "Applications";
+  };
+  targets.darwin.linkApps.enable = !isDarwin;
+
   home.sessionVariables = {
     LANG = "en_GB.UTF-8";
     LC_CTYPE = "en_GB.UTF-8";

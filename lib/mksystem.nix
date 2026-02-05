@@ -45,7 +45,7 @@ systemFunc rec {
     }
 
     # Bring in WSL if this is a WSL build
-    (if isWSL then inputs.nixos-wsl.nixosModules.wsl else {})
+    (if isWSL then inputs.nixos-wsl.nixosModules.wsl else { })
 
     machineConfig
     userOSConfig
