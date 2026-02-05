@@ -5,6 +5,16 @@
     stateVersion = 5;
     primaryUser = "rain";
 
+    activationScripts.zedAppLink.text = ''
+      apps_dir="/Applications/Nix Apps"
+      zed_app="${pkgs.zed-editor}/Applications/Zed.app"
+
+      if [ -d "$zed_app" ]; then
+        mkdir -p "$apps_dir"
+        ln -sfn "$zed_app" "$apps_dir/Zed.app"
+      fi
+    '';
+
     defaults = {
       NSGlobalDomain = {
         KeyRepeat = 2; # 120, 90, 60, 30, 12, 6, 2
@@ -13,7 +23,7 @@
       dock.persistent-apps = [
         { app = "/System/Cryptexes/App/System/Applications/Safari.app"; }
         { app = "/Applications/Ghostty.app/"; }
-        { app = "${pkgs.zed-editor}/Applications/Zed.app/"; }
+        { app = "/Applications/Nix Apps/Zed.app/"; }
         { app = "/Applications/Zotero.app/"; }
         { app = "/Applications/Things3.app/"; }
         { app = "/System/Applications/Calendar.app/"; }
