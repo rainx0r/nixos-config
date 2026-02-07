@@ -44,6 +44,7 @@
           {
             claude-code = pkgs-master.claude-code;
             codex = pkgs-master.codex;
+            opencode = pkgs-master.opencode;
             # TODO: re-enable if ty gets good / delete when it gets stable
             # ty = pkgs-master.ty;
           }
