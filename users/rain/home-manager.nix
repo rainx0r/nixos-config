@@ -203,6 +203,9 @@ in
         name = "rain";
         email = "evan@latent.dev";
       };
+      alias = {
+        github-clone = "!sh ${config.xdg.configHome}/zsh/github-clone.zsh";
+      };
     };
   };
 
@@ -271,6 +274,7 @@ in
     };
     "zsh/widgets.zsh".source = if isDarwin then ./zsh/widgets-darwin.zsh else ./zsh/widgets.zsh;
     "zsh/p10k.zsh".source = ./zsh/p10k.zsh;
+    "zsh/github-clone.zsh".source = ./zsh/github-clone.zsh;
     "btop/themes/rainx0r.theme".text = builtins.readFile ./themes/btop;
     "nvim" = {
       source = inputs.nvim-config-rain;
