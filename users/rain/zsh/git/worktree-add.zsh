@@ -49,6 +49,8 @@ choose_branch() {
     tmp_candidates="$tmp_dir/candidates"
     tmp_worktrees="$tmp_dir/worktrees"
     tmp_selectable="$tmp_dir/selectable"
+    tmp_branch_items="$tmp_dir/branch-items"
+    tmp_pr_items="$tmp_dir/pr-items"
     trap 'rm -rf "$tmp_dir"' EXIT INT TERM
 
     {
@@ -75,7 +77,60 @@ choose_branch() {
         fatal "No branches available (all known branches already have a worktree)."
     fi
 
-    fzf --prompt='Branch> ' --height=40% --reverse <"$tmp_selectable"
+    tab_char="$(printf '\t')"
+    awk -F "$tab_char" 'BEGIN { OFS="\t" } NF { print $1, $1 }' "$tmp_selectable" >"$tmp_branch_items"
+
+    if git remote get-url origin >/dev/null 2>&1; then
+        pr_remote="origin"
+    else
+        pr_remote="$(git remote | sed -n '1p')"
+    fi
+
+    : >"$tmp_pr_items"
+    if [ -n "${pr_remote:-}" ]; then
+        gh pr list --state open --limit 100 --json number,title --jq '.[] | "\(.number)\t\(.title)"' 2>/dev/null |
+            while IFS="$tab_char" read -r pr_number pr_title; do
+                [ -n "$pr_number" ] || continue
+                printf '%s:%s\t#%s: %s\n' "$pr_remote" "$pr_number" "$pr_number" "$pr_title"
+            done >"$tmp_pr_items"
+    fi
+
+    mode="branch"
+    query=""
+    while :; do
+        if [ "$mode" = "branch" ]; then
+            source_file="$tmp_branch_items"
+            prompt='Branch> '
+        else
+            if [ ! -s "$tmp_pr_items" ]; then
+                mode="branch"
+                continue
+            fi
+            source_file="$tmp_pr_items"
+            prompt='PR> '
+        fi
+
+        result="$(
+            fzf --prompt="$prompt" --height=40% --reverse --expect=tab --print-query --query="$query" --delimiter="$tab_char" --with-nth=2 <"$source_file"
+        )" || return $?
+
+        query="$(printf '%s\n' "$result" | sed -n '1p')"
+        key="$(printf '%s\n' "$result" | sed -n '2p')"
+        selected="$(printf '%s\n' "$result" | sed -n '3p')"
+
+        if [ "$key" = "tab" ]; then
+            if [ "$mode" = "branch" ]; then
+                mode="pr"
+            else
+                mode="branch"
+            fi
+            continue
+        fi
+
+        [ -n "$selected" ] || return 1
+        printf '%s\n' "${selected%%"$tab_char"*}"
+        return 0
+    done
 }
 
 start_point=""
