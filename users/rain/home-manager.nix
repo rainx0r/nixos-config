@@ -244,6 +244,7 @@ in
     extraConfig = ''
       set-option -g renumber-windows on
       set-option -g repeat-time 1000
+      set -g extended-keys on
 
       bind '"' split-window -v -c "#{pane_current_path}"
       bind % split-window -h -c "#{pane_current_path}"
