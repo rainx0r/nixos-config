@@ -35,6 +35,7 @@
       "docker"
       "mas"
       "ghidra"
+      "gstreamer"
     ];
     masApps = {
       # Essentials
