@@ -76,8 +76,5 @@ git -C "$target" fetch origin --prune
 default_ref="$(git -C "$target" symbolic-ref --short refs/remotes/origin/HEAD)"
 default_branch="${default_ref#origin/}"
 worktree_path="$target/$default_branch"
-if git -C "$target" show-ref --verify --quiet "refs/heads/$default_branch"; then
-    git -C "$target" worktree add "$worktree_path" "$default_branch"
-else
-    git -C "$target" worktree add --track -b "$default_branch" "$worktree_path" "$default_ref"
-fi
+git -C "$target" worktree add "$worktree_path" "$default_branch"
+git -C "$target" branch --set-upstream-to="$default_ref" "$default_branch" >/dev/null
