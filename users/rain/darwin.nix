@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ pkgs, ... }:
 
 {
   system = {
@@ -13,7 +13,7 @@
       dock.persistent-apps = [
         { app = "/System/Cryptexes/App/System/Applications/Safari.app/"; }
         { app = "/Applications/Ghostty.app/"; }
-        { app = "${config.users.users.rain.home}/Applications/Zed.app/"; }
+        { app = "${pkgs.zed-editor}/Applications/Zed.app/"; }
         { app = "/Applications/Zotero.app/"; }
         { app = "/Applications/Things3.app/"; }
         { app = "/System/Applications/Calendar.app/"; }
@@ -46,9 +46,9 @@
       "Microsoft Word" = 462054704;
       "Microsoft Excel" = 462058435;
       "OneDrive" = 823766827;
-      "Numbers" = 409203825;
-      "Keynote" = 409183694;
-      "Pages" = 409183694;
+      "Numbers" = 361304891;
+      "Keynote" = 361285480;
+      "Pages" = 361309726;
       # Safari extensions
       "SponsorBlock for Safari" = 1573461917;
       "Userscripts" = 1463298887;
@@ -67,6 +67,7 @@
       "Flighty" = 1358823008;
       "field-kit" = 1612653346;
       "Windows App" = 1295203466;
+      "Tailscale" = 1475387142;
     };
     casks = [
       "karabiner-elements"

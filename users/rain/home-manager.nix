@@ -63,11 +63,14 @@ in
     ]);
 
   targets.darwin = lib.mkIf isDarwin {
-    copyApps = {
-      enable = true;
-      directory = "Applications";
-    };
     linkApps.enable = false;
+  };
+
+  home.activation = lib.mkIf isDarwin {
+    linkZedIntoApplications = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+      mkdir -p "$HOME/Applications"
+      ln -sfn "${pkgs.zed-editor}/Applications/Zed.app" "$HOME/Applications/Zed.app"
+    '';
   };
 
   home.sessionVariables = {
