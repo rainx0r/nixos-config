@@ -131,4 +131,5 @@ in
     };
   };
   services.fail2ban.enable = true;
+  programs.mosh.enable = true;
 }
