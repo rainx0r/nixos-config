@@ -25,6 +25,8 @@
       url = "github:rainx0r/nvim";
       flake = false;
     };
+
+    llm-agents.url = "github:numtide/llm-agents.nix";
   };
 
   outputs =
@@ -42,8 +44,7 @@
             };
           in
           {
-            claude-code = pkgs-master.claude-code;
-            codex = pkgs-master.codex;
+            codex = inputs.llm-agents.packages.${prev.stdenv.hostPlatform.system}.codex;
             opencode = pkgs-master.opencode;
             # TODO: re-enable if ty gets good / delete when it gets stable
             # ty = pkgs-master.ty;
