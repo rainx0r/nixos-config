@@ -299,10 +299,7 @@ in
       source = ./uv;
       recursive = true;
     };
-    "codex" = {
-      source = ./codex;
-      recursive = true;
-    };
+
   }
   // (
     if isDarwin then
@@ -316,6 +313,11 @@ in
     else
       { }
   );
+
+  home.file.".codex" = {
+    source = ./codex;
+    recursive = true;
+  };
 
   programs.neovim = {
     enable = true;

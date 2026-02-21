@@ -54,6 +54,7 @@ systemFunc rec {
       home-manager.useGlobalPkgs = true;
       home-manager.useUserPackages = true;
       home-manager.extraSpecialArgs = specialArgs;
+      home-manager.backupFileExtension = "hm-backup";
       home-manager.users.${user} = import userHMConfig;
     }
   ];
