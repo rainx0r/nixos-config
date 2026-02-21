@@ -314,11 +314,6 @@ in
       { }
   );
 
-  home.file.".codex" = {
-    source = ./codex;
-    recursive = true;
-  };
-
   programs.neovim = {
     enable = true;
     defaultEditor = true;
