@@ -34,8 +34,8 @@
             name = "wow-lint";
             runtimeInputs = with pkgs; [
               jq
-              lua51
-              luacheck
+              lua5_1
+              lua51Packages.luacheck
               lua-language-server
               stylua
             ];
@@ -50,29 +50,12 @@
               trap 'rm -rf "$tmp"' EXIT
               logdir="$tmp/log"
               mkdir -p "$logdir"
-              cat >"$tmp/.luarc.json" <<'JSON'
-              {
-                "$schema": "https://raw.githubusercontent.com/sumneko/vscode-lua/master/setting/schema.json",
-                "runtime.version": "Lua 5.1",
-                "misc.parameters": ["--develop=true"],
-                "workspace.library": [
-                  "${wow-api}/Annotations"
-                ],
-                "diagnostics.disable": [
-                  "unused-local",
-                  "redefined-local",
-                  "empty-block",
-                  "invisible",
-                  "deprecated",
-                  "duplicate-doc-field"
-                ]
-              }
-              JSON
               rm -f "$logdir/check.json"
               lua-language-server \
                 --check="$target" \
                 --checklevel=Information \
-                --configpath="$tmp/.luarc.json" \
+                --configpath=".wow-dev-internal/Check.lua" \
+                --api_libraries="${wow-api}/Annotations"
                 --logpath="$logdir"
               if [[ -s "$logdir/check.json" ]]; then
                 echo
@@ -99,8 +82,8 @@
         rec {
           wow = pkgs.mkShell {
             packages = with pkgs; [
-              lua51
-              luacheck
+              lua5_1
+              lua51Packages.luacheck
               lua-language-server
               stylua
               wow-lint
