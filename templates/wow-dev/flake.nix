@@ -43,38 +43,20 @@
               set -euo pipefail
               target="''${1:-.}"
 
+              echo "==> luacheck $target"
               luacheck "$target"
 
-              # 2) LuaLS check (diagnostics report)
-              tmp="$(mktemp -d)"
-              trap 'rm -rf "$tmp"' EXIT
-              logdir="$tmp/log"
-              mkdir -p "$logdir"
-              rm -f "$logdir/check.json"
+              echo "==> luals --check $target (with WoW API annotations)"
               lua-language-server \
                 --check="$target" \
                 --checklevel=Information \
-                --configpath=".wow-dev-internal/Check.lua" \
+                --configpath="${./luals-check.lua}" \
                 --api_libraries="${wow-api}/Annotations"
-                --logpath="$logdir"
-              if [[ -s "$logdir/check.json" ]]; then
-                echo
-                echo "LuaLS diagnostics:"
-                jq -r '
-                  to_entries
-                  | map(.key as $file | .value[]
-                      | "\(
-                          if .severity <= 1 then "ERROR"
-                          else "WARN"
-                          end
-                        ): \($file) \(.range.start.line + 1):\(.range.start.character + 1) \(.code) - \(.message)"
-                    )
-                  | .[]
-                ' "$logdir/check.json"
-                exit 1
-              fi
 
+              echo "==> stylua --check $target"
               stylua --check "$target"
+
+              echo "✅ wow-lint passed"
             '';
           };
 

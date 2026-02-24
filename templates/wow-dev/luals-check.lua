@@ -66,11 +66,5 @@ return {
 		["undefined-global"] = "Error",
 		["lowercase-global"] = "Error",
 	},
-	["Lua.workspace.ignoreDir"] = {
-		"DBM-Test-Dragonflight",
-		"DBM-Test-WarWithin",
-		"DBM-Test-Vanilla",
-		"DBM-Test-Dungeons",
-		"DBM-Core/Libs",
-	},
+	["Lua.workspace.ignoreDir"] = {},
 }
