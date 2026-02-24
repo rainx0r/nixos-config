@@ -57,6 +57,13 @@
       };
     in
     {
+      templates = {
+        wow-dev = {
+          path = ./templates/wow-dev;
+          description = "WoW Addon dev shell template";
+        };
+      };
+
       nixosConfigurations.linux-workstation = mkSystem "linux-workstation" {
         system = "x86_64-linux";
         user = "rain";
