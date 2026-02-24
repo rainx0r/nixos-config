@@ -9,18 +9,19 @@
     "terminal.integrated.fontFamily": "Hack Nerd Font, Hack NF",
     "editor.formatOnSave": true,
     "editor.formatOnPaste": true,
+    "editor.semanticHighlighting.enabled": true,
     "editor.wordWrap": "on",
     "git.autofetch": true,
     "git.confirmSync": false,
     "[python]": {
-        "editor.defaultFormatter": "ms-python.python",
+        "editor.defaultFormatter": "charliermarsh.ruff",
         "editor.formatOnPaste": false,
         "editor.formatOnType": true,
         "editor.codeActionsOnSave": {
             "source.organizeImports": "explicit"
         }
     },
-    "python.analysis.typeCheckingMode": "off",
+    "python.analysis.typeCheckingMode": "standard",
     "files.exclude": {
         "**/__pycache__": true,
         "**/.pytest_cache": true,
@@ -49,12 +50,12 @@
     "security.workspace.trust.untrustedFiles": "open",
     "editor.inlineSuggest.enabled": true,
     "lldb.library": "/Applications/Xcode.app/Contents/SharedFrameworks/LLDB.framework/Versions/A/LLDB",
-    "workbench.colorTheme": "rainx0r",
     "explorer.sortOrderLexicographicOptions": "unicode",
     "window.restoreWindows": "none",
     "window.commandCenter": false,
     "workbench.layoutControl.enabled": false,
     "editor.bracketPairColorization.enabled": false,
+    "vim.leader": "space",
     "vim.normalModeKeyBindings": [
         {
             "before": [
@@ -177,8 +178,19 @@
             "when": "editorHasImplementationProvider && editorTextFocus"
         }
     ],
+    "vim.useSystemClipboard": true,
     "[jsonc]": {
         "editor.defaultFormatter": "vscode.json-language-features"
-    }
+    },
+    "cSpell.enabledFileTypes": {
+        "*": false,
+        "kagex": true
+    },
+    "github.copilot.enable": {
+        "*": false
+    },
+    "[markdown]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "workbench.colorTheme": "rainx0r"
 }
-
