@@ -10,6 +10,17 @@
         KeyRepeat = 2; # 120, 90, 60, 30, 12, 6, 2
         InitialKeyRepeat = 15; # 120, 94, 68, 35, 25, 15
       };
+      CustomUserPreferences = {
+        "com.microsoft.VSCode" = {
+          ApplePressAndHoldEnabled = false;
+        };
+        "com.microsoft.VSCodeInsiders" = {
+          ApplePressAndHoldEnabled = false;
+        };
+        "com.visualstudio.code.oss" = {
+          ApplePressAndHoldEnabled = false;
+        };
+      };
       dock.persistent-apps = [
         { app = "/System/Cryptexes/App/System/Applications/Safari.app/"; }
         { app = "/Applications/Ghostty.app/"; }
