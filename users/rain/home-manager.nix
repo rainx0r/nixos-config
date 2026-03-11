@@ -299,7 +299,6 @@ in
       source = ./uv;
       recursive = true;
     };
-
   }
   // (
     if isDarwin then
@@ -313,6 +312,8 @@ in
     else
       { }
   );
+
+  home.file.".codex/themes/rainx0r.tmTheme".source = ./codex/themes/rainx0r.tmTheme;
 
   programs.neovim = {
     enable = true;
