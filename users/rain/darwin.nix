@@ -112,6 +112,106 @@
     ];
   };
 
+  services.aerospace = {
+    enable = true;
+    settings = {
+      gaps = {
+        inner.horizontal = 16;
+        inner.vertical = 16;
+        outer.left = 16;
+        outer.bottom = [
+          { monitor.main = 8; }
+          16
+        ];
+        outer.top = 8;
+        outer.right = 16;
+      };
+      on-focus-changed = [ "move-mouse window-lazy-center" ];
+      mode.main.binding = {
+        alt-slash = "layout tiles horizontal vertical";
+        alt-comma = "layout accordion horizontal vertical";
+        alt-h = "focus left";
+        alt-j = "focus down";
+        alt-k = "focus up";
+        alt-l = "focus right";
+        alt-shift-h = "move left";
+        alt-shift-j = "move down";
+        alt-shift-k = "move up";
+        alt-shift-l = "move right";
+        alt-minus = "resize smart -50";
+        alt-equal = "resize smart +50";
+        alt-w = "workspace W"; # Web
+        alt-c = "workspace C"; # Code
+        alt-r = "workspace R"; # Research
+        alt-m = "workspace M"; # Media
+        alt-d = "workspace D"; # Discord
+        alt-shift-w = "move-node-to-workspace W";
+        alt-shift-c = "move-node-to-workspace C";
+        alt-shift-r = "move-node-to-workspace R";
+        alt-shift-m = "move-node-to-workspace M";
+        alt-shift-d = "move-node-to-workspace D";
+        alt-tab = "workspace-back-and-forth";
+        alt-shift-tab = "move-workspace-to-monitor --wrap-around next";
+        alt-shift-semicolon = "mode service";
+      };
+      mode.service.binding = {
+        esc = [
+          "reload-config"
+          "mode main"
+        ];
+        r = [
+          "flatten-workspace-tree"
+          "mode main"
+        ];
+        f = [
+          "layout floating tiling"
+          "mode main"
+        ];
+        backspace = [
+          "close-all-windows-but-current"
+          "mode main"
+        ];
+        alt-shift-h = [
+          "join-with left"
+          "mode main"
+        ];
+        alt-shift-j = [
+          "join-with down"
+          "mode main"
+        ];
+        alt-shift-k = [
+          "join-with up"
+          "mode main"
+        ];
+        alt-shift-l = [
+          "join-with right"
+          "mode main"
+        ];
+      };
+      workspace-to-monitor-force-assignment = {
+        W = [
+          "main"
+          "secondary"
+        ];
+        C = "main";
+        R = "main";
+        D = "secondary";
+        M = [
+          "secondary"
+          "main"
+        ];
+      };
+      on-window-detected = [
+        {
+          "if" = {
+            app-id = "com.mitchellh.ghostty";
+          };
+          run = [ "layout tiling" ];
+        }
+      ];
+    };
+  };
+
   # The user should already exist, but we need to set this up so Nix knows
   # what our home directory is (https://github.com/LnL7/nix-darwin/issues/423).
   users.users.rain = {

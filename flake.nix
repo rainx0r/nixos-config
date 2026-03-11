@@ -45,6 +45,7 @@
           in
           {
             codex = inputs.llm-agents.packages.${prev.stdenv.hostPlatform.system}.codex;
+            claude-code = pkgs-master.claude-code;
             opencode = pkgs-master.opencode;
             # TODO: re-enable if ty gets good / delete when it gets stable
             # ty = pkgs-master.ty;

@@ -3,10 +3,12 @@ function tmux-sessionizer {
     github_repos="$HOME/Repositories/github.com"
     experiments="$HOME/Experiments"
     selected=$(
-    	(find $github_repos -type d -mindepth 2 -maxdepth 2
-	 find $experiments -type d -mindepth 1 -maxdepth 1) \
-        | sed "s|$github_repos|github|g" | sed "s|$experiments|experiments|g"\
-        | fzf --margin 5% --tmux 80% --reverse --border --border-label "Go to project"
+        (
+            find $github_repos -type d -mindepth 2 -maxdepth 2
+            find $experiments -type d -mindepth 1 -maxdepth 1
+        ) |
+            sed "s|$github_repos|github|g" | sed "s|$experiments|experiments|g" |
+            fzf --padding 1 --tmux center,100%,100% --reverse --border --border-label "Go to project"
     )
 
     if [[ -z $selected ]]; then
@@ -19,7 +21,7 @@ function tmux-sessionizer {
     selected_name=$(basename "$selected" | tr . _)
     tmux_running=$(pgrep tmux)
 
-    if  [[ -z $tmux_running ]] || ! tmux has-session -t=$selected_name 2> /dev/null; then
+    if [[ -z $tmux_running ]] || ! tmux has-session -t=$selected_name 2>/dev/null; then
         tmux new-session -ds $selected_name -c $selected
     fi
 
@@ -35,4 +37,3 @@ function tmux-sessionizer {
 }
 autoload -U tmux-sessionizer
 zle -N tmux-sessionizer
-
