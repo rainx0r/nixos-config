@@ -143,13 +143,19 @@
         alt-w = "workspace W"; # Web
         alt-c = "workspace C"; # Code
         alt-r = "workspace R"; # Research
+        alt-t = "workspace T"; # Tasks
         alt-m = "workspace M"; # Media
-        alt-d = "workspace D"; # Discord
+        alt-n = "workspace N"; # Notes
+        alt-d = "workspace D"; # Dicord / Comms
+        alt-g = "workspace G"; # Games
         alt-shift-w = "move-node-to-workspace W";
         alt-shift-c = "move-node-to-workspace C";
         alt-shift-r = "move-node-to-workspace R";
+        alt-shift-t = "move-node-to-workspace T";
         alt-shift-m = "move-node-to-workspace M";
+        alt-shift-n = "move-node-to-workspace N";
         alt-shift-d = "move-node-to-workspace D";
+        alt-shift-g = "move-node-to-workspace G";
         alt-tab = "workspace-back-and-forth";
         alt-shift-tab = "move-workspace-to-monitor --wrap-around next";
         alt-shift-semicolon = "mode service";
@@ -207,6 +213,114 @@
             app-id = "com.mitchellh.ghostty";
           };
           run = [ "layout tiling" ];
+        }
+        {
+          "if" = {
+            app-id = "com.hnc.Discord";
+          };
+          run = [ "move-node-to-workspace D" ];
+        }
+        {
+          "if" = {
+            app-id = "com.openai.chat";
+          };
+          run = [ "move-node-to-workspace D" ];
+        }
+        {
+          "if" = {
+            app-id = "com.apple.Music";
+          };
+          run = [ "move-node-to-workspace M" ];
+        }
+        {
+          "if" = {
+            app-id = "com.apple.Safari";
+          };
+          run = [ "move-node-to-workspace W" ];
+        }
+        {
+          "if" = {
+            app-id = "com.apple.mail";
+          };
+          run = [ "move-node-to-workspace D" ];
+        }
+        {
+          "if" = {
+            app-id = "com.microsoft.teams2";
+          };
+          run = [ "move-node-to-workspace D" ];
+        }
+        {
+          "if" = {
+            app-id = "com.apple.iCal";
+          };
+          run = [ "move-node-to-workspace T" ];
+        }
+        {
+          "if" = {
+            app-id = "com.linear";
+          };
+          run = [ "move-node-to-workspace T" ];
+        }
+        {
+          "if" = {
+            app-id = "com.culturedcode.ThingsMac";
+          };
+          run = [ "move-node-to-workspace T" ];
+        }
+        {
+          "if" = {
+            app-id = "com.zed.Zed";
+          };
+          run = [ "move-node-to-workspace C" ];
+        }
+        {
+          "if" = {
+            app-id = "com.openai.codex";
+          };
+          run = [ "move-node-to-workspace C" ];
+        }
+        {
+          "if" = {
+            app-id = "ai.opencode.desktop";
+          };
+          run = [ "move-node-to-workspace C" ];
+        }
+        {
+          "if" = {
+            app-id = "org.zotero.zotero";
+          };
+          run = [ "move-node-to-workspace R" ];
+        }
+        {
+          "if" = {
+            app-id = "notion.id";
+          };
+          run = [ "move-node-to-workspace N" ];
+        }
+        {
+          "if" = {
+            app-id = "md.obsidian";
+          };
+          run = [ "move-node-to-workspace N" ];
+        }
+        {
+          "if" = {
+            app-id = "com.valvesoftware.steam";
+          };
+          run = [ "move-node-to-workspace G" ];
+        }
+        {
+          "if" = {
+            app-id = "net.battle.app";
+          };
+          run = [ "move-node-to-workspace G" ];
+        }
+        {
+          "if" = {
+            app-id = "com.overwolf.curseforge";
+          };
+          run = [ "move-node-to-workspace G" ];
         }
       ];
     };
