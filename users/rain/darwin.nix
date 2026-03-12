@@ -212,7 +212,16 @@
           "if" = {
             app-id = "com.mitchellh.ghostty";
           };
-          run = [ "layout tiling" ];
+          run = [
+            "layout floating"
+            "move-node-to-workspace C"
+          ];
+        }
+        {
+          "if" = {
+            app-id = "com.apple.Passwords";
+          };
+          run = [ "layout floating" ];
         }
         {
           "if" = {
