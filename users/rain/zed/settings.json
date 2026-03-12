@@ -33,7 +33,6 @@
                 }
             },
             "language_servers": [
-                "basedpyright",
                 "ty",
                 "ruff"
             ]
