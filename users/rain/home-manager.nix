@@ -328,7 +328,6 @@ in
       nixd
       nixfmt
       ty
-      pyright
       ruff
       taplo
       rust-analyzer
