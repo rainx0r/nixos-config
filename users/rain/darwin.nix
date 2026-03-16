@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, pkgs-unstable, ... }:
 
 {
   system = {
@@ -24,7 +24,7 @@
       dock.persistent-apps = [
         { app = "/System/Cryptexes/App/System/Applications/Safari.app/"; }
         { app = "/Applications/Ghostty.app/"; }
-        { app = "${pkgs.zed-editor}/Applications/Zed.app/"; }
+        { app = "${pkgs-unstable.zed-editor}/Applications/Zed.app/"; }
         { app = "/Applications/Zotero.app/"; }
         { app = "/Applications/Things3.app/"; }
         { app = "/System/Applications/Calendar.app/"; }
