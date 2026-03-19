@@ -1,5 +1,9 @@
 { pkgs, currentSystemUser, ... }:
 
+let
+  sshPort = 4089;
+in
+
 {
   imports = [ ];
 
@@ -50,17 +54,24 @@
   networking.networkmanager.enable = true;
   networking.firewall = {
     enable = true;
-    allowedTCPPorts = [ 4088 ];
+    allowedTCPPorts = [ sshPort ];
   };
 
   ## SSH Server
   services.openssh = {
     enable = true;
-    ports = [ 4088 ];
+    ports = [ sshPort ];
     settings = {
       PasswordAuthentication = false;
       PermitRootLogin = "no";
       AllowUsers = [ "rain" ];
+      Macs = [
+        "hmac-sha2-512-etm@openssh.com"
+        "hmac-sha2-256-etm@openssh.com"
+        "umac-128-etm@openssh.com"
+        "hmac-sha2-256"
+        "hmac-sha2-512"
+      ];
     };
   };
   services.fail2ban.enable = true;
