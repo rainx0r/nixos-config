@@ -69,7 +69,7 @@ in
   home.activation = lib.mkIf isDarwin {
     linkZedIntoApplications = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
       mkdir -p "$HOME/Applications"
-      ln -sfn "${pkgs.zed-editor}/Applications/Zed.app" "$HOME/Applications/Zed.app"
+      ln -sfn "${pkgs-unstable.zed-editor}/Applications/Zed.app" "$HOME/Applications/Zed.app"
     '';
   };
 

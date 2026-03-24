@@ -79,5 +79,10 @@
         user = "rain";
         darwin = true;
       };
+      darwinConfigurations.mac-mini = mkSystem "mac-mini" {
+        system = "aarch64-darwin";
+        user = "rain";
+        darwin = true;
+      };
     };
 }
