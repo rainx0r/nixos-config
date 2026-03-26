@@ -16,3 +16,5 @@ mouse-hide-while-typing = true
 
 keybind = super+x=close_surface
 keybind = global:alt+shift+grave_accent=toggle_quick_terminal
+
+clipboard-paste-protection = false
