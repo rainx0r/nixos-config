@@ -48,6 +48,7 @@ in
       lsd
       ripgrep
       fastfetch
+      rsync
 
       # typesetting
       pkgs-unstable.typst
