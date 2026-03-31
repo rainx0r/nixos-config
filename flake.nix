@@ -46,9 +46,8 @@
           {
             # codex = inputs.llm-agents.packages.${prev.stdenv.hostPlatform.system}.codex;
             codex = pkgs-master.codex;
-            claude-code = pkgs-master.claude-code;
-            opencode = pkgs-master.opencode;
             ty = pkgs-master.ty;
+            pi-coding-agent = pkgs-master.pi-coding-agent;
           }
         )
       ];

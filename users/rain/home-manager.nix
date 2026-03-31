@@ -54,10 +54,8 @@ in
       pkgs-unstable.typst
 
       # llm clis
-      pkgs-unstable.claude-code
       pkgs-unstable.codex
-      pkgs-unstable.gemini-cli
-      pkgs-unstable.opencode
+      pkgs-unstable.pi-coding-agent
     ]
     ++ (lib.optionals isDarwin [
       cmake
