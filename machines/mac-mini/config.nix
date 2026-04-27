@@ -52,6 +52,9 @@
 
     # Restart after power failure
     /usr/bin/pmset -a autorestart 1
+
+    # Don't spin disks down aggressively
+    /usr/bin/pmset -a disksleep 0
   '';
 
   system.defaults.SoftwareUpdate = {
