@@ -94,7 +94,7 @@
       "zotero"
       "ghostty"
       "mullvad-vpn"
-      "linear-linear"
+      "linear"
       "obs"
       "obsidian"
       "notion"
