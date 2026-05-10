@@ -12,4 +12,7 @@
     bashInteractive
     zsh
   ];
+  environment.systemPackages = with pkgs; [
+    mosh
+  ];
 }
