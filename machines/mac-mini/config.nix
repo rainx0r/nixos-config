@@ -10,6 +10,9 @@
     bashInteractive
     zsh
   ];
+  environment.systemPackages = with pkgs; [
+    mosh
+  ];
 
   networking.hostName = "mac-mini";
   services.openssh = {
