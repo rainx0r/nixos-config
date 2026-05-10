@@ -13,6 +13,7 @@
   environment.systemPackages = with pkgs; [
     mosh
   ];
+  services.tailscale.enable = true;
 
   networking.hostName = "mac-mini";
   services.openssh = {
