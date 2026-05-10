@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, pkgs-unstable, ... }:
 
 {
   system.stateVersion = 5;
@@ -13,7 +13,10 @@
   environment.systemPackages = with pkgs; [
     mosh
   ];
-  services.tailscale.enable = true;
+  services.tailscale = {
+    enable = true;
+    package = pkgs-unstable.tailscale;
+  };
 
   networking.hostName = "mac-mini";
   services.openssh = {
