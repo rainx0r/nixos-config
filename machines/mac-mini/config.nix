@@ -14,23 +14,15 @@
   networking.hostName = "mac-mini";
   services.openssh = {
     enable = true;
-    # TODO: rewrite this for nix darwin
-    #
-    # settings = {
-    #   PasswordAuthentication = false;
-    #   KbdInteractiveAuthentication = false;
-    #   PermitRootLogin = "no";
-    #   X11Forwarding = false;
-    #
-    #   AllowUsers = [ "rain" ];
-    #   Macs = [
-    #     "hmac-sha2-512-etm@openssh.com"
-    #     "hmac-sha2-256-etm@openssh.com"
-    #     "umac-128-etm@openssh.com"
-    #     "hmac-sha2-256"
-    #     "hmac-sha2-512"
-    #   ];
-    # };
+    extraConfig = ''
+      PasswordAuthentication no
+      KbdInteractiveAuthentication no
+      PermitRootLogin no
+      X11Forwarding no
+
+      AllowUsers rain
+      MACs hmac-sha2-512-etm@openssh.com,hmac-sha2-256-etm@openssh.com,umac-128-etm@openssh.com,hmac-sha2-256,hmac-sha2-512
+    '';
   };
 
   power.restartAfterPowerFailure = true;
@@ -60,4 +52,8 @@
   system.defaults.SoftwareUpdate = {
     AutomaticallyInstallMacOSUpdates = false;
   };
+
+  users.users.rain.openssh.authorizedKeys.keys = [
+    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHRHH7u+Q8iK3E/jYz97Nmb8w8rI4g8O0D9KX6EW4ACC rain@macbook"
+  ];
 }
