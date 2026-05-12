@@ -20,6 +20,9 @@
         "com.visualstudio.code.oss" = {
           ApplePressAndHoldEnabled = false;
         };
+        "md.obsidian" = {
+          ApplePressAndHoldEnabled = false;
+        };
       };
       dock.persistent-apps = [
         { app = "/System/Cryptexes/App/System/Applications/Safari.app/"; }
