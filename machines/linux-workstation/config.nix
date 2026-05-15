@@ -96,6 +96,7 @@ in
     enable = true;
     autoPrune.enable = true;
     storageDriver = "btrfs";
+    package = pkgs.docker_25;
     daemon.settings = {
       userland-proxy = false;
     };
