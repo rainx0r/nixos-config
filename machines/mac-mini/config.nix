@@ -13,6 +13,10 @@
   environment.systemPackages = with pkgs; [
     mosh
   ];
+  homebrew.casks = [
+    "plex-media-server"
+  ];
+
   services.tailscale = {
     enable = true;
     package = pkgs-unstable.tailscale;
