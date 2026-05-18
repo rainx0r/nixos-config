@@ -120,6 +120,10 @@ in
     enable = true;
     allowedTCPPorts = [ sshPort ];
   };
+  services.tailscale = {
+    enable = true;
+    package = pkgs-unstable.tailscale;
+  };
 
   ## SSH Server
   services.openssh = {
