@@ -41,8 +41,19 @@
   power.restartAfterFreeze = true;
 
   system.defaults.loginwindow = {
-    autoLoginUser = null;
+    autoLoginUser = "rain";
     SleepDisabled = true;
+  };
+  system.defaults.screensaver = {
+    askForPassword = true;
+    askForPasswordDelay = 0;
+  };
+  launchd.user.agents.lockAfterAutologin = {
+    script = ''
+      /bin/sleep 30
+      "/System/Library/CoreServices/Menu Extras/User.menu/Contents/Resources/CGSession" -suspend
+    '';
+    serviceConfig.RunAtLoad = true;
   };
   system.activationScripts.serverPower.text = ''
     # Never sleep automatically
