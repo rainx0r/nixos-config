@@ -240,6 +240,12 @@
         }
         {
           "if" = {
+            app-id = "com.tinyspeck.slackmacgap";
+          };
+          run = [ "move-node-to-workspace D" ];
+        }
+        {
+          "if" = {
             app-id = "com.apple.Music";
           };
           run = [ "move-node-to-workspace M" ];
