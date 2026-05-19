@@ -86,6 +86,10 @@ in
     JAX_COMPILATION_CACHE_DIR = "${config.home.homeDirectory}/.cache/jax";
   };
 
+  home.sessionPath = [
+    "${config.home.homeDirectory}/.local/bin"
+  ];
+
   programs.zsh = {
     enable = true;
     enableCompletion = true;
