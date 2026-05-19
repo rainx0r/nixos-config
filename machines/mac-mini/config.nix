@@ -15,7 +15,6 @@
   ];
   homebrew.casks = [
     "plex-media-server"
-    "orbstack"
   ];
 
   services.tailscale = {

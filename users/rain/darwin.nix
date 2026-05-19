@@ -46,7 +46,6 @@
     onActivation.autoUpdate = true;
     onActivation.upgrade = true;
     brews = [
-      "docker"
       "mas"
       "ghidra"
     ];
@@ -84,6 +83,7 @@
       "Tailscale" = 1475387142;
     };
     casks = [
+      "orbstack"
       "karabiner-elements"
       "iina"
       "stolendata-mpv"
