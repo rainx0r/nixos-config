@@ -17,4 +17,19 @@ mouse-hide-while-typing = true
 keybind = super+x=close_surface
 keybind = global:alt+shift+grave_accent=toggle_quick_terminal
 
+keybind = super+shift+h=goto_split:left
+keybind = super+shift+j=goto_split:down
+keybind = super+shift+k=goto_split:up
+keybind = super+shift+l=goto_split:right
+
+keybind = super+ctrl+h=new_split:left
+keybind = super+ctrl+j=new_split:down
+keybind = super+ctrl+k=new_split:up
+keybind = super+ctrl+l=new_split:right
+
+keybind = super+alt+arrow_left=unbind
+keybind = super+alt+arrow_down=unbind
+keybind = super+alt+arrow_up=unbind
+keybind = super+alt+arrow_right=unbind
+
 clipboard-paste-protection = false
