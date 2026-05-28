@@ -45,6 +45,9 @@
     onActivation.cleanup = "zap";
     onActivation.autoUpdate = true;
     onActivation.upgrade = true;
+    taps = [
+      "lzt1008/powerflow"
+    ];
     brews = [
       "mas"
       "ghidra"
@@ -112,6 +115,8 @@
       "google-chrome"
       "microsoft-teams"
       "transmission"
+      # utils
+      "powerflow"
     ];
   };
 
@@ -146,6 +151,7 @@
         alt-w = "workspace W"; # Web
         alt-c = "workspace C"; # Code
         alt-r = "workspace R"; # Research
+        alt-f = "workspace F"; # Design
         alt-t = "workspace T"; # Tasks
         alt-m = "workspace M"; # Media
         alt-n = "workspace N"; # Notes
@@ -154,6 +160,7 @@
         alt-shift-w = "move-node-to-workspace W";
         alt-shift-c = "move-node-to-workspace C";
         alt-shift-r = "move-node-to-workspace R";
+        alt-shift-f = "move-node-to-workspace F";
         alt-shift-t = "move-node-to-workspace T";
         alt-shift-m = "move-node-to-workspace M";
         alt-shift-n = "move-node-to-workspace N";
@@ -204,11 +211,21 @@
         ];
         C = "main";
         R = "main";
+        T = "main";
+        F = [
+          "main"
+          "secondary"
+        ];
         D = "secondary";
         M = [
           "secondary"
           "main"
         ];
+        N = [
+          "main"
+          "secondary"
+        ];
+        G = "main";
       };
       on-window-detected = [
         {
@@ -321,6 +338,12 @@
             app-id = "md.obsidian";
           };
           run = [ "move-node-to-workspace N" ];
+        }
+        {
+          "if" = {
+            app-id = "com.figma.Desktop";
+          };
+          run = [ "move-node-to-workspace F" ];
         }
         {
           "if" = {
