@@ -48,6 +48,7 @@
     onActivation.cleanup = "zap";
     onActivation.autoUpdate = true;
     onActivation.upgrade = true;
+    onActivation.extraFlags = [ "--force-cleanup" ];
     taps = [
       "lzt1008/powerflow"
     ];

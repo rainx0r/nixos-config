@@ -55,7 +55,6 @@ in
 
       # llm clis
       pkgs-unstable.codex
-      pkgs-unstable.pi-coding-agent
     ]
     ++ (lib.optionals isDarwin [
       cmake
