@@ -32,4 +32,7 @@ keybind = super+alt+arrow_down=unbind
 keybind = super+alt+arrow_up=unbind
 keybind = super+alt+arrow_right=unbind
 
+copy-on-select = clipboard
+clipboard-read = allow
+clipboard-write = allow
 clipboard-paste-protection = false

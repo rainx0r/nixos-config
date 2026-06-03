@@ -252,6 +252,8 @@ in
       set-option -g repeat-time 1000
       set -g extended-keys on
 
+      set -g allow-passthrough on
+
       bind '"' split-window -v -c "#{pane_current_path}"
       bind % split-window -h -c "#{pane_current_path}"
       bind g run-shell "zsh -c 'source ${config.xdg.configHome}/zsh/widgets.zsh ; tmux-sessionizer'"
@@ -302,15 +304,15 @@ in
       source = ./uv;
       recursive = true;
     };
+    "ghostty" = {
+      source = ./ghostty;
+      recursive = true;
+    };
   }
   // (
     if isDarwin then
       {
         "karabiner/karabiner.json".source = ./karabiner/karabiner.json;
-        "ghostty" = {
-          source = ./ghostty;
-          recursive = true;
-        };
       }
     else
       { }
