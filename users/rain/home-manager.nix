@@ -251,6 +251,7 @@ in
       set-option -g repeat-time 1000
       set -g extended-keys on
 
+      set-option -s set-clipboard on
       set -g allow-passthrough on
 
       bind '"' split-window -v -c "#{pane_current_path}"
@@ -325,6 +326,8 @@ in
     defaultEditor = true;
     viAlias = true;
     vimAlias = true;
+    withPython3 = false;
+    withRuby = false;
     extraPackages = with pkgs-unstable; [
       # lsps
       lua-language-server

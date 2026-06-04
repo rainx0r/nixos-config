@@ -51,7 +51,6 @@ in
         resolution = "2560x1440";
         helpHidden = true;
         branding = "rainx0r's workstation";
-        brandingColor = 6;
       };
     };
   };
