@@ -51,7 +51,9 @@ in
 
   ### Networking
   networking.hostName = "linux-workstation";
-  networking.networkmanager.enable = true;
+  # WSL networking is provided by Windows/WSL. Enabling NetworkManager also
+  # enables wpa_supplicant, which fails to activate under WSL's systemd.
+  networking.networkmanager.enable = false;
   networking.firewall = {
     enable = true;
     allowedTCPPorts = [ sshPort ];

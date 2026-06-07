@@ -1,4 +1,9 @@
-{ pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 
 {
   programs.zsh.enable = true;
@@ -15,11 +20,12 @@
   users.users.rain = {
     isNormalUser = true;
     home = "/home/rain";
-    extraGroups = [
-      "wheel"
-      "docker"
-      "networkmanager"
-    ];
+    extraGroups =
+      [
+        "wheel"
+      ]
+      ++ lib.optional config.virtualisation.docker.enable "docker"
+      ++ lib.optional config.networking.networkmanager.enable "networkmanager";
     shell = pkgs.zsh;
   };
 }
