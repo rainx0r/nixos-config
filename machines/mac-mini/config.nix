@@ -16,6 +16,9 @@
   homebrew.casks = [
     "plex-media-server"
   ];
+  homebrew.masApps = {
+    "Amphetamine" = 937984704;
+  };
 
   services.tailscale = {
     enable = true;
