@@ -1,4 +1,10 @@
-{ pkgs, pkgs-unstable, ... }:
+{
+  pkgs,
+  pkgs-unstable,
+  config,
+  lib,
+  ...
+}:
 
 {
   system = {
@@ -377,4 +383,13 @@
     home = "/Users/rain";
     shell = pkgs.zsh;
   };
+
+  # HACK: remove once PR #1789 lands and switch
+  # the lzt1008/powerflow brew entry to `{ name = "lzt1008/powerflow"; trusted = true; }`.
+  system.activationScripts.preActivation.text = lib.mkAfter ''
+    if [ -x ${config.homebrew.prefix}/bin/brew ]; then
+      sudo --user=rain --set-home \
+        ${config.homebrew.prefix}/bin/brew trust --tap lzt1008/powerflow >/dev/null 2>&1 || true
+    fi
+  '';
 }
