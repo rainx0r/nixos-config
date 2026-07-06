@@ -78,8 +78,8 @@
       # Safari extensions
       "SponsorBlock for Safari" = 1573461917;
       "Userscripts" = 1463298887;
-      "Wipr" = 1320666476;
       "Vimlike" = 1584519802;
+      "uBlock Origin Lite" = 6745342698;
       # Music
       "Logic Pro" = 634148309;
       "forScore" = 363738376;
@@ -127,6 +127,7 @@
       "transmission"
       # utils
       "powerflow"
+      "blackhole-2ch"
     ];
   };
 
@@ -167,6 +168,7 @@
         alt-n = "workspace N"; # Notes
         alt-d = "workspace D"; # Dicord / Comms
         alt-g = "workspace G"; # Games
+        alt-i = "workspace I"; # iPad
         alt-shift-w = "move-node-to-workspace W";
         alt-shift-c = "move-node-to-workspace C";
         alt-shift-r = "move-node-to-workspace R";
@@ -176,6 +178,7 @@
         alt-shift-n = "move-node-to-workspace N";
         alt-shift-d = "move-node-to-workspace D";
         alt-shift-g = "move-node-to-workspace G";
+        alt-shift-i = "move-node-to-workspace I";
         alt-tab = "workspace-back-and-forth";
         alt-shift-tab = "move-workspace-to-monitor --wrap-around next";
         alt-shift-semicolon = "mode service";
@@ -215,10 +218,7 @@
         ];
       };
       workspace-to-monitor-force-assignment = {
-        W = [
-          "main"
-          "secondary"
-        ];
+        W = "main";
         C = "main";
         R = "main";
         T = "main";
@@ -226,16 +226,22 @@
           "main"
           "secondary"
         ];
-        D = "secondary";
+        D = [
+          "secondary"
+          "built-in.*"
+        ];
         M = [
           "secondary"
+          "sidecar.*"
           "main"
         ];
         N = [
           "main"
           "secondary"
+          "built-in.*"
         ];
         G = "main";
+        I = "sidecar.*";
       };
       on-window-detected = [
         {
