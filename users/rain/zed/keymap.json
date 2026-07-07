@@ -18,7 +18,7 @@
       "space s f": "file_finder::Toggle",
       "space space": "tab_switcher::ToggleAll",
       "space w s": "project_symbols::Toggle",
-      "space s g": "workspace::NewSearch",
+      "space s g": "text_finder::Toggle",
       "space l g": "git_panel::ToggleFocus",
       "space t h": "editor::ToggleInlayHints",
       "space c a": "editor::ToggleCodeActions"
@@ -27,8 +27,14 @@
   {
     "context": "Editor && vim_mode == visual",
     "bindings": {
-      "<": ["workspace::SendKeystrokes", "< g v"],
-      ">": ["workspace::SendKeystrokes", "> g v"]
+      "<": [
+        "workspace::SendKeystrokes",
+        "< g v"
+      ],
+      ">": [
+        "workspace::SendKeystrokes",
+        "> g v"
+      ]
     }
   },
   {
