@@ -1,9 +1,31 @@
 {
+    "edit_predictions": {
+        "provider": "zed"
+    },
+    "project_panel": {
+        "dock": "left"
+    },
+    "outline_panel": {
+        "dock": "left"
+    },
+    "collaboration_panel": {
+        "dock": "left"
+    },
+    "agent": {
+        "dock": "right",
+        "favorite_models": [],
+        "model_parameters": []
+    },
+    "git_panel": {
+        "dock": "left"
+    },
+    "auto_install_extensions": {
+        "html": true,
+        "nix": true,
+        "toml": true
+    },
     "base_keymap": "VSCode",
     "buffer_font_size": 16,
-    "features": {
-        "edit_prediction_provider": "zed"
-    },
     "file_scan_exclusions": [
         "**/__pycache__",
         "**/.DS_Store",
@@ -27,15 +49,15 @@
             "code_actions_on_format": {
                 "source.organizeImports.ruff": true
             },
+            "language_servers": [
+                "ty",
+                "ruff"
+            ],
             "formatter": {
                 "language_server": {
                     "name": "ruff"
                 }
-            },
-            "language_servers": [
-                "ty",
-                "ruff"
-            ]
+            }
         }
     },
     "lsp": {
@@ -59,14 +81,17 @@
     "ssh_connections": [
         {
             "host": "workstation",
+            "args": [],
             "projects": []
         },
         {
             "host": "workstation-remote",
+            "args": [],
             "projects": []
         }
     ],
     "terminal": {
+        "dock": "bottom",
         "blinking": "on",
         "font_size": 14,
         "line_height": {
