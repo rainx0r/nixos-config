@@ -1,15 +1,20 @@
 {
+    "proxy": "",
+    "minimap": {
+        "show": "auto"
+    },
     "edit_predictions": {
         "provider": "zed"
     },
     "project_panel": {
-        "dock": "left"
+        "dock": "right"
     },
     "outline_panel": {
-        "dock": "left"
+        "dock": "right"
     },
     "collaboration_panel": {
-        "dock": "left"
+        "button": false,
+        "dock": "right"
     },
     "agent": {
         "dock": "right",
@@ -17,7 +22,7 @@
         "model_parameters": []
     },
     "git_panel": {
-        "dock": "left"
+        "dock": "right"
     },
     "auto_install_extensions": {
         "html": true,
@@ -80,13 +85,13 @@
     "soft_wrap": "editor_width",
     "ssh_connections": [
         {
-            "host": "workstation",
             "args": [],
+            "host": "workstation",
             "projects": []
         },
         {
-            "host": "workstation-remote",
             "args": [],
+            "host": "workstation-remote",
             "projects": []
         }
     ],
