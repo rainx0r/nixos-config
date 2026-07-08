@@ -1,15 +1,43 @@
 {
+    "debugger": {
+        "button": false
+    },
+    "status_bar": {
+        "line_endings_button": false,
+        "show_active_file": false,
+        "cursor_position_button": true,
+        "active_language_button": false
+    },
+    "diagnostics": {
+        "button": true
+    },
+    "search": {
+        "button": false
+    },
+    "tab_bar": {
+        "show": false
+    },
+    "title_bar": {
+        "show_user_menu": false
+    },
+    "toolbar": {
+        "quick_actions": false
+    },
     "proxy": "",
     "minimap": {
-        "show": "auto"
+        "show": "never"
     },
     "edit_predictions": {
         "provider": "zed"
     },
     "project_panel": {
-        "dock": "right"
+        "button": false,
+        "hide_root": true,
+        "dock": "right",
+        "starts_open": false
     },
     "outline_panel": {
+        "button": false,
         "dock": "right"
     },
     "collaboration_panel": {
@@ -17,11 +45,13 @@
         "dock": "right"
     },
     "agent": {
+        "button": false,
         "dock": "right",
         "favorite_models": [],
         "model_parameters": []
     },
     "git_panel": {
+        "button": false,
         "dock": "right"
     },
     "auto_install_extensions": {
@@ -96,6 +126,7 @@
         }
     ],
     "terminal": {
+        "button": false,
         "dock": "bottom",
         "blinking": "on",
         "font_size": 14,
