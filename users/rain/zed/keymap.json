@@ -49,5 +49,14 @@
     "bindings": {
       "q": "workspace::CloseActiveDock"
     }
+  },
+  {
+    "context": "GitPanel && ChangesList && !GitBranchSelector",
+    "bindings": {
+      "p": "git::Pull",
+      "shift-p": "git::Push",
+      "c": "git::Commit",
+      "shift-a": "git::Amend"
+    }
   }
 ]
