@@ -22,7 +22,11 @@
       "space l g": "git_panel::ToggleFocus",
       "space e d": "project_panel::ToggleFocus",
       "space t h": "editor::ToggleInlayHints",
-      "space c a": "editor::ToggleCodeActions"
+      "space c a": "editor::ToggleCodeActions",
+      "space e h": "pane::SplitLeft",
+      "space e j": "pane::SplitDown",
+      "space e k": "pane::SplitUp",
+      "space e l": "pane::SplitRight"
     }
   },
   {
