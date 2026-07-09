@@ -34,12 +34,11 @@
         { app = "/System/Cryptexes/App/System/Applications/Safari.app/"; }
         { app = "/Applications/Ghostty.app/"; }
         { app = "${pkgs-unstable.zed-editor}/Applications/Zed.app/"; }
-        { app = "/Applications/Codex.app/"; }
+        { app = "/Applications/ChatGPT.app/"; }
         { app = "/Applications/Zotero.app/"; }
         { app = "/Applications/Obsidian.app/"; }
         { app = "/Applications/Things3.app/"; }
         { app = "/System/Applications/Calendar.app/"; }
-        { app = "/Applications/ChatGPT.app/"; }
         { app = "/Applications/Linear.app/"; }
         { app = "/Applications/Discord.app/"; }
         { app = "/Applications/Slack.app/"; }
