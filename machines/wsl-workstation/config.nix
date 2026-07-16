@@ -80,4 +80,17 @@ in
   users.users.rain.openssh.authorizedKeys.keys = [
     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHRHH7u+Q8iK3E/jYz97Nmb8w8rI4g8O0D9KX6EW4ACC rain@macbook"
   ];
+
+  # WSL Hacks
+  ## systemd instance for user
+  users.users.rain = {
+    linger = true;
+  };
+
+  ## bash for codex desktop
+  programs.bash.enable = true;
+  systemd.tmpfiles.rules = [
+    "d /usr/bin 0755 root root -"
+    "L+ /usr/bin/bash - - - - ${pkgs.bash}/bin/bash"
+  ];
 }
