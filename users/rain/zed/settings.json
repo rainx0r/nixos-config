@@ -23,6 +23,7 @@
     "toolbar": {
         "quick_actions": false
     },
+    "restore_on_startup": "last_session",
     "proxy": "",
     "minimap": {
         "show": "never"
@@ -34,7 +35,7 @@
         "button": false,
         "hide_root": true,
         "dock": "right",
-        "starts_open": false
+        "starts_open": true
     },
     "outline_panel": {
         "button": false,

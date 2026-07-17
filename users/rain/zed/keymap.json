@@ -30,6 +30,17 @@
     }
   },
   {
+    "context": "EmptyPane && !menu",
+    "bindings": {
+      "space s f": "file_finder::Toggle",
+      "space space": "tab_switcher::ToggleAll",
+      "space w s": "project_symbols::Toggle",
+      "space s g": "text_finder::Toggle",
+      "space l g": "git_panel::ToggleFocus",
+      "space e d": "project_panel::ToggleFocus"
+    }
+  },
+  {
     "context": "Editor && vim_mode == visual",
     "bindings": {
       "<": [
