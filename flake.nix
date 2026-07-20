@@ -53,6 +53,7 @@
             };
           in
           {
+            clifton = final.callPackage ./packages/clifton/package.nix { };
             codex = inputs.llm-agents.packages.${prev.stdenv.hostPlatform.system}.codex;
             ty = pkgs-master.ty;
           }

@@ -55,6 +55,9 @@ in
 
       # llm clis
       pkgs-unstable.codex
+
+      # mlops
+      clifton
     ]
     ++ (lib.optionals isDarwin [
       cmake
