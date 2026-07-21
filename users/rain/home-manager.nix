@@ -322,6 +322,7 @@ in
   );
 
   home.file.".codex/themes/rainx0r.tmTheme".source = ./codex/themes/rainx0r.tmTheme;
+  home.file.".sky/config.yaml".source = ./sky/config.yaml;
 
   programs.neovim = {
     enable = true;

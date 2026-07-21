@@ -1,0 +1,5 @@
+slurm:
+  cluster_configs:
+    isambard-aip2:
+      gpu_partition_map:
+        GH200: workq
