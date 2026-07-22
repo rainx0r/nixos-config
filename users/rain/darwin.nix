@@ -320,7 +320,7 @@
         }
         {
           "if" = {
-            app-id = "com.zed.Zed";
+            app-id = "dev.zed.Zed";
           };
           run = [ "move-node-to-workspace C" ];
         }
