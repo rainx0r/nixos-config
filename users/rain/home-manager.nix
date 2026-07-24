@@ -61,6 +61,7 @@ in
     ]
     ++ (lib.optionals isDarwin [
       cmake
+      pkgs-unstable.obsidian
     ]);
 
   targets.darwin = lib.mkIf isDarwin {
