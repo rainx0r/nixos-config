@@ -118,6 +118,7 @@
       "plex"
       "steam"
       "battle-net"
+      "anki"
       # browsers
       "firefox"
       "google-chrome"
