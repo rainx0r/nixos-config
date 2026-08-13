@@ -55,6 +55,7 @@ in
 
       # llm clis
       pkgs-unstable.codex
+      poppler-utils # codex pdf utils
 
       # mlops
       clifton
