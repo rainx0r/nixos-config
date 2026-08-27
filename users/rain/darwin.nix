@@ -266,6 +266,12 @@
         }
         {
           "if" = {
+            app-id = "com.anysphere.sand";
+          };
+          run = [ "move-node-to-workspace D" ];
+        }
+        {
+          "if" = {
             app-id = "com.openai.chat";
           };
           run = [ "move-node-to-workspace D" ];
