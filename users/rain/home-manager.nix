@@ -345,7 +345,6 @@ in
       ruff
       taplo
       rust-analyzer
-      haskell-language-server
       zls
       markdownlint-cli
       clang-tools
