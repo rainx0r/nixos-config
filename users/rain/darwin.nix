@@ -36,11 +36,9 @@
         { app = "${pkgs-unstable.zed-editor}/Applications/Zed.app/"; }
         { app = "/Applications/ChatGPT.app/"; }
         { app = "/Applications/Zotero.app/"; }
-        { app = "${pkgs-unstable.obsidian}/Applications/Obsidian.app/"; }
         { app = "/Applications/Notion.app/"; }
         { app = "/Applications/Things3.app/"; }
         { app = "/System/Applications/Calendar.app/"; }
-        { app = "/Applications/Linear.app/"; }
         { app = "/Applications/Discord.app/"; }
         { app = "/Applications/Slack.app/"; }
         { app = "/System/Applications/Mail.app/"; }
