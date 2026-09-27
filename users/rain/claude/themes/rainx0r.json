@@ -1,0 +1,56 @@
+{
+  "name": "rainx0r",
+  "base": "dark",
+  "overrides": {
+    "text": "#F8FBFC",
+    "inverseText": "#020304",
+    "inactive": "#9DB4BB",
+    "inactiveShimmer": "#D9E5E8",
+    "subtle": "#5C808A",
+    "promptBorder": "#5C808A",
+    "promptBorderShimmer": "#9DB4BB",
+
+    "claudeBlue_FOR_SYSTEM_SPINNER": "#0081CC",
+    "claudeBlueShimmer_FOR_SYSTEM_SPINNER": "#00C2FF",
+    "clawd_background": "#020304",
+    "briefLabelYou": "#66E6FF",
+    "professionalBlue": "#00C2FF",
+
+    "permission": "#00C2FF",
+    "permissionShimmer": "#B3F2FF",
+    "suggestion": "#00C2FF",
+    "remember": "#B3F2FF",
+    "background": "#66E6FF",
+    "ide": "#0081CC",
+    "planMode": "#00FFBF",
+    "autoAccept": "#FF80BB",
+    "skill": "#FF80BB",
+    "merged": "#FF80BB",
+    "effortUltra": "#FF80BB",
+    "bashBorder": "#FF006A",
+    "fastMode": "#FF006A",
+    "fastModeShimmer": "#FF80BB",
+
+    "success": "#00FFBF",
+    "error": "#FF1E00",
+    "warning": "#FF80BB",
+    "warningShimmer": "#FFB3D6",
+
+    "diffAdded": "#023529",
+    "diffRemoved": "#3A0903",
+    "diffAddedDimmed": "#021C17",
+    "diffRemovedDimmed": "#1B0604",
+    "diffAddedWord": "#016850",
+    "diffRemovedWord": "#670E02",
+
+    "userMessageBackground": "#171D20",
+    "userMessageBackgroundHover": "#1E2D31",
+    "composerSidebarBackground": "#0E181B",
+    "selectionBg": "#0B3A49",
+    "bashMessageBackgroundColor": "#200310",
+    "memoryBackgroundColor": "#1E2D31",
+
+    "rate_limit_fill": "#00C2FF",
+    "rate_limit_empty": "#1E2D31"
+  }
+}

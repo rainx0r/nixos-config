@@ -35,6 +35,7 @@
         { app = "/Applications/Ghostty.app/"; }
         { app = "${pkgs-unstable.zed-editor}/Applications/Zed.app/"; }
         { app = "/Applications/ChatGPT.app/"; }
+        { app = "/Applications/Claude.app/"; }
         { app = "/Applications/Zotero.app/"; }
         { app = "/Applications/Notion.app/"; }
         { app = "/Applications/Things3.app/"; }
@@ -113,6 +114,7 @@
       "notion"
       "visual-studio-code"
       "chatgpt"
+      "claude"
       "logitech-g-hub"
       "plex"
       "steam"
@@ -332,6 +334,12 @@
         {
           "if" = {
             app-id = "com.openai.codex";
+          };
+          run = [ "move-node-to-workspace C" ];
+        }
+        {
+          "if" = {
+            app-id = "com.anthropic.claudefordesktop";
           };
           run = [ "move-node-to-workspace C" ];
         }

@@ -84,6 +84,7 @@ in
     PAGER = "less -FirSwX";
     NIX = if !isDarwin then "1" else "";
     RUST_SRC_PATH = "${pkgs.rust.packages.stable.rustPlatform.rustLibSrc}";
+    CLAUDE_CODE_TMUX_TRUECOLOR = "1";
     # Global caches
     TFDS_DATA_DIR = "${config.home.homeDirectory}/Datasets/tfds";
     HF_HOME = "${config.home.homeDirectory}/Datasets/hf";
@@ -194,6 +195,18 @@ in
     enable = true;
     enableZshIntegration = true;
     options = [ "--cmd cd" ];
+  };
+
+  programs.claude-code = {
+    enable = true;
+    package = pkgs-unstable.claude-code;
+    settings = {
+      theme = "custom:rainx0r";
+      tui = "fullscreen";
+      env = {
+        _ZO_DOCTOR = "0";
+      };
+    };
   };
 
   programs.git = {
@@ -324,6 +337,7 @@ in
   );
 
   home.file.".codex/themes/rainx0r.tmTheme".source = ./codex/themes/rainx0r.tmTheme;
+  home.file.".claude/themes/rainx0r.json".source = ./claude/themes/rainx0r.json;
   home.file.".sky/config.yaml".source = ./sky/config.yaml;
 
   programs.neovim = {
