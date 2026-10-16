@@ -34,7 +34,7 @@
       PermitRootLogin no
       X11Forwarding no
 
-      AllowUsers rain
+      AllowUsers rain bot
       MACs hmac-sha2-512-etm@openssh.com,hmac-sha2-256-etm@openssh.com,umac-128-etm@openssh.com,hmac-sha2-256,hmac-sha2-512
     '';
   };
@@ -57,7 +57,7 @@
     '';
     serviceConfig.RunAtLoad = true;
   };
-  system.activationScripts.serverPower.text = ''
+  system.activationScripts.postActivation.text = ''
     # Never sleep automatically
     /usr/bin/pmset -a sleep 0
 
@@ -81,4 +81,16 @@
   users.users.rain.openssh.authorizedKeys.keys = [
     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHRHH7u+Q8iK3E/jYz97Nmb8w8rI4g8O0D9KX6EW4ACC rain@macbook"
   ];
+  users.knownUsers = [ "bot" ];
+  users.users.bot = {
+    uid = 502;
+    gid = 20; # staff, no admin group
+    home = "/Users/bot";
+    createHome = true;
+    shell = pkgs.zsh;
+    isHidden = false;
+    openssh.authorizedKeys.keys = [
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOjY35PA6UAtjIGioD8ueLDZ9B9j72rtvVJv+M/I/wPT mac-bot"
+    ];
+  };
 }
