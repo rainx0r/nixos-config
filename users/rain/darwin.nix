@@ -33,15 +33,16 @@
       dock.persistent-apps = [
         { app = "/System/Cryptexes/App/System/Applications/Safari.app/"; }
         { app = "/Applications/Ghostty.app/"; }
-        { app = "${pkgs-unstable.zed-editor}/Applications/Zed.app/"; }
+        # { app = "${pkgs-unstable.zed-editor}/Applications/Zed.app/"; }
         { app = "/Applications/ChatGPT.app/"; }
-        { app = "/Applications/Claude.app/"; }
+        # { app = "/Applications/Claude.app/"; }
         { app = "/Applications/Zotero.app/"; }
         { app = "/Applications/Notion.app/"; }
         { app = "/Applications/Things3.app/"; }
         { app = "/System/Applications/Calendar.app/"; }
         { app = "/Applications/Discord.app/"; }
         { app = "/Applications/Slack.app/"; }
+        { app = "/Applications/Grok Bot.app/"; }
         { app = "/System/Applications/Mail.app/"; }
         { app = "/System/Applications/Music.app/"; }
       ];
@@ -96,38 +97,43 @@
     };
     casks = [
       "orbstack"
-      "karabiner-elements"
-      "iina"
-      "stolendata-mpv"
-      "unnaturalscrollwheels"
-      "figma"
-      # these probably could get moved to the linux config
-      # if I start using that as a desktop ever
-      "syncplay"
-      "discord"
-      "slack"
-      "zotero"
+      # work
       "ghostty"
-      "mullvad-vpn"
-      "linear"
-      "obs"
+      "zotero"
+      "figma"
       "notion"
+      "linear"
       "visual-studio-code"
-      "chatgpt"
-      "claude"
-      "logitech-g-hub"
+      # comms
+      "discord"
+      "microsoft-teams"
+      "slack"
+      # media
       "plex"
+      "anki"
+      "syncplay"
+      "stolendata-mpv"
+      "iina"
+      "obs"
+      "transmission"
+      # games
       "steam"
       "battle-net"
-      "anki"
       # browsers
       "firefox"
       "google-chrome"
-      "microsoft-teams"
-      "transmission"
       # utils
       "powerflow"
       "blackhole-2ch"
+      "unnaturalscrollwheels"
+      "karabiner-elements"
+      "logitech-g-hub"
+      "mullvad-vpn"
+      # ai
+      "chatgpt"
+      "claude"
+      "grok-bot"
+      "cursor"
     ];
   };
 
