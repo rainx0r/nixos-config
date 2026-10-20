@@ -156,6 +156,7 @@ in
       bindkey '^n' history-search-forward
       bindkey '^f' autosuggest-accept
       bindkey '^g' tmux-sessionizer
+      bindkey '^e' tmux-worktree-switcher
 
       # fzf-tab
       zstyle ':fzf-tab:*' fzf-flags $(echo $FZF_DEFAULT_OPTS)
@@ -275,6 +276,7 @@ in
       bind '"' split-window -v -c "#{pane_current_path}"
       bind % split-window -h -c "#{pane_current_path}"
       bind g run-shell "zsh -c 'source ${config.xdg.configHome}/zsh/widgets.zsh ; tmux-sessionizer'"
+      bind e run-shell "cd #{q:pane_current_path} && zsh -c 'source ${config.xdg.configHome}/zsh/widgets.zsh ; tmux-worktree-switcher'"
 
       # Styling
       set -g status-left '''
