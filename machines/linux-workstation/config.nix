@@ -89,6 +89,11 @@ in
     ghostty.terminfo
     nvtopPackages.nvidia
   ];
+  # HACK: for codex desktop
+  # remove once https://github.com/openai/codex/issues/55582 is fixed
+  systemd.tmpfiles.rules = [
+    "L+ /bin/cat - - - - ${pkgs.coreutils}/bin/cat"
+  ];
 
   ### Docker
   virtualisation.docker = {

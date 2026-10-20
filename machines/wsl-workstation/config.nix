@@ -92,5 +92,9 @@ in
   systemd.tmpfiles.rules = [
     "d /usr/bin 0755 root root -"
     "L+ /usr/bin/bash - - - - ${pkgs.bash}/bin/bash"
+
+    # HACK: for codex desktop
+    # remove once https://github.com/openai/codex/issues/55582 is fixed
+    "L+ /bin/cat - - - - ${pkgs.coreutils}/bin/cat"
   ];
 }
