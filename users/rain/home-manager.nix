@@ -41,7 +41,6 @@ in
       # devops
       lazydocker
       terraform
-      cloudflared
 
       # misc
       bat
