@@ -108,12 +108,12 @@ in
   virtualisation.oci-containers = {
     backend = "docker";
     containers = {
-      colab = {
-        autoStart = true;
-        image = "us-docker.pkg.dev/colab-images/public/runtime";
-        ports = [ "9000:8080" ];
-        extraOptions = [ "--device=nvidia.com/gpu=all" ];
-      };
+      # colab = {
+      #   autoStart = true;
+      #   image = "us-docker.pkg.dev/colab-images/public/runtime";
+      #   ports = [ "127.0.0.1:9000:8080" ];
+      #   extraOptions = [ "--device=nvidia.com/gpu=all" ];
+      # };
     };
   };
 

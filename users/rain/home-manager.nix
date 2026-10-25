@@ -139,16 +139,16 @@ in
       lla = "ls -la";
       la = "ls -a";
       cat = "bat --paging=never";
-    }
-    // (
-      if isDarwin then
-        {
-          colab-runtime-local = "ssh workstation-local -L 9000:localhost:9000";
-          colab-runtime-remote = "ssh workstation -L 9000:localhost:9000";
-        }
-      else
-        { }
-    );
+    };
+    # // (
+    #   if isDarwin then
+    #     {
+    #       colab-runtime-local = "ssh workstation-local -L 9000:localhost:9000";
+    #       colab-runtime-remote = "ssh workstation -L 9000:localhost:9000";
+    #     }
+    #   else
+    #     { }
+    # );
 
     initContent = ''
       bindkey '^p' history-search-backward
