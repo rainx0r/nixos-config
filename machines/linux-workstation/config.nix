@@ -100,7 +100,7 @@ in
     enable = true;
     autoPrune.enable = true;
     storageDriver = "btrfs";
-    package = pkgs.docker_25;
+    package = pkgs.docker;
     daemon.settings = {
       userland-proxy = false;
     };
@@ -135,6 +135,7 @@ in
     ports = [ sshPort ];
     settings = {
       PasswordAuthentication = false;
+      KbdInteractiveAuthentication = false;
       PermitRootLogin = "no";
       AllowUsers = [ "rain" ];
       Macs = [
