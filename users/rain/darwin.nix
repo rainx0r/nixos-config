@@ -30,6 +30,19 @@
           ApplePressAndHoldEnabled = false;
         };
       };
+      SoftwareUpdate.AutomaticallyInstallMacOSUpdates = true;
+      CustomSystemPreferences = {
+        "/Library/Preferences/com.apple.SoftwareUpdate" = {
+          AutomaticCheckEnabled = true;
+          AutomaticDownload = true;
+          AutomaticallyInstallAppUpdates = true;
+          ConfigDataInstall = true;
+          CriticalUpdateInstall = true;
+        };
+        "/Library/Preferences/com.apple.commerce" = {
+          AutoUpdate = true;
+        };
+      };
       dock.persistent-apps = [
         { app = "/System/Cryptexes/App/System/Applications/Safari.app/"; }
         { app = "/Applications/Ghostty.app/"; }
@@ -47,6 +60,14 @@
         { app = "/System/Applications/Music.app/"; }
       ];
     };
+  };
+
+  networking.applicationFirewall = {
+    enable = true;
+    allowSigned = true;
+    allowSignedApp = true;
+    blockAllIncoming = false;
+    enableStealthMode = false;
   };
 
   homebrew = {

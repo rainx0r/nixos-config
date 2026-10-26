@@ -14,7 +14,10 @@
     mosh
   ];
   homebrew.casks = [
-    "plex-media-server"
+    {
+      name = "plex-media-server";
+      greedy = true;
+    }
   ];
   homebrew.masApps = {
     "Amphetamine" = 937984704;
@@ -72,11 +75,15 @@
 
     # Don't spin disks down aggressively
     /usr/bin/pmset -a disksleep 0
-  '';
 
-  system.defaults.SoftwareUpdate = {
-    AutomaticallyInstallMacOSUpdates = false;
-  };
+    # Allow the Nix tailscaled binary through the application firewall.
+    for bin in ${pkgs-unstable.tailscale}/bin/tailscaled ${pkgs-unstable.tailscale}/bin/.tailscaled-wrapped; do
+      if [ -e "$bin" ]; then
+        /usr/libexec/ApplicationFirewall/socketfilterfw --add "$bin" || true
+        /usr/libexec/ApplicationFirewall/socketfilterfw --unblockapp "$bin" || true
+      fi
+    done
+  '';
 
   users.users.rain.openssh.authorizedKeys.keys = [
     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHRHH7u+Q8iK3E/jYz97Nmb8w8rI4g8O0D9KX6EW4ACC rain@macbook"
