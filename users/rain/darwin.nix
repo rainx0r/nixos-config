@@ -76,9 +76,6 @@
     onActivation.autoUpdate = true;
     onActivation.upgrade = true;
     onActivation.extraFlags = [ "--force-cleanup" ];
-    taps = [
-      "lzt1008/powerflow"
-    ];
     brews = [
       "mas"
       "ghidra"
@@ -144,7 +141,6 @@
       "firefox"
       "google-chrome"
       # utils
-      "powerflow"
       "blackhole-2ch"
       "unnaturalscrollwheels"
       "karabiner-elements"
