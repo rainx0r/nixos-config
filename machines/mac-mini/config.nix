@@ -14,10 +14,7 @@
     mosh
   ];
   homebrew.casks = [
-    {
-      name = "plex-media-server";
-      greedy = true;
-    }
+    "plex-media-server"
   ];
   homebrew.masApps = {
     "Amphetamine" = 937984704;
