@@ -226,7 +226,7 @@ in
       fetch.recurseSubmodules = "on-demand";
       user = {
         name = "rain";
-        email = "evan@latent.dev";
+        email = "angel@latent.dev";
       };
       alias = {
         github-clone = "!sh ${config.xdg.configHome}/zsh/git/github-clone.zsh";
