@@ -56,7 +56,7 @@
             clifton = final.callPackage ./packages/clifton/package.nix { };
             codex = inputs.llm-agents.packages.${prev.stdenv.hostPlatform.system}.codex;
             claude-code = inputs.llm-agents.packages.${prev.stdenv.hostPlatform.system}.claude-code;
-            ty = pkgs-master.ty;
+            zed-editor = pkgs-master.zed-editor;
           }
         )
       ];
