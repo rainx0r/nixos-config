@@ -86,7 +86,7 @@
                 "source.organizeImports.ruff": true
             },
             "language_servers": [
-                "ty",
+                "pyrefly",
                 "ruff"
             ],
             "formatter": {
