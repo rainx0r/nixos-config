@@ -44,21 +44,19 @@
       overlays = [
         (
           final: prev:
-          let
-            pkgs-master = import inputs.nixpkgs-master {
-              system = prev.stdenv.hostPlatform.system;
-              config = {
-                allowUnfree = true;
-              };
-            };
-          in
+          # let
+          #   pkgs-master = import inputs.nixpkgs-master {
+          #     system = prev.stdenv.hostPlatform.system;
+          #     config = {
+          #       allowUnfree = true;
+          #     };
+          #   };
+          # in
           {
             clifton = final.callPackage ./packages/clifton/package.nix { };
             codex = inputs.llm-agents.packages.${prev.stdenv.hostPlatform.system}.codex;
             claude-code = inputs.llm-agents.packages.${prev.stdenv.hostPlatform.system}.claude-code;
-            zed-editor = pkgs-master.zed-editor;
-          }
-        )
+          })
       ];
 
       mkSystem = import ./lib/mksystem.nix {
