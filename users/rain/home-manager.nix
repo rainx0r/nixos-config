@@ -206,6 +206,11 @@ in
       env = {
         _ZO_DOCTOR = "0";
       };
+      extraKnownMarketplaces.rainx0r.source = {
+        source = "git";
+        url = "https://github.com/rainx0r/rstack.git";
+      };
+      enabledPlugins."rstack@rainx0r" = true;
     };
   };
 
