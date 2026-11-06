@@ -327,6 +327,10 @@ in
       source = ./ghostty;
       recursive = true;
     };
+    "rex" = {
+      source = ./rex;
+      recursive = true;
+    };
   }
   // (
     if isDarwin then
