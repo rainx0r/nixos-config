@@ -24,8 +24,10 @@
     enable = true;
     package = pkgs-unstable.tailscale;
   };
+  environment.etc."resolver/ts.net".enable = false;
 
   networking.hostName = "mac-mini";
+  networking.computerName = "mac-mini";
   services.openssh = {
     enable = true;
     extraConfig = ''

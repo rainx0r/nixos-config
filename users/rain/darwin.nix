@@ -111,6 +111,8 @@
       "Flighty" = 1358823008;
       "field-kit" = 1612653346;
       "Windows App" = 1295203466;
+    } // lib.optionalAttrs (!config.services.tailscale.enable) {
+      # Use only one Tailscale variant; daemon hosts already provide the CLI.
       "Tailscale" = 1475387142;
     };
     casks = [
