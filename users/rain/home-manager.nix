@@ -206,6 +206,7 @@ in
       env = {
         _ZO_DOCTOR = "0";
       };
+      attribution = false;
       extraKnownMarketplaces.rainx0r.source = {
         source = "git";
         url = "https://github.com/rainx0r/rstack.git";
