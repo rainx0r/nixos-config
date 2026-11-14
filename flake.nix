@@ -69,6 +69,10 @@
           path = ./templates/wow-dev;
           description = "WoW Addon dev shell template";
         };
+        pytorch = {
+          path = ./templates/pytorch;
+          description = "PyTorch dev shell template: C toolchain for torch.compile and triton, Python left to uv";
+        };
       };
 
       nixosConfigurations.linux-workstation = mkSystem "linux-workstation" {

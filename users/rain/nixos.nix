@@ -5,6 +5,9 @@
   ...
 }:
 
+let
+  driverLibraryPath = lib.makeLibraryPath [ pkgs.addDriverRunpath.driverLink ];
+in
 {
   programs.zsh.enable = true;
   programs.nix-ld = {
@@ -12,9 +15,10 @@
   };
 
   environment.pathsToLink = [ "/share/zsh" ];
-  environment.sessionVariables.LD_LIBRARY_PATH = lib.makeLibraryPath [
-    pkgs.addDriverRunpath.driverLink
-  ];
+  environment.sessionVariables = {
+    LD_LIBRARY_PATH = driverLibraryPath;
+    TRITON_LIBCUDA_PATH = driverLibraryPath;
+  };
   environment.localBinInPath = true;
 
   users.users.rain = {

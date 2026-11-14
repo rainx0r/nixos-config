@@ -366,7 +366,7 @@ in
       stylua
       nixd
       nixfmt
-      ty
+      pyrefly
       ruff
       taplo
       rust-analyzer
