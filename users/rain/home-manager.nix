@@ -205,6 +205,8 @@ in
       tui = "fullscreen";
       env = {
         _ZO_DOCTOR = "0";
+        # Mods loaded from disk; the desktop app's sessions read this too.
+        CLAUDE_CODE_PLUGIN_DIRS = "${./claude/mods/rainx0r-theme}";
       };
       attribution = false;
       extraKnownMarketplaces.rainx0r.source = {
