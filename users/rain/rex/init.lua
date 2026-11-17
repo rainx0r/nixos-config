@@ -14,10 +14,10 @@ rex.bind("cmd+s", "session.switch")
 -- Resolve the script path in the pane's shell, so it's right on whichever host
 -- the popup runs. Pass the ID of the app that pressed the key; it's only valid
 -- on the server that ran this Lua, and the script checks and falls back if not.
-local function sessionizer_cmd(ctx)
+local function popup_cmd(script, ctx)
   local id = ctx.client_id or ""
   return {
-    "sh", "-c", 'exec zsh "${XDG_CONFIG_HOME:-$HOME/.config}/rex/sessionizer.zsh" ' .. "'" .. id .. "'",
+    "sh", "-c", 'exec zsh "${XDG_CONFIG_HOME:-$HOME/.config}/rex/' .. script .. '" ' .. "'" .. id .. "'",
   }
 end
 
@@ -47,15 +47,12 @@ end
 
 -- prefix e: open a worktree of the focused pane's repo as a tab
 rex.bind("cmd+e", function(ctx)
-  return popup(
-    { "sh", "-c", 'exec zsh "${XDG_CONFIG_HOME:-$HOME/.config}/rex/worktrees.zsh"' },
-    focused_cwd(ctx)
-  )
+  return popup(popup_cmd("worktrees.zsh", ctx), focused_cwd(ctx))
 end)
 
 -- prefix g: project switcher (fzf in a floating pane), kept to compare
 rex.bind("cmd+shift+g", function(ctx)
-  return popup(sessionizer_cmd(ctx))
+  return popup(popup_cmd("sessionizer.zsh", ctx))
 end)
 
 -- Native project switcher using Rex's own picker (rex.ui.pick).
@@ -111,7 +108,7 @@ rex.action{
   run = function(ctx)
     -- rex.ui isn't in every build yet (missing on preview 0.1.0 (1996)).
     if not (rex.ui and rex.ui.pick) then
-      return popup(sessionizer_cmd(ctx))
+      return popup(popup_cmd("sessionizer.zsh", ctx))
     end
 
     local items = list_projects()

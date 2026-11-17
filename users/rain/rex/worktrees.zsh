@@ -3,22 +3,9 @@
 # tab if it's already open. Runs inside a floating pane opened by init.lua,
 # started in the focused pane's working directory.
 #
-# Usage: zsh worktrees.zsh
+# Usage: zsh worktrees.zsh [CLIENT_ID]   (see popup-common.zsh)
 
-# Commands in a pane don't read ~/.zshrc, so the PATH fix there doesn't apply.
-rex=${REX_BIN_DIR:+$REX_BIN_DIR/}rex
-
-fail() {
-    print -u2 "worktrees: $*"
-    read -sk '?Press any key to close'
-    exit 1
-}
-
-# See sessionizer.zsh: wait for the floating pane's real size before drawing.
-for i in {1..30}; do
-    [[ $(stty size </dev/tty) != "24 80" ]] && break
-    sleep 0.01
-done
+source ${0:A:h}/popup-common.zsh
 
 git rev-parse --git-common-dir >/dev/null 2>&1 || fail "not in a git repository ($PWD)"
 
@@ -49,8 +36,9 @@ window=$(
         jq -r --arg label $label 'first(.windows[] | select(.label == $label) | .window_id) // empty'
 ) || fail "couldn't list tabs"
 
-if [[ -n $window ]]; then
-    $rex focus -s $REX_SESSION $window >/dev/null || fail "couldn't switch to $label"
-else
-    $rex window new -s $REX_SESSION $label -c $dir >/dev/null || fail "couldn't open $label"
+if [[ -z $window ]]; then
+    window=$($rex window new -s $REX_SESSION $label -c $dir --json | jq -er .window_id) ||
+        fail "couldn't open $label"
 fi
+# Making the tab active on the server doesn't move the app, so ask it to.
+show $REX_SESSION $window
