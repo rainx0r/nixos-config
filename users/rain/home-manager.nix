@@ -173,6 +173,12 @@ in
       source ${config.xdg.configHome}/zsh/widgets.zsh
       source ${config.xdg.configHome}/zsh/p10k.zsh
       unset ZSH_AUTOSUGGEST_USE_ASYNC  # Needed to fix p10k x OMZP::git
+
+      # Rex prepends its CLI dir to PATH before startup files run, and the
+      # nix-darwin PATH reset drops it. Keep this last so it stays in front.
+      if [[ -n $REX_BIN_DIR ]]; then
+        export PATH="$REX_BIN_DIR:$PATH"
+      fi
     '';
   };
 
@@ -214,6 +220,17 @@ in
         url = "https://github.com/rainx0r/rstack.git";
       };
       enabledPlugins."rstack@rainx0r" = true;
+      hooks.SessionStart = [
+        {
+          hooks = [
+            {
+              type = "command";
+              command = "/bin/sh -c 'rex __internal session-start --agent claude 2>/dev/null || true'";
+              timeout = 5;
+            }
+          ];
+        }
+      ];
     };
   };
 
