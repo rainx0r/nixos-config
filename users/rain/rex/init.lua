@@ -11,11 +11,15 @@ rex.bind("cmd+z", "pane.zoom")
 -- Sessions
 rex.bind("cmd+s", "session.switch")
 
--- This Lua runs on the local machine even when the focused session lives on a
--- remote host, so resolve the script path in the pane's shell, on that host.
-local sessionizer_cmd = {
-  "sh", "-c", 'exec zsh "${XDG_CONFIG_HOME:-$HOME/.config}/rex/sessionizer.zsh"',
-}
+-- Resolve the script path in the pane's shell, so it's right on whichever host
+-- the popup runs. Pass the ID of the app that pressed the key. It's only valid on the server
+-- that ran this Lua; the script checks and falls back if it isn't.
+local function sessionizer_cmd(ctx)
+  local id = ctx.client_id or ""
+  return {
+    "sh", "-c", 'exec zsh "${XDG_CONFIG_HOME:-$HOME/.config}/rex/sessionizer.zsh" ' .. "'" .. id .. "'",
+  }
+end
 
 -- Run a command in a floating pane over the current tab; it closes when the
 -- command exits. Stand-in for tmux's display-popup / fzf --tmux.
@@ -33,8 +37,8 @@ local function popup(command)
 end
 
 -- prefix g: project switcher (fzf in a floating pane), kept to compare
-rex.bind("cmd+shift+g", function()
-  return popup(sessionizer_cmd)
+rex.bind("cmd+shift+g", function(ctx)
+  return popup(sessionizer_cmd(ctx))
 end)
 
 -- Native project switcher using Rex's own picker (rex.ui.pick).
@@ -90,7 +94,7 @@ rex.action{
   run = function(ctx)
     -- rex.ui isn't in every build yet (missing on preview 0.1.0 (1996)).
     if not (rex.ui and rex.ui.pick) then
-      return popup(sessionizer_cmd)
+      return popup(sessionizer_cmd(ctx))
     end
 
     local items = list_projects()

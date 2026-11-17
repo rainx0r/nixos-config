@@ -1,16 +1,26 @@
 # Rex port of tmux-sessionizer: pick a project, create its session if needed,
 # then switch the Rex app to it. Runs inside a floating pane opened by init.lua.
 #
-# Usage: zsh sessionizer.zsh
+# Usage: zsh sessionizer.zsh [CLIENT_ID]
+#
+# CLIENT_ID is the app to switch. The key binding passes the app that pressed
+# it, but that ID only means something on the server that ran the binding. When
+# it isn't a client here, prefer an app connected over ssh (someone viewing this
+# host remotely) over the app running on this machine, then any app.
 
 # Commands in a pane don't read ~/.zshrc, so the PATH fix there doesn't apply.
 rex=${REX_BIN_DIR:+$REX_BIN_DIR/}rex
-# The app has a different client ID on each host, so find it on this server:
-# the app attached to the session this pane is in.
-client=$(
-    $rex client ls -s $REX_SESSION --json 2>/dev/null |
-        jq -r '[.clients[] | select(.info.kind == "app")][0].client_id // empty'
-)
+clients=$($rex client ls -s $REX_SESSION --json 2>/dev/null)
+client=$1
+if [[ -z $client ]] || ! jq -e --arg id $client 'any(.clients[]; .client_id == $id)' <<<$clients >/dev/null; then
+    client=
+    apps=$(jq -r '.clients[] | select(.info.kind == "app") | "\(.client_id) \(.principal.pid // "")"' <<<$clients)
+    while read -r id pid; do
+        [[ -n $pid && $(ps -o comm= -p $pid 2>/dev/null) == sshd* ]] && { client=$id; break; }
+    done <<<$apps
+    [[ -z $client ]] && client=${${(f)apps}[1]%% *}
+fi
+
 github_repos=$HOME/Repositories/github.com
 experiments=$HOME/Experiments
 
