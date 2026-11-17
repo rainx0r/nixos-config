@@ -40,6 +40,16 @@ local function popup(ctx, command, cwd)
     end
   end
 
+  -- TEMP: debugging which tab the popup lands in across two apps.
+  local log = io.open((os.getenv("HOME") or "") .. "/.cache/rex-popup.log", "a")
+  if log then
+    log:write(os.date("%H:%M:%S "), rex.json.encode({
+      origin = ctx.origin, client = ctx.client_id, block = ctx.block_id,
+      window = window and window.window_id, active = view.active_window_id,
+    }) or "?", "\n")
+    log:close()
+  end
+
   if window then
     for _, layer in ipairs(window.layers or {}) do
       for _, b in ipairs(layer.blocks or {}) do
