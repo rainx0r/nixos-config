@@ -15,8 +15,16 @@
       NSGlobalDomain = {
         KeyRepeat = 2; # 120, 90, 60, 30, 12, 6, 2
         InitialKeyRepeat = 15; # 120, 94, 68, 35, 25, 15
+        AppleInterfaceStyle = "Dark";
+        AppleIconAppearanceTheme = "TintedDark";
       };
       CustomUserPreferences = {
+        NSGlobalDomain = {
+          AppleIconAppearanceTintColor = "Other";
+          AppleIconAppearanceCustomTintColor = "0.352372 0.839214 0.941210 0.437500";
+          AppleAccentColor = 4;
+          AppleHighlightColor = "0.698039 0.843137 1.000000 Blue";
+        };
         "com.microsoft.VSCode" = {
           ApplePressAndHoldEnabled = false;
         };
