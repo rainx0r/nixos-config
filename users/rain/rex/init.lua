@@ -21,15 +21,46 @@ local function popup_cmd(script, ctx)
   }
 end
 
--- Run a command in a floating pane over the current tab; it closes when the
--- command exits. Stand-in for tmux's display-popup / fzf --tmux.
-local function popup(command, cwd)
+-- Run a command in a floating pane over the tab the key was pressed in; it
+-- closes when the command exits. Stand-in for tmux's display-popup / fzf --tmux.
+-- If that tab already has a picker open, close it instead, so the keys toggle
+-- rather than stacking pickers.
+local picker_label = "picker"
+
+local function popup(ctx, command, cwd)
+  -- The pressed-in tab, not the session's active tab: another app attached to
+  -- the session may have switched the active tab since.
+  local view = rex.session.view{} or {}
+  local window
+  for _, w in ipairs(view.windows or {}) do
+    for _, layer in ipairs(w.layers or {}) do
+      for _, b in ipairs(layer.blocks or {}) do
+        if b.block_id == ctx.block_id then window = w end
+      end
+    end
+  end
+
+  if window then
+    for _, layer in ipairs(window.layers or {}) do
+      for _, b in ipairs(layer.blocks or {}) do
+        if layer.kind ~= "tiled" and b.label == picker_label then
+          rex.session.close_layer{ layer_id = layer.layer_id }
+          return true
+        end
+      end
+    end
+  end
+
   local _, err = rex.session.new_layer{
+    window_id = window and window.window_id or nil,
     bounds = { 0.1, 0.1, 0.8, 0.8 },
     focus = true,
-    layout = rex.layout.block{
-      flavor = "com.superlogical.terminal.shell",
-      options = { command = command, cwd = cwd },
+    layout = {
+      block = {
+        flavor = "com.superlogical.terminal.shell",
+        label = picker_label,
+        options = { command = command, cwd = cwd },
+      },
     },
   }
   if err then rex.log("popup failed: " .. tostring(err)) end
@@ -52,7 +83,7 @@ rex.action{
   name = "worktrees",
   title = "Go to Worktree…",
   run = function(ctx)
-    popup(popup_cmd("worktrees.zsh", ctx), focused_cwd(ctx))
+    popup(ctx, popup_cmd("worktrees.zsh", ctx), focused_cwd(ctx))
   end,
 }
 rex.bind("cmd+e", "worktrees")
@@ -110,7 +141,7 @@ rex.action{
   run = function(ctx)
     -- rex.ui isn't in every build yet (missing on preview 0.1.0 (1996)).
     if not (rex.ui and rex.ui.pick) then
-      return popup(popup_cmd("sessionizer.zsh", ctx))
+      return popup(ctx, popup_cmd("sessionizer.zsh", ctx))
     end
 
     local items = list_projects()
