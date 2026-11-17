@@ -128,6 +128,7 @@ in
     enable = true;
     package = pkgs-unstable.tailscale;
   };
+  systemd.services.tailscaled.environment.TS_DEBUG_MTU = "1100";
 
   ## SSH Server
   services.openssh = {
