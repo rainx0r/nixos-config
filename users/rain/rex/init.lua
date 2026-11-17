@@ -159,10 +159,29 @@ rex.action{
 rex.bind("cmd+g", "sessionizer")
 
 -- Navigation
--- TODO: pass these through to nvim once smart-splits' Rex backend is set up.
-rex.bind("ctrl+h", "pane.focus.left")
-rex.bind("ctrl+j", "pane.focus.down")
-rex.bind("ctrl+k", "pane.focus.up")
-rex.bind("ctrl+l", "pane.focus.right")
+-- ctrl+h/j/k/l: move pane focus, unless the focused pane runs a program that
+-- does its own split navigation; then pass the key through to it. nvim (the
+-- rex plugin in rainx0r/nvim) hands focus back with `rex focus` at its edges.
+local passthrough = { nvim = true, vim = true, tmux = true }
+
+local function wants_key(ctx)
+  -- Function bindings may not get ctx.block_id; without it, Rex uses the
+  -- current block.
+  local p = rex.block.call(
+    "com.superlogical.terminal", "process",
+    ctx.block_id and { block_id = ctx.block_id } or {}
+  )
+  local fg = p and p.foreground
+  return fg ~= nil and (passthrough[fg.name] or passthrough[(fg.argv0 or ""):match("[^/]*$")]) == true
+end
+
+for key, direction in pairs({ h = "left", j = "down", k = "up", l = "right" }) do
+  rex.bind("ctrl+" .. key, function(ctx)
+    if wants_key(ctx) then return false end -- Rex sends the key to the terminal
+    local _, err = rex.session.focus_direction{ direction = direction }
+    if err then rex.log("focus " .. direction .. " failed: " .. tostring(err)) end
+    return true
+  end)
+end
 -- rex.bind("ctrl+q", "client.tab.previous")
 -- rex.bind("ctrl+w", "client.tab.next")
