@@ -45,15 +45,17 @@ local function focused_cwd(ctx)
   return p and ((p.foreground and p.foreground.cwd) or (p.child and p.child.cwd)) or nil
 end
 
--- prefix e: open a worktree of the focused pane's repo as a tab
-rex.bind("cmd+e", function(ctx)
-  return popup(popup_cmd("worktrees.zsh", ctx), focused_cwd(ctx))
-end)
-
--- prefix g: project switcher (fzf in a floating pane), kept to compare
-rex.bind("cmd+shift+g", function(ctx)
-  return popup(popup_cmd("sessionizer.zsh", ctx))
-end)
+-- prefix e: open a worktree of the focused pane's repo as a tab.
+-- An action, not a function binding: only actions get ctx.client_id, which the
+-- script needs to switch the app that pressed the key.
+rex.action{
+  name = "worktrees",
+  title = "Go to Worktree…",
+  run = function(ctx)
+    popup(popup_cmd("worktrees.zsh", ctx), focused_cwd(ctx))
+  end,
+}
+rex.bind("cmd+e", "worktrees")
 
 -- Native project switcher using Rex's own picker (rex.ui.pick).
 local home = os.getenv("HOME")
