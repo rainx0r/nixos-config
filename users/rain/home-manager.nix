@@ -16,6 +16,7 @@ in
   home.packages =
     with pkgs;
     [
+
       # vcs
       git
       git-crypt
@@ -48,6 +49,7 @@ in
       ripgrep
       fastfetch
       rsync
+      jq
 
       # typesetting
       pkgs-unstable.typst
@@ -174,8 +176,7 @@ in
       source ${config.xdg.configHome}/zsh/p10k.zsh
       unset ZSH_AUTOSUGGEST_USE_ASYNC  # Needed to fix p10k x OMZP::git
 
-      # Rex prepends its CLI dir to PATH before startup files run, and the
-      # nix-darwin PATH reset drops it. Keep this last so it stays in front.
+      # Rex, keep last
       if [[ -n $REX_BIN_DIR ]]; then
         export PATH="$REX_BIN_DIR:$PATH"
       fi
@@ -369,6 +370,10 @@ in
   home.file.".codex/themes/rainx0r.tmTheme".source = ./codex/themes/rainx0r.tmTheme;
   home.file.".claude/themes/rainx0r.json".source = ./claude/themes/rainx0r.json;
   home.file.".sky/config.yaml".source = ./sky/config.yaml;
+  # Rex
+  home.file.".local/bin/rex" = lib.mkIf isDarwin {
+    source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/Library/Application Support/com.superlogical.rex/RexServer/Versions/Current/Rex Server.app/Contents/MacOS/rex";
+  };
 
   programs.neovim = {
     enable = true;

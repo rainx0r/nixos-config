@@ -15,13 +15,20 @@ fail() {
     exit 1
 }
 
+# A new floating pane starts at 80x24 and gets its real size ~100ms later.
+# Wait for that (up to 300ms) so fzf doesn't draw at 24 rows and then jump.
+for i in {1..30}; do
+    [[ $(stty size </dev/tty) != "24 80" ]] && break
+    sleep 0.01
+done
+
 selected=$(
     {
         find $github_repos -mindepth 2 -maxdepth 2 -type d
         find $experiments -mindepth 1 -maxdepth 1 -type d
     } 2>/dev/null |
         sed -e "s|^$github_repos/|github/|" -e "s|^$experiments/|experiments/|" |
-        fzf --padding 1 --reverse --border --border-label "Go to project"
+        fzf --padding 1 --reverse --prompt "Go to project> "
 ) || exit 0
 
 case $selected in

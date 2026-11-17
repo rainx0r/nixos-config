@@ -36,6 +36,12 @@
     };
 
     llm-agents.url = "github:numtide/llm-agents.nix";
+
+    # Rex server for Linux hosts; preview matches the Mac app's update channel.
+    rex = {
+      url = "https://pkgs.superlogical.com/rex/nix/preview.tar.gz";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =

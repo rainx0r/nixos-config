@@ -2,6 +2,7 @@
   config,
   pkgs,
   lib,
+  inputs,
   ...
 }:
 
@@ -24,12 +25,18 @@ in
   users.users.rain = {
     isNormalUser = true;
     home = "/home/rain";
-    extraGroups =
-      [
-        "wheel"
-      ]
-      ++ lib.optional config.virtualisation.docker.enable "docker"
-      ++ lib.optional config.networking.networkmanager.enable "networkmanager";
+    extraGroups = [
+      "wheel"
+    ]
+    ++ lib.optional config.virtualisation.docker.enable "docker"
+    ++ lib.optional config.networking.networkmanager.enable "networkmanager";
     shell = pkgs.zsh;
+    linger = true;
+  };
+
+  home-manager.sharedModules = [ inputs.rex.homeManagerModules.default ];
+  home-manager.users.rain = {
+    services.rex.enable = true;
+    programs.rex.sshGuard = false;
   };
 }
