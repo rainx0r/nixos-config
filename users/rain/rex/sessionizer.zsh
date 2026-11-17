@@ -1,11 +1,16 @@
 # Rex port of tmux-sessionizer: pick a project, create its session if needed,
 # then switch the Rex app to it. Runs inside a floating pane opened by init.lua.
 #
-# Usage: zsh sessionizer.zsh CLIENT_ID
+# Usage: zsh sessionizer.zsh
 
-client=$1
 # Commands in a pane don't read ~/.zshrc, so the PATH fix there doesn't apply.
 rex=${REX_BIN_DIR:+$REX_BIN_DIR/}rex
+# The app has a different client ID on each host, so find it on this server:
+# the app attached to the session this pane is in.
+client=$(
+    $rex client ls -s $REX_SESSION --json 2>/dev/null |
+        jq -r '[.clients[] | select(.info.kind == "app")][0].client_id // empty'
+)
 github_repos=$HOME/Repositories/github.com
 experiments=$HOME/Experiments
 
