@@ -12,8 +12,8 @@ rex.bind("cmd+z", "pane.zoom")
 rex.bind("cmd+s", "session.switch")
 
 -- Resolve the script path in the pane's shell, so it's right on whichever host
--- the popup runs. Pass the ID of the app that pressed the key. It's only valid on the server
--- that ran this Lua; the script checks and falls back if it isn't.
+-- the popup runs. Pass the ID of the app that pressed the key; it's only valid
+-- on the server that ran this Lua, and the script checks and falls back if not.
 local function sessionizer_cmd(ctx)
   local id = ctx.client_id or ""
   return {
@@ -23,18 +23,35 @@ end
 
 -- Run a command in a floating pane over the current tab; it closes when the
 -- command exits. Stand-in for tmux's display-popup / fzf --tmux.
-local function popup(command)
+local function popup(command, cwd)
   local _, err = rex.session.new_layer{
     bounds = { 0.1, 0.1, 0.8, 0.8 },
     focus = true,
     layout = rex.layout.block{
       flavor = "com.superlogical.terminal.shell",
-      options = { command = command },
+      options = { command = command, cwd = cwd },
     },
   }
   if err then rex.log("popup failed: " .. tostring(err)) end
   return true
 end
+
+-- Working directory of the focused pane's foreground program (the shell, or
+-- e.g. nvim), like tmux's pane_current_path. Rex's own `pwd` needs the shell
+-- to report its directory, which this zsh setup doesn't.
+local function focused_cwd(ctx)
+  local p = ctx.block_id
+    and rex.block.call("com.superlogical.terminal", "process", { block_id = ctx.block_id })
+  return p and ((p.foreground and p.foreground.cwd) or (p.child and p.child.cwd)) or nil
+end
+
+-- prefix e: open a worktree of the focused pane's repo as a tab
+rex.bind("cmd+e", function(ctx)
+  return popup(
+    { "sh", "-c", 'exec zsh "${XDG_CONFIG_HOME:-$HOME/.config}/rex/worktrees.zsh"' },
+    focused_cwd(ctx)
+  )
+end)
 
 -- prefix g: project switcher (fzf in a floating pane), kept to compare
 rex.bind("cmd+shift+g", function(ctx)
