@@ -1,19 +1,21 @@
--- Keybindings ported from ../ghostty/config.
--- Font, theme, cursor and copy-on-select are app settings in Rex, not init.lua.
+-- Splits
+rex.bind("cmd+shift+h", "pane.split", { direction = "left" })
+rex.bind("cmd+shift+j", "pane.split", { direction = "down" })
+rex.bind("cmd+shift+k", "pane.split", { direction = "up" })
+rex.bind("cmd+shift+l", "pane.split", { direction = "right" })
 
+-- Panes
 rex.bind("cmd+x", "pane.close")
+rex.bind("cmd+z", "pane.zoom")
 
-rex.bind("cmd+shift+h", "pane.focus.left")
-rex.bind("cmd+shift+j", "pane.focus.down")
-rex.bind("cmd+shift+k", "pane.focus.up")
-rex.bind("cmd+shift+l", "pane.focus.right")
+-- Sessions
+rex.bind("cmd+s", "session.switch")
 
-rex.bind("cmd+ctrl+h", "pane.split.left")
-rex.bind("cmd+ctrl+j", "pane.split.down")
-rex.bind("cmd+ctrl+k", "pane.split.up")
-rex.bind("cmd+ctrl+l", "pane.split.right")
-
-rex.unbind("cmd+alt+left")
-rex.unbind("cmd+alt+down")
-rex.unbind("cmd+alt+up")
-rex.unbind("cmd+alt+right")
+-- Navigation
+-- TODO: pass these through to nvim once smart-splits' Rex backend is set up.
+rex.bind("ctrl+h", "pane.focus.left")
+rex.bind("ctrl+j", "pane.focus.down")
+rex.bind("ctrl+k", "pane.focus.up")
+rex.bind("ctrl+l", "pane.focus.right")
+-- rex.bind("ctrl+q", "client.tab.previous")
+-- rex.bind("ctrl+w", "client.tab.next")

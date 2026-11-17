@@ -45,7 +45,7 @@
       };
       dock.persistent-apps = [
         { app = "/System/Cryptexes/App/System/Applications/Safari.app/"; }
-        { app = "/Applications/Ghostty.app/"; }
+        { app = "/Applications/Rex Beta.app/"; }
         { app = "${pkgs-unstable.zed-editor}/Applications/Zed.app/"; }
         { app = "/Applications/ChatGPT.app/"; }
         { app = "/Applications/Claude.app/"; }
@@ -111,7 +111,8 @@
       "Flighty" = 1358823008;
       "field-kit" = 1612653346;
       "Windows App" = 1295203466;
-    } // lib.optionalAttrs (!config.services.tailscale.enable) {
+    }
+    // lib.optionalAttrs (!config.services.tailscale.enable) {
       # Use only one Tailscale variant; daemon hosts already provide the CLI.
       "Tailscale" = 1475387142;
     };
