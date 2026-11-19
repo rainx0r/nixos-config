@@ -54,8 +54,7 @@
       dock.persistent-apps = [
         { app = "/System/Cryptexes/App/System/Applications/Safari.app/"; }
         { app = "/Applications/Rex Beta.app/"; }
-        { app = "${pkgs-unstable.zed-editor}/Applications/Zed.app/"; }
-        { app = "/Applications/ChatGPT.app/"; }
+        # { app = "${pkgs-unstable.zed-editor}/Applications/Zed.app/"; }
         { app = "/Applications/Claude.app/"; }
         { app = "/Applications/Zotero.app/"; }
         { app = "/Applications/Notion.app/"; }
@@ -160,6 +159,7 @@
       # ai
       "chatgpt"
       "claude"
+      "antigravity"
       "grok-bot"
       "cursor"
     ];

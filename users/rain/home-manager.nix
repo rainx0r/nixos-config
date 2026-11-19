@@ -56,6 +56,7 @@ in
 
       # llm clis
       pkgs-unstable.codex
+      pkgs-unstable.antigravity-cli
       poppler-utils # codex pdf utils
 
       # mlops
@@ -226,8 +227,10 @@ in
           hooks = [
             {
               type = "command";
-              command = "/bin/sh -c 'rex __internal session-start --agent claude 2>/dev/null || true'";
+              # Session naming off: the project picker names sessions after the project.
+              command = "/bin/sh -c 'rex __internal session-start --agent claude --feature-session-naming=false 2>/dev/null || true'";
               timeout = 5;
+              statusMessage = "Loading Rex terminal context";
             }
           ];
         }
