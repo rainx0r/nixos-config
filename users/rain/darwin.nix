@@ -289,6 +289,14 @@
         }
         {
           "if" = {
+            app-id = "com.superlogical.rex";
+          };
+          run = [
+            "move-node-to-workspace C"
+          ];
+        }
+        {
+          "if" = {
             app-id = "com.apple.Passwords";
           };
           run = [ "layout floating" ];
@@ -323,6 +331,13 @@
           };
           run = [ "move-node-to-workspace M" ];
         }
+        {
+          "if" = {
+            app-id = "tv.plex.desktop";
+          };
+          run = [ "move-node-to-workspace M" ];
+        }
+
         {
           "if" = {
             app-id = "com.apple.Safari";
