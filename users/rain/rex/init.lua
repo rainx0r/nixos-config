@@ -11,6 +11,47 @@ rex.bind("cmd+z", "pane.zoom")
 -- Sessions
 rex.bind("cmd+s", "session.switch")
 
+-- Project and worktree switchers (tmux prefix g / prefix e).
+--
+-- Both ask with Rex's command palette (rex.ui.pick, server API revision 17+,
+-- Rex 0.1.0-preview.21). On older servers, or when no connected app can show
+-- prompts, they fall back to fzf in a floating pane (sessionizer.zsh,
+-- worktrees.zsh).
+--
+-- Actions run on the server that owns the session, so paths, `find` and `git`
+-- below are that host's, and rex.client.queue switches the app that pressed
+-- the key, without needing Remote Control.
+
+local terminal = "com.superlogical.terminal"
+local shell_flavor = "com.superlogical.terminal.shell"
+local home = os.getenv("HOME") or ""
+
+-- The server's PATH can be bare (/usr/bin:/bin on macOS), so look for git and
+-- friends in the Nix profiles too.
+local exec_env = {
+  PATH = table.concat({
+    home .. "/.nix-profile/bin",
+    "/etc/profiles/per-user/" .. (os.getenv("USER") or "") .. "/bin",
+    "/run/current-system/sw/bin",
+    "/nix/var/nix/profiles/default/bin",
+    os.getenv("PATH") or "/usr/bin:/bin",
+  }, ":"),
+}
+
+local function run(argv, cwd)
+  return rex.exec(argv, { cwd = cwd, env = exec_env, stderr = false })
+end
+
+local function tilde(path)
+  return home ~= "" and path:sub(1, #home) == home and "~" .. path:sub(#home + 1) or path
+end
+
+local function can_prompt()
+  return rex.ui ~= nil and rex.ui.pick ~= nil
+end
+
+-- Fallback: fzf in a floating pane --------------------------------------------
+
 -- Resolve the script path in the pane's shell, so it's right on whichever host
 -- the popup runs. Pass the ID of the app that pressed the key; it's only valid
 -- on the server that ran this Lua, and the script checks and falls back if not.
@@ -22,9 +63,8 @@ local function popup_cmd(script, ctx)
 end
 
 -- Run a command in a floating pane over the tab the key was pressed in; it
--- closes when the command exits. Stand-in for tmux's display-popup / fzf --tmux.
--- If that tab already has a picker open, close it instead, so the keys toggle
--- rather than stacking pickers.
+-- closes when the command exits. If that tab already has a picker open, close
+-- it instead, so the keys toggle rather than stacking pickers.
 local picker_label = "picker"
 
 local function popup(ctx, command, cwd)
@@ -45,7 +85,7 @@ local function popup(ctx, command, cwd)
       for _, b in ipairs(layer.blocks or {}) do
         if layer.kind ~= "tiled" and b.label == picker_label then
           rex.session.close_layer{ layer_id = layer.layer_id }
-          return true
+          return
         end
       end
     end
@@ -57,106 +97,275 @@ local function popup(ctx, command, cwd)
     focus = true,
     layout = {
       block = {
-        flavor = "com.superlogical.terminal.shell",
+        flavor = shell_flavor,
         label = picker_label,
         options = { command = command, cwd = cwd },
       },
     },
   }
-  if err then rex.log("popup failed: " .. tostring(err)) end
-  return true
+  if err then rex.log("warn", "popup failed: " .. tostring(err)) end
 end
 
--- Working directory of the focused pane's foreground program (the shell, or
--- e.g. nvim), like tmux's pane_current_path. Rex's own `pwd` needs the shell
--- to report its directory, which this zsh setup doesn't.
-local function focused_cwd(ctx)
-  local p = ctx.block_id
-    and rex.block.call("com.superlogical.terminal", "process", { block_id = ctx.block_id })
-  return p and ((p.foreground and p.foreground.cwd) or (p.child and p.child.cwd)) or nil
+-- Ask with the palette, falling back to the popup when that's not possible.
+-- Returns the picked id, or nil when the person cancelled or it fell back.
+local function pick(ctx, fallback_script, fallback_cwd, prompt)
+  if not can_prompt() then
+    popup(ctx, popup_cmd(fallback_script, ctx), fallback_cwd)
+    return nil
+  end
+  local id, why, detail = rex.ui.pick(prompt)
+  if id == nil and (why == "unsupported" or why == "no_client") then
+    popup(ctx, popup_cmd(fallback_script, ctx), fallback_cwd)
+  elseif id == nil and why ~= "cancelled" then
+    rex.log("warn", prompt.title .. ": " .. tostring(why) .. " " .. (detail or ""))
+  end
+  return id
 end
 
--- prefix e: open a worktree of the focused pane's repo as a tab.
--- An action, not a function binding: only actions get ctx.client_id, which the
--- script needs to switch the app that pressed the key.
-rex.action{
-  name = "worktrees",
-  title = "Go to Worktree…",
-  run = function(ctx)
-    popup(ctx, popup_cmd("worktrees.zsh", ctx), focused_cwd(ctx))
-  end,
-}
-rex.bind("cmd+e", "worktrees")
+-- prefix g: projects ----------------------------------------------------------
 
--- Native project switcher using Rex's own picker (rex.ui.pick).
-local home = os.getenv("HOME")
-local shell_flavor = "com.superlogical.terminal.shell"
 local project_roots = {
-  { dir = home .. "/Repositories/github.com", depth = "2", prefix = "github/" },
-  { dir = home .. "/Experiments", depth = "1", prefix = "experiments/" },
+  { dir = home .. "/Repositories/github.com", depth = "2" },
+  { dir = home .. "/Experiments", depth = "1" },
 }
 
--- TEMP: rex.ui.pick is undocumented; dump what it returns while we figure it out.
-local debug_log = (os.getenv("TMPDIR") or "/tmp/") .. "rex-sessionizer.log"
-local function debug(label, value)
-  local f = io.open(debug_log, "a")
-  if not f then return end
-  f:write(os.date("%H:%M:%S "), label, ": ", rex.json.encode(value) or tostring(value), "\n")
-  f:close()
+local function session_ids_by_label()
+  local by_label = {}
+  local list = rex.call("session.list")
+  for _, s in ipairs((list and list.sessions) or {}) do
+    by_label[s.label] = by_label[s.label] or s.session_id
+  end
+  return by_label
 end
 
-local function list_projects()
+local function project_items(open)
   local items = {}
   for _, root in ipairs(project_roots) do
-    local r = rex.exec(
-      { "find", root.dir, "-mindepth", root.depth, "-maxdepth", root.depth, "-type", "d" },
-      { stderr = false }
-    )
+    local r = run({ "find", root.dir, "-mindepth", root.depth, "-maxdepth", root.depth, "-type", "d" })
     for path in ((r and r.stdout) or ""):gmatch("[^\n]+") do
-      items[#items + 1] = { id = path, title = root.prefix .. path:sub(#root.dir + 2) }
+      local name = path:match("[^/]+$")
+      items[#items + 1] = {
+        id = path,
+        -- owner/repo for GitHub checkouts, the folder name for experiments.
+        title = path:sub(#root.dir + 2),
+        subtitle = tilde(path),
+        icon = "folder",
+        detail = open[name] and "open" or nil,
+      }
     end
   end
   table.sort(items, function(a, b) return a.title < b.title end)
   return items
 end
 
-local function project_session(label, dir)
-  local list = rex.call("session.list")
-  for _, s in ipairs((list and list.sessions) or {}) do
-    if s.label == label then return s.session_id end
-  end
-  local created, err = rex.call("session.create", {
-    label = label,
-    initial_windows = {
-      { layout = rex.layout.block{ flavor = shell_flavor, options = { cwd = dir } } },
-    },
-  })
-  if not created then return nil, err end
-  return created.session_id
-end
-
 rex.action{
   name = "sessionizer",
   title = "Go to Project…",
   run = function(ctx)
-    -- rex.ui isn't in every build yet (missing on preview 0.1.0 (1996)).
-    if not (rex.ui and rex.ui.pick) then
-      return popup(ctx, popup_cmd("sessionizer.zsh", ctx))
+    local open = session_ids_by_label()
+    local dir = pick(ctx, "sessionizer.zsh", nil, {
+      title = "Go to project",
+      placeholder = "Filter projects",
+      items = project_items(open),
+    })
+    if dir == nil then return end
+
+    local name = dir:match("[^/]+$")
+    local session = open[name]
+    if not session then
+      local created, err = rex.call("session.create", {
+        label = name,
+        initial_windows = {
+          { layout = rex.layout.block{ flavor = shell_flavor, options = { cwd = dir } } },
+        },
+      })
+      if not created then
+        rex.log("warn", "sessionizer: couldn't create " .. name .. ": " .. tostring(err))
+        return
+      end
+      session = created.session_id
     end
-
-    local items = list_projects()
-    local picked, err = rex.ui.pick{ title = "Go to project", items = items }
-    debug("pick", { picked = picked, err = err })
-    if type(picked) == "table" then picked = picked.ids and picked.ids[1] or picked[1] end
-    if type(picked) ~= "string" then return end
-
-    local label = picked:match("([^/]+)$")
-    local session, serr = project_session(label, picked)
-    debug("session", { session = session, err = serr })
-    if session then rex.client.queue("session.select", { session_id = session }) end
+    rex.client.queue("session.select", { session_id = session })
   end,
 }
 rex.bind("cmd+g", "sessionizer")
+
+-- prefix e: worktrees ---------------------------------------------------------
+
+-- Working directory of the focused pane's foreground program (the shell, or
+-- e.g. nvim), like tmux's pane_current_path. Rex's own `pwd` needs the shell
+-- to report its directory, which this zsh setup doesn't.
+local function focused_cwd(ctx)
+  local p = ctx.block_id
+    and rex.block.call(terminal, "process", { block_id = ctx.block_id })
+  return p and ((p.foreground and p.foreground.cwd) or (p.child and p.child.cwd)) or nil
+end
+
+-- `git worktree list --porcelain`, without bare entries, as { path, branch }.
+local function list_worktrees(cwd)
+  local r = cwd and run({ "git", "worktree", "list", "--porcelain" }, cwd)
+  if not (r and r.ok) then return nil end
+  local worktrees, current = {}, nil
+  for line in (r.stdout .. "\n"):gmatch("([^\n]*)\n") do
+    local path = line:match("^worktree (.+)")
+    if path then
+      current = { path = path, branch = "" }
+    elseif current and line:match("^branch ") then
+      current.branch = line:gsub("^branch refs/heads/", ""):gsub("^branch ", "")
+    elseif current and line == "detached" then
+      current.branch = "(detached)"
+    elseif current and line == "bare" then
+      current.bare = true
+    elseif current and line == "" then
+      if not current.bare then worktrees[#worktrees + 1] = current end
+      current = nil
+    end
+  end
+  return worktrees
+end
+
+-- "New worktree…": the last row of the worktree picker.
+local new_worktree_id = ":new-worktree" -- can't clash with a path
+local worktrees_root = home .. "/.worktrees"
+
+-- Ask for a branch, then add its worktree at ~/.worktrees/<project>/<branch>.
+-- Offers local and remote branches without a worktree yet; typing a name that
+-- isn't listed creates that branch from HEAD. Returns the new worktree's path.
+local function add_worktree(cwd, worktrees)
+  local used = {}
+  for _, wt in ipairs(worktrees) do used[wt.branch] = true end
+
+  local items, seen, remote_branch, local_branch = {}, {}, {}, {}
+  local heads = run({ "git", "for-each-ref", "--format=%(refname:short)", "refs/heads" }, cwd)
+  for b in ((heads and heads.stdout) or ""):gmatch("[^\n]+") do
+    local_branch[b] = true
+    if not used[b] and not seen[b] then
+      seen[b] = true
+      items[#items + 1] = { id = b, icon = "branch" }
+    end
+  end
+  local remotes = run({ "git", "for-each-ref", "--format=%(refname:short)", "refs/remotes" }, cwd)
+  for ref in ((remotes and remotes.stdout) or ""):gmatch("[^\n]+") do
+    local name = ref:match("^[^/]+/(.+)$")
+    if name and name ~= "HEAD" and not used[name] and not seen[name] then
+      seen[name] = true
+      remote_branch[ref] = name
+      items[#items + 1] = { id = ref, title = name, subtitle = ref, icon = "globe" }
+    end
+  end
+
+  local answer, why = rex.ui.pick{
+    title = "New worktree",
+    placeholder = "Branch, or a new branch name",
+    confirm = "Add worktree",
+    allow_other = true,
+    items = items,
+  }
+  if answer == nil then return nil, why end
+
+  -- argv after `git worktree add`, given the path.
+  local branch, args
+  if type(answer) == "table" then
+    branch = answer.text:match("^%s*(.-)%s*$")
+    if branch == "" then return nil, "cancelled" end
+    if local_branch[branch] then
+      args = function(path) return { path, branch } end -- typed an existing branch
+    else
+      args = function(path) return { "-b", branch, path } end
+    end
+  elseif remote_branch[answer] then
+    -- remote/branch: create a local branch tracking it.
+    branch = remote_branch[answer]
+    args = function(path) return { "--track", "-b", branch, path, answer } end
+  else
+    branch = answer
+    args = function(path) return { path, branch } end
+  end
+
+  -- The main worktree comes first, and names the project.
+  local project = worktrees[1].path:match("[^/]+$")
+  local path = worktrees_root .. "/" .. project .. "/" .. branch:gsub("/", "-")
+  local argv = { "git", "worktree", "add" }
+  for _, a in ipairs(args(path)) do argv[#argv + 1] = a end
+  local r = rex.exec(argv, { cwd = cwd, env = exec_env })
+  if not (r and r.ok) then
+    return nil, "failed", ((r and r.stderr) or ""):gsub("%s+$", "")
+  end
+  return path
+end
+
+rex.action{
+  name = "worktrees",
+  title = "Go to Worktree…",
+  run = function(ctx)
+    local cwd = focused_cwd(ctx)
+    local worktrees = can_prompt() and list_worktrees(cwd)
+    if can_prompt() and not worktrees then
+      rex.log("warn", "worktrees: not in a git repository (" .. tostring(cwd) .. ")")
+      return
+    end
+
+    -- Worktrees of one repo are siblings with distinct names, so a tab labelled
+    -- with the folder name is that worktree's tab.
+    local tabs = {}
+    for _, w in ipairs((rex.session.view{} or {}).windows or {}) do
+      tabs[w.label] = w.window_id
+    end
+
+    local items = {}
+    for _, wt in ipairs(worktrees or {}) do
+      items[#items + 1] = {
+        id = wt.path,
+        title = wt.branch,
+        subtitle = tilde(wt.path),
+        icon = "branch",
+        detail = tabs[wt.path:match("[^/]+$")] and "open" or nil,
+      }
+    end
+
+    items[#items + 1] = { id = new_worktree_id, title = "New worktree…", icon = "plus" }
+
+    local dir = pick(ctx, "worktrees.zsh", cwd, {
+      title = "Go to worktree",
+      placeholder = "Filter worktrees",
+      items = items,
+    })
+    if dir == nil then return end
+
+    if dir == new_worktree_id then
+      local why, detail
+      dir, why, detail = add_worktree(cwd, worktrees)
+      if dir == nil then
+        if why == "failed" then
+          -- Show git's complaint (its last line, e.g. "fatal: ...") in the palette.
+          rex.ui.pick{
+            title = "Couldn't add worktree",
+            confirm = "OK",
+            items = { { id = "ok", title = (detail or "unknown error"):match("([^\n]*)$") } },
+          }
+        end
+        return
+      end
+    end
+
+    local label = dir:match("[^/]+$")
+    local window = tabs[label]
+    if not window then
+      local created, err = rex.session.new_window{
+        window_label = label,
+        layout = rex.layout.block{ flavor = shell_flavor, options = { cwd = dir } },
+      }
+      if not created then
+        rex.log("warn", "worktrees: couldn't open " .. label .. ": " .. tostring(err))
+        return
+      end
+      window = created.window_id
+    end
+    -- Making the tab active on the server doesn't move the app, so ask it to.
+    rex.client.queue("session.select", { session_id = ctx.session_id, window_id = window })
+  end,
+}
+rex.bind("cmd+e", "worktrees")
 
 -- Navigation
 -- ctrl+h/j/k/l: move pane focus, unless the focused pane runs a program that
