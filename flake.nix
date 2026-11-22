@@ -62,6 +62,7 @@
             clifton = final.callPackage ./packages/clifton/package.nix { };
             codex = inputs.llm-agents.packages.${prev.stdenv.hostPlatform.system}.codex;
             claude-code = inputs.llm-agents.packages.${prev.stdenv.hostPlatform.system}.claude-code;
+            antigravity-cli = inputs.llm-agents.packages.${prev.stdenv.hostPlatform.system}.antigravity-cli;
           })
       ];
 
