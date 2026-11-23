@@ -139,8 +139,6 @@
       # media
       "plex"
       "anki"
-      "syncplay"
-      "stolendata-mpv"
       "iina"
       "obs"
       "transmission"
@@ -155,6 +153,7 @@
       "unnaturalscrollwheels"
       "karabiner-elements"
       "logitech-g-hub"
+      "logi-options+"
       "mullvad-vpn"
       # ai
       "chatgpt"

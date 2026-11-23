@@ -11,6 +11,10 @@ let
   isDarwin = pkgs.stdenv.isDarwin;
 in
 {
+  imports = [
+    inputs.hunk.homeManagerModules.default
+  ];
+
   home.stateVersion = "24.11";
 
   home.packages =
@@ -272,6 +276,13 @@ in
         email = "evan@latent.dev";
       };
     };
+  };
+
+  programs.hunk = {
+    enable = true;
+    enableGitIntegration = true;
+    enableJujutsuIntegration = true;
+    enableClaudeIntegration = true;
   };
 
   programs.btop = {

@@ -36,6 +36,7 @@
     };
 
     llm-agents.url = "github:numtide/llm-agents.nix";
+    hunk.url = "github:modem-dev/hunk";
 
     # Rex server for Linux hosts; preview matches the Mac app's update channel.
     rex = {
@@ -63,6 +64,7 @@
             codex = inputs.llm-agents.packages.${prev.stdenv.hostPlatform.system}.codex;
             claude-code = inputs.llm-agents.packages.${prev.stdenv.hostPlatform.system}.claude-code;
             antigravity-cli = inputs.llm-agents.packages.${prev.stdenv.hostPlatform.system}.antigravity-cli;
+            hunk = inputs.hunk.packages.${prev.stdenv.hostPlatform.system}.default;
           })
       ];
 
