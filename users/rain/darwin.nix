@@ -1,6 +1,6 @@
 {
   pkgs,
-  pkgs-unstable,
+  # pkgs-unstable,
   config,
   lib,
   ...
@@ -53,9 +53,10 @@
       };
       dock.persistent-apps = [
         { app = "/System/Cryptexes/App/System/Applications/Safari.app/"; }
-        { app = "/Applications/Rex Beta.app/"; }
+        { app = "/Applications/Rex.app/"; }
         # { app = "${pkgs-unstable.zed-editor}/Applications/Zed.app/"; }
         { app = "/Applications/Claude.app/"; }
+        { app = "/Applications/Antigravity.app/"; }
         { app = "/Applications/Zotero.app/"; }
         { app = "/Applications/Notion.app/"; }
         { app = "/Applications/Things3.app/"; }
