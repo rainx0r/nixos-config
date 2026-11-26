@@ -383,6 +383,7 @@ in
 
   home.file.".codex/themes/rainx0r.tmTheme".source = ./codex/themes/rainx0r.tmTheme;
   home.file.".claude/themes/rainx0r.json".source = ./claude/themes/rainx0r.json;
+  home.file.".gemini/antigravity-cli/keybindings.json".source = ./antigravity/keybindings.json;
   home.file.".sky/config.yaml".source = ./sky/config.yaml;
   # Rex
   home.file.".local/bin/rex" = lib.mkIf isDarwin {
