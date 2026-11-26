@@ -55,15 +55,15 @@
         { app = "/System/Cryptexes/App/System/Applications/Safari.app/"; }
         { app = "/Applications/Rex.app/"; }
         # { app = "${pkgs-unstable.zed-editor}/Applications/Zed.app/"; }
-        { app = "/Applications/Claude.app/"; }
-        { app = "/Applications/Antigravity.app/"; }
-        { app = "/Applications/Zotero.app/"; }
+        # { app = "/Applications/Claude.app/"; }
+        # { app = "/Applications/Antigravity.app/"; }
+        # { app = "/Applications/Zotero.app/"; }
         { app = "/Applications/Notion.app/"; }
         { app = "/Applications/Things3.app/"; }
         { app = "/System/Applications/Calendar.app/"; }
         { app = "/Applications/Discord.app/"; }
         { app = "/Applications/Slack.app/"; }
-        { app = "/Applications/Grok Bot.app/"; }
+        # { app = "/Applications/Grok Bot.app/"; }
         { app = "/System/Applications/Mail.app/"; }
         { app = "/System/Applications/Music.app/"; }
       ];
