@@ -1,0 +1,13 @@
+{
+  "allowNonWorkspaceAccess": true,
+  "permissions": {
+    "allow": [
+      "mcp(notion/*)"
+    ]
+  },
+  "title": {
+    "type": "command",
+    "command": "~/.gemini/antigravity-cli/title.sh",
+    "enabled": true
+  }
+}

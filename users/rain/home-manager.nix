@@ -75,10 +75,25 @@ in
     linkApps.enable = false;
   };
 
-  home.activation = lib.mkIf isDarwin {
-    linkZedIntoApplications = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
-      mkdir -p "$HOME/Applications"
-      ln -sfn "${pkgs-unstable.zed-editor}/Applications/Zed.app" "$HOME/Applications/Zed.app"
+  home.activation = {
+    linkZedIntoApplications = lib.mkIf isDarwin (
+      lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+        mkdir -p "$HOME/Applications"
+        ln -sfn "${pkgs-unstable.zed-editor}/Applications/Zed.app" "$HOME/Applications/Zed.app"
+      ''
+    );
+    mergeAntigravitySettings = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+      target="$HOME/.gemini/antigravity-cli/settings.json"
+      managed="${./antigravity/settings.json}"
+      mkdir -p "$(dirname "$target")"
+      if [ -f "$target" ] && ${pkgs.jq}/bin/jq empty "$target" 2>/dev/null; then
+        tmp="$(mktemp "$(dirname "$target")/settings.json.XXXXXX")"
+        ${pkgs.jq}/bin/jq -s '.[0] * .[1]' "$target" "$managed" > "$tmp"
+        mv "$tmp" "$target"
+      else
+        cp "$managed" "$target"
+        chmod 644 "$target"
+      fi
     '';
   };
 
@@ -384,6 +399,10 @@ in
   home.file.".codex/themes/rainx0r.tmTheme".source = ./codex/themes/rainx0r.tmTheme;
   home.file.".claude/themes/rainx0r.json".source = ./claude/themes/rainx0r.json;
   home.file.".gemini/antigravity-cli/keybindings.json".source = ./antigravity/keybindings.json;
+  home.file.".gemini/antigravity-cli/title.sh" = {
+    source = ./antigravity/title.sh;
+    executable = true;
+  };
   home.file.".sky/config.yaml".source = ./sky/config.yaml;
   # Rex
   home.file.".local/bin/rex" = lib.mkIf isDarwin {
