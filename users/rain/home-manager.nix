@@ -95,6 +95,16 @@ in
         chmod 644 "$target"
       fi
     '';
+    writeKarabinerConfig = lib.mkIf isDarwin (
+      lib.hm.dag.entryAfter [ "linkGeneration" ] ''
+        target="${config.xdg.configHome}/karabiner/karabiner.json"
+        mkdir -p "$(dirname "$target")"
+        tmp="$(mktemp "$(dirname "$target")/karabiner.json.XXXXXX")"
+        cp "${./karabiner/karabiner.json}" "$tmp"
+        chmod 600 "$tmp"
+        mv -f "$tmp" "$target"
+      ''
+    );
   };
 
   home.sessionVariables = {
@@ -386,15 +396,7 @@ in
       source = ./rex;
       recursive = true;
     };
-  }
-  // (
-    if isDarwin then
-      {
-        "karabiner/karabiner.json".source = ./karabiner/karabiner.json;
-      }
-    else
-      { }
-  );
+  };
 
   home.file.".codex/themes/rainx0r.tmTheme".source = ./codex/themes/rainx0r.tmTheme;
   home.file.".claude/themes/rainx0r.json".source = ./claude/themes/rainx0r.json;
